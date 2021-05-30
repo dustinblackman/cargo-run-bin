@@ -1,6 +1,6 @@
 ![cargo-run-bin](https://i.imgur.com/0XAUMLa.jpg)
 
-[![Build status](https://github.com/dustinblackman/cargo-run-bun/workflows/ci/badge.svg)](https://github.com/dustinblackman/cargo-run-bun/actions)
+[![Build status](https://github.com/dustinblackman/cargo-run-bin/workflows/ci/badge.svg)](https://github.com/dustinblackman/cargo-run-bin/actions)
 [![Crates.io](https://img.shields.io/crates/v/cargo-run-bin.svg)](https://crates.io/crates/cargo-run-bin)
 
 A simple tool to build, cache, and run binaries scoped in `Cargo.toml` rather than installing globally. This acts similarly to [`npm run`](https://docs.npmjs.com/cli/v7/commands/npm-run-script) and [`gomodrun`](https://github.com/dustinblackman/gomodrun).
