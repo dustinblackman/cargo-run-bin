@@ -1,0 +1,21 @@
+on: [push, pull_request]
+
+name: CI
+
+jobs:
+  build_and_test:
+    name: cargo-run-bin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v1
+
+      - name: Install deps
+        run: cargo install cargo-cmd
+      - name: Lint
+        run: cargo cmd lint
+      - name: Test
+        run: cargo test
