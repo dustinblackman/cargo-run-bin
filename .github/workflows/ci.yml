@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: CI
+name: ci
 
 jobs:
   build_and_test:
@@ -14,7 +14,7 @@ jobs:
       - uses: Swatinem/rust-cache@v1
 
       - name: Install deps
-        run: cargo install cargo-cmd
+        run: cargo cmd --help || cargo install cargo-cmd
       - name: Lint
         run: cargo cmd lint
       - name: Test
