@@ -1,6 +1,6 @@
 [package]
 name = "cargo-run-bin"
-descrption = "A simple tool to build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun."
+description = "A simple tool to build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun."
 version = "0.1.0"
 authors = ["Dustin Blackman"]
 homepage = "https://github.com/dustinblackman/cargo-run-bin"
