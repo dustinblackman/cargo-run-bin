@@ -24,6 +24,7 @@ version_check = "0.9.3"
 [dev-dependencies]
 cargo-cmd = "0.3.1"
 expectest = "0.12.0"
+grcov = "0.8.0"
 speculate = "0.1.2"
 
 [[bin]]
@@ -33,3 +34,11 @@ path = "src/main.rs"
 [package.metadata.commands]
 lint = "cargo fmt -- --check && cargo clippy"
 lint-fix = "cargo +nightly clippy --fix --allow-dirty -Z unstable-options && cargo fmt"
+test-coverage = '''
+  export RUSTC_BOOTSTRAP=1
+  export RUSTFLAGS="-Zinstrument-coverage"
+  rm -f *.profraw
+  cargo build
+  LLVM_PROFILE_FILE="cargo-run-bin-%p-%m.profraw" cargo test
+  cargo bin grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
+'''

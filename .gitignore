@@ -1,2 +1,4 @@
 /target
 /.bin
+*.profraw
+lcov.info

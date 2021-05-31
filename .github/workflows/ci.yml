@@ -14,8 +14,18 @@ jobs:
       - uses: Swatinem/rust-cache@v1
 
       - name: Install deps
-        run: cargo cmd --help || cargo install cargo-cmd
+        run: |
+          rustup component add llvm-tools-preview
+          which cargo-cmd || cargo install cargo-cmd
+          which cargo-run-bin || cargo install cargo-run-bin
+
       - name: Lint
         run: cargo cmd lint
       - name: Test
-        run: cargo test
+        run: cargo cmd test-coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./lcov.info
