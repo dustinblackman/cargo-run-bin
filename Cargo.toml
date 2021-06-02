@@ -40,5 +40,6 @@ test-coverage = '''
   rm -f *.profraw
   cargo build
   LLVM_PROFILE_FILE="cargo-run-bin-%p-%m.profraw" cargo test
-  cargo bin grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
+  cargo bin grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" --ignore "**/*_test.rs" -o lcov.info
+  rm -f *.profraw
 '''
