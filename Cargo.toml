@@ -37,7 +37,7 @@ lint-fix = "cargo +nightly clippy --fix --allow-dirty -Z unstable-options && car
 test-coverage = '''
   export RUSTC_BOOTSTRAP=1
   export RUSTFLAGS="-Zinstrument-coverage"
-  rm -f *.profraw
+  rm -f *.profraw lcov.info
   cargo build
   LLVM_PROFILE_FILE="cargo-run-bin-%p-%m.profraw" cargo test
   cargo bin grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" --ignore "**/*_test.rs" -o lcov.info

@@ -44,23 +44,22 @@ fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
 
     let metadata = MetadataCommand::new()
         .manifest_path("./Cargo.toml") // TODO Delete this my later, and find a way to autodiscover.
-        .exec()
-        .unwrap();
+        .exec()?;
 
-    let pkg = metadata.packages.iter().find(|e| {
-        return e.targets.iter().any(|t| {
-            return t.name == bin_name;
-        });
+    let pkg = metadata
+        .packages
+        .iter()
+        .find(|e| {
+            return e.targets.iter().any(|t| {
+                return t.name == bin_name;
+            });
+        })
+        .ok_or_else(|| return anyhow!(f!("Package for binary {bin_name} not found")))?;
+
+    return Ok(PkgVersion {
+        name: pkg.name.to_owned(),
+        version: pkg.version.to_string(),
     });
-
-    if let Some(pkg) = pkg {
-        return Ok(PkgVersion {
-            name: pkg.name.to_owned(),
-            version: pkg.version.to_string(),
-        });
-    }
-
-    return Err(anyhow!(f!("Package for binary {bin_name} not found")));
 }
 
 fn run() -> Result<()> {
@@ -104,8 +103,11 @@ fn run() -> Result<()> {
         .spawn();
 
     if let Ok(mut spawn) = spawn {
-        let status = spawn.wait()?;
-        process::exit(status.code().unwrap());
+        let status = spawn
+            .wait()?
+            .code()
+            .ok_or_else(|| return anyhow!("Failed to get spawn exit code"))?;
+        process::exit(status);
     }
 
     return Err(anyhow!(f!("Process {bin_name} failed to start")));
