@@ -15,6 +15,7 @@ jobs:
 
       - name: Install deps
         run: |
+          rustup toolchain install nightly
           rustup component add llvm-tools-preview --toolchain nightly
           cargo install cargo-run-bin
           which cargo-cmd || cargo install cargo-cmd
