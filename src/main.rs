@@ -62,8 +62,8 @@ fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
     });
 }
 
-fn run() -> Result<()> {
-    let mut args: Vec<String> = env::args().collect();
+fn run(args: &mut Vec<String>) -> Result<()> {
+    let mut args = args.to_owned();
 
     let mut rust_version = "unknown".to_string();
     if let Some(res) = rustc::triple() {
@@ -78,14 +78,18 @@ fn run() -> Result<()> {
     let pkg_version = get_pkg_version(&bin_name)?;
 
     let cache_path = f!("./.bin/rust-{rust_version}/{pkg_version.name}/{pkg_version.version}");
-    let cache_bin_path = f!("{cache_path}/bin/{bin_name}");
+    let mut cache_bin_path = f!("{cache_path}/bin/{bin_name}");
+    let mut env_path = match env::var("PATH") {
+        Ok(val) => val,
+        Err(_) => "".to_owned(), // TODO throw err;
+    };
 
     if !path::Path::new(&cache_bin_path).exists() {
         fs::create_dir_all(&cache_path)?;
         process::Command::new("cargo")
             .arg("install")
             .arg("--root")
-            .arg(cache_path)
+            .arg(&cache_path)
             .arg("--target-dir")
             .arg("./target") // TODO fix target dir alongside cargo.toml later
             .arg("--version")
@@ -95,10 +99,21 @@ fn run() -> Result<()> {
     }
 
     args.drain(0..3);
+
+    if bin_name.starts_with("cargo-") {
+        cache_bin_path = "cargo".to_owned();
+        env_path = f!("{cache_path}/bin:{env_path}");
+
+        let mut new_args = vec![bin_name.replace("cargo-", "")];
+        new_args.append(&mut args);
+        args = new_args;
+    }
+
     let spawn = process::Command::new(cache_bin_path)
         .stdout(process::Stdio::inherit())
         .stderr(process::Stdio::inherit())
         .stdin(process::Stdio::inherit())
+        .env("PATH", env_path)
         .args(&args)
         .spawn();
 
@@ -114,7 +129,8 @@ fn run() -> Result<()> {
 }
 
 fn main() {
-    let res = run();
+    let mut args: Vec<String> = env::args().collect();
+    let res = run(&mut args);
     if let Err(res) = res {
         println!("{}", f!("run-bin failed: {res}").red());
         process::exit(1);

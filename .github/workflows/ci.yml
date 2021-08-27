@@ -15,14 +15,14 @@ jobs:
 
       - name: Install deps
         run: |
-          rustup component add llvm-tools-preview
+          rustup component add llvm-tools-preview --toolchain nightly
+          cargo install cargo-run-bin
           which cargo-cmd || cargo install cargo-cmd
-          which cargo-run-bin || cargo install cargo-run-bin
 
       - name: Lint
         run: cargo cmd lint
       - name: Test
-        run: cargo cmd test-coverage
+        run: cargo cmd test-coverage-lcov
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
