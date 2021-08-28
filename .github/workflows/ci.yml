@@ -17,7 +17,7 @@ jobs:
         run: |
           rustup toolchain install nightly
           rustup component add llvm-tools-preview --toolchain nightly
-          cargo install cargo-run-bin
+          cargo install cargo-run-bin --target-dir ./target
           which cargo-cmd || cargo install cargo-cmd
 
       - name: Lint
