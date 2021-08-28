@@ -24,8 +24,8 @@ version_check = "0.9.3"
 [dev-dependencies]
 cargo-cmd = "0.3.1"
 cargo-llvm-cov = "0.1.3"
-grcov = "0.8.2"
 expectest = "0.12.0"
+petname = "1.1.1"
 speculate = "0.1.2"
 
 [[bin]]
@@ -36,6 +36,7 @@ path = "src/main.rs"
 lint = "cargo fmt -- --check && cargo clippy"
 lint-fix = "cargo +nightly clippy --fix --allow-dirty -Z unstable-options && cargo fmt"
 test-coverage = "cargo bin cargo-llvm-cov --ignore-filename-regex='_test.rs'"
+test-coverage-html = "cargo bin cargo-llvm-cov --open --ignore-filename-regex='_test.rs'"
 test-coverage-lcov = '''
   rm -f lcov.info
   cargo bin cargo-llvm-cov --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'

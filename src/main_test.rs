@@ -23,8 +23,14 @@ speculate! {
     describe "run" {
         context "cargo binary"  {
             it "should execute successfully" {
-                // TODO replace with test crates.
                 let mut args: Vec<String> = vec!["cargo".to_owned(), "bin".to_owned(), "cargo-llvm-cov".to_owned(), "--help".to_owned()];
+                run(&mut args).unwrap();
+            }
+        }
+
+        context "regular binary"  {
+            it "should execute successfully" {
+                let mut args: Vec<String> = vec!["cargo".to_owned(), "bin".to_owned(), "petname".to_owned(), "--help".to_owned()];
                 run(&mut args).unwrap();
             }
         }
