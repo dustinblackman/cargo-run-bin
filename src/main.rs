@@ -83,7 +83,7 @@ fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
     });
 }
 
-fn run(args: &mut Vec<String>) -> Result<()> {
+fn run_binary(args: &mut Vec<String>) -> Result<()> {
     let mut args = args.to_owned();
 
     let mut rust_version = "unknown".to_string();
@@ -153,7 +153,7 @@ fn main() {
     let mut args: Vec<String> = env::args().collect();
 
     if args[2] == "--list-binaries" {
-        let res = helpers::get_binaries();
+        let res = get_binaries();
         if let Err(res) = res {
             println!("{}", f!("run-bin failed: {res}").red());
             process::exit(1);
@@ -163,7 +163,7 @@ fn main() {
         process::exit(0);
     }
 
-    let res = helpers::run_binary(&mut args);
+    let res = run_binary(&mut args);
     if let Err(res) = res {
         println!("{}", f!("run-bin failed: {res}").red());
         process::exit(1);
