@@ -22,6 +22,27 @@ struct PkgVersion {
     version: String,
 }
 
+fn get_binaries() -> Result<Vec<String>> {
+    let metadata = MetadataCommand::new()
+        .manifest_path("./Cargo.toml") // TODO Delete this later, and find a way to autodiscover.
+        .exec()?;
+
+    let binaries = metadata
+        .packages
+        .iter()
+        .map(|e| {
+            return e
+                .targets
+                .iter()
+                .filter(|target| return target.kind.contains(&"bin".to_owned()))
+                .map(|target| return target.name.to_owned());
+        })
+        .flatten()
+        .collect::<Vec<String>>();
+
+    return Ok(binaries);
+}
+
 fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
     let toml = Manifest::from_path("./Cargo.toml")?;
     let mut deps = toml.dependencies.to_owned();
@@ -130,7 +151,19 @@ fn run(args: &mut Vec<String>) -> Result<()> {
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
-    let res = run(&mut args);
+
+    if args[2] == "--list-binaries" {
+        let res = helpers::get_binaries();
+        if let Err(res) = res {
+            println!("{}", f!("run-bin failed: {res}").red());
+            process::exit(1);
+        }
+
+        print!("{}", res.unwrap().join("\n"));
+        process::exit(0);
+    }
+
+    let res = helpers::run_binary(&mut args);
     if let Err(res) = res {
         println!("{}", f!("run-bin failed: {res}").red());
         process::exit(1);
