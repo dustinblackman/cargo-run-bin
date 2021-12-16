@@ -1,6 +1,8 @@
+use super::*;
+use expectest::prelude::*;
+
 mod get_pkg_version {
-    use super::super::*;
-    use expectest::prelude::*;
+    use super::*;
 
     #[test]
     fn return_a_name_and_version_number() {
@@ -22,8 +24,7 @@ mod get_pkg_version {
 }
 
 mod get_binaries {
-    use super::super::*;
-    use expectest::prelude::*;
+    use super::*;
 
     #[test]
     fn should_execute_successfully() {
@@ -33,7 +34,7 @@ mod get_binaries {
 }
 
 mod run_binary {
-    use super::super::*;
+    use super::*;
 
     #[test]
     fn cargo_binary_execute_successfuly() {
