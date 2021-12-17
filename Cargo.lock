@@ -121,7 +121,7 @@ dependencies = [
 
 [[package]]
 name = "cargo-run-bin"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "cargo-cmd",
@@ -131,6 +131,7 @@ dependencies = [
  "colored",
  "expectest",
  "fstrings",
+ "home",
  "petname",
  "version_check",
 ]

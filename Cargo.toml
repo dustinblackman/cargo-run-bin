@@ -19,6 +19,7 @@ cargo_metadata = "0.13.1"
 cargo_toml = "0.9.1"
 colored = "2.0.0"
 fstrings = "0.2.3"
+home = "0.5.3"
 version_check = "0.9.3"
 
 [dev-dependencies]

@@ -10,6 +10,7 @@ use cargo_metadata::MetadataCommand;
 use cargo_toml::{Dependency, Manifest};
 use colored::*;
 use fstrings::*;
+use home;
 use std::env;
 use std::fs;
 use std::path;
@@ -23,22 +24,38 @@ struct PkgVersion {
 }
 
 fn get_binaries() -> Result<Vec<String>> {
-    let metadata = MetadataCommand::new()
-        .manifest_path("./Cargo.toml") // TODO Delete this later, and find a way to autodiscover.
-        .exec()?;
+    let home_dir = home::cargo_home()?;
+    let cache_folder = fs::read_dir(home_dir.join("registry/src"))?
+        .next()
+        .unwrap()
+        .unwrap()
+        .path();
 
-    let binaries = metadata
-        .packages
-        .iter()
-        .map(|e| {
-            return e
-                .targets
-                .iter()
-                .filter(|target| return target.kind.contains(&"bin".to_owned()))
-                .map(|target| return target.name.to_owned());
-        })
-        .flatten()
-        .collect::<Vec<String>>();
+    let mut binaries: Vec<String> = vec![];
+
+    let toml = Manifest::from_path("./Cargo.toml")?;
+    let mut deps = toml.dependencies.to_owned();
+    deps.append(&mut toml.dev_dependencies.to_owned());
+    for (dep_name, dep_details) in deps.iter() {
+        let version = match dep_details {
+            Dependency::Detailed(e) => e.version.to_owned().unwrap(),
+            Dependency::Simple(e) => e.to_owned(),
+        };
+
+        let crate_folder =
+            path::Path::new(cache_folder.to_str().unwrap()).join(f!("{dep_name}-{version}"));
+
+        let dep_manifest =
+            Manifest::from_path(crate_folder.clone().join("Cargo.toml").to_str().unwrap())?;
+
+        if dep_manifest.bin.len() > 0 {
+            for bin in dep_manifest.bin {
+                binaries.push(bin.name.unwrap());
+            }
+        } else if crate_folder.clone().join("src/main.rs").exists() {
+            binaries.push(dep_name.to_owned());
+        }
+    }
 
     return Ok(binaries);
 }
@@ -152,7 +169,7 @@ fn run_binary(args: &mut Vec<String>) -> Result<()> {
 fn main() {
     let mut args: Vec<String> = env::args().collect();
 
-    if args[2] == "--list-binaries" {
+    if args[2] == "--list" {
         let res = get_binaries();
         if let Err(res) = res {
             println!("{}", f!("run-bin failed: {res}").red());
