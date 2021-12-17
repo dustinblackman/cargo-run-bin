@@ -19,13 +19,13 @@ __Disclaimer:__ This tool was built out of wanting a missing piece in the Rust d
 1. Add your binary dependency to your `Cargo.toml` like any dependency
 
 ```sh
-  cargo add --dev flamegraph
+  cargo add --dev cross
 ```
 
 2. Run your desired command prefixed with `cargo bin`. Note first runs will build your binary silently first before executing, all future runs will be instant.
 
 ```sh
-  cargo bin flamegraph --help
+  cargo bin cross --help
 ```
 
 3. Update your .gitignore to exclude the cached binaries.
