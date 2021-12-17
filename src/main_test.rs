@@ -29,7 +29,7 @@ mod get_binaries {
     #[test]
     fn should_execute_successfully() {
         let res = get_binaries().unwrap();
-        expect!(res).to(be_equal_to(vec!["cargo-bin", "petname", "semver-parser"]));
+        expect!(res).to(be_equal_to(vec!["cargo-cmd", "cargo-llvm-cov", "petname"]));
     }
 }
 
