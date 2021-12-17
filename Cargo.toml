@@ -34,7 +34,11 @@ path = "src/main.rs"
 
 [package.metadata.commands]
 lint = "cargo fmt -- --check && cargo clippy"
-lint-fix = "cargo +nightly clippy --fix --allow-dirty -Z unstable-options && cargo fmt"
+lint-fix = '''
+cargo +nightly clippy --fix --allow-dirty -Z unstable-options
+cargo fix --allow-dirty
+cargo fmt"
+'''
 test-coverage = "cargo bin cargo-llvm-cov --ignore-filename-regex='_test.rs'"
 test-coverage-html = "cargo bin cargo-llvm-cov --open --ignore-filename-regex='_test.rs'"
 test-coverage-lcov = '''
