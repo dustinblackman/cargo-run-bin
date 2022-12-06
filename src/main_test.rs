@@ -28,8 +28,14 @@ mod get_binaries {
 
     #[test]
     fn should_execute_successfully() {
-        let res = get_binaries().unwrap();
-        expect!(res).to(be_equal_to(vec!["cargo-cmd", "cargo-llvm-cov", "petname"]));
+        let mut res = get_binaries().unwrap();
+        res.sort();
+        expect!(res).to(be_equal_to(vec![
+            "cargo-deny",
+            "cargo-llvm-cov",
+            "dprint",
+            "petname",
+        ]));
     }
 }
 

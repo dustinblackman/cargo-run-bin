@@ -1,0 +1,15 @@
+{
+  "indentWidth": 2,
+  "lineWidth": 160,
+  "includes": [
+    "**/*.{md,toml}"
+  ],
+  "excludes": [
+    "external/**",
+    "target/**"
+  ],
+  "plugins": [
+    "https://github.com/dprint/dprint-plugin-toml/releases/download/0.5.4/plugin.wasm",
+    "https://github.com/dprint/dprint-plugin-markdown/releases/download/0.14.0/plugin.wasm"
+  ]
+}

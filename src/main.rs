@@ -8,9 +8,11 @@ mod main_test;
 use anyhow::{anyhow, Result};
 use cargo_metadata::MetadataCommand;
 use cargo_toml::{Dependency, Manifest};
-use colored::*;
 use fstrings::*;
 use home;
+use owo_colors::OwoColorize;
+use serde::Deserialize;
+use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path;
@@ -23,6 +25,34 @@ struct PkgVersion {
     version: String,
 }
 
+#[derive(Deserialize, Debug)]
+struct Metadata {
+    bin: HashMap<String, String>,
+}
+
+fn get_metadata_binaries(toml_manifest: cargo_toml::Manifest) -> Result<Option<Metadata>> {
+    let metadata_binaries_str = toml_manifest
+        .package
+        .as_ref()
+        .and_then(|pkg| {
+            return pkg.metadata.as_ref().and_then(|metadata_val| {
+                return Some(metadata_val.to_string());
+            });
+        })
+        .ok_or_else(|| return "".to_string())
+        .unwrap_or_else(|_| return "".to_string());
+
+    if !metadata_binaries_str.is_empty() {
+        let metadata_res: Result<Metadata, toml::de::Error> =
+            toml::from_str(&metadata_binaries_str);
+        if let Ok(metadata) = metadata_res {
+            return Ok(Some(metadata));
+        }
+    }
+
+    return Ok(None);
+}
+
 fn get_binaries() -> Result<Vec<String>> {
     let home_dir = home::cargo_home()?;
     let cache_folder = fs::read_dir(home_dir.join("registry/src"))?
@@ -33,9 +63,9 @@ fn get_binaries() -> Result<Vec<String>> {
 
     let mut binaries: Vec<String> = vec![];
 
-    let toml = Manifest::from_path("./Cargo.toml")?;
-    let mut deps = toml.dependencies.to_owned();
-    deps.append(&mut toml.dev_dependencies.to_owned());
+    let toml_manifest = Manifest::from_path("./Cargo.toml")?;
+    let mut deps = toml_manifest.dependencies.to_owned();
+    deps.append(&mut toml_manifest.dev_dependencies.to_owned());
     for (dep_name, dep_details) in deps.iter() {
         let version = match dep_details {
             Dependency::Detailed(e) => e.version.to_owned().unwrap(),
@@ -48,7 +78,7 @@ fn get_binaries() -> Result<Vec<String>> {
         let dep_manifest =
             Manifest::from_path(crate_folder.clone().join("Cargo.toml").to_str().unwrap())?;
 
-        if dep_manifest.bin.len() > 0 {
+        if !dep_manifest.bin.is_empty() {
             for bin in dep_manifest.bin {
                 binaries.push(bin.name.unwrap());
             }
@@ -57,13 +87,32 @@ fn get_binaries() -> Result<Vec<String>> {
         }
     }
 
+    let metadata_bin = get_metadata_binaries(toml_manifest)?;
+    if let Some(metadata) = metadata_bin {
+        for (key, _version) in metadata.bin {
+            binaries.push(key.to_owned());
+        }
+    }
+
     return Ok(binaries);
 }
 
 fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
-    let toml = Manifest::from_path("./Cargo.toml")?;
-    let mut deps = toml.dependencies.to_owned();
-    deps.append(&mut toml.dev_dependencies.to_owned());
+    let toml_manifest = Manifest::from_path("./Cargo.toml")?;
+
+    let mut deps = toml_manifest.dependencies.to_owned();
+    deps.append(&mut toml_manifest.dev_dependencies.to_owned());
+
+    let metadata_bin = get_metadata_binaries(toml_manifest)?;
+    if let Some(metadata) = metadata_bin {
+        if metadata.bin.contains_key(bin_name) {
+            return Ok(PkgVersion {
+                name: bin_name.to_string(),
+                version: metadata.bin.get(bin_name).unwrap().to_string(),
+            });
+        }
+    }
+
     for (key, value) in deps.iter() {
         if key != bin_name {
             continue;
@@ -81,7 +130,7 @@ fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
     }
 
     let metadata = MetadataCommand::new()
-        .manifest_path("./Cargo.toml") // TODO Delete this my later, and find a way to autodiscover.
+        .manifest_path("./Cargo.toml") // TODO Delete this later, and find a way to autodiscover.
         .exec()?;
 
     let pkg = metadata
