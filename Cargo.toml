@@ -1,6 +1,6 @@
 [package]
 name = "cargo-run-bin"
-version = "0.3.1"
+version = "0.4.0"
 authors = ["Dustin Blackman"]
 categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 edition = "2018"
