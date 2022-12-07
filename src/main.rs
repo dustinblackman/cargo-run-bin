@@ -5,18 +5,20 @@
 #[path = "main_test.rs"]
 mod main_test;
 
-use anyhow::{anyhow, Result};
-use cargo_metadata::MetadataCommand;
-use cargo_toml::{Dependency, Manifest};
-use fstrings::*;
-use home;
-use owo_colors::OwoColorize;
-use serde::Deserialize;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path;
 use std::process;
+
+use anyhow::anyhow;
+use anyhow::Result;
+use cargo_metadata::MetadataCommand;
+use cargo_toml::Dependency;
+use cargo_toml::Manifest;
+use fstrings::*;
+use owo_colors::OwoColorize;
+use serde::Deserialize;
 use version_check as rustc;
 
 #[derive(Debug)]
@@ -35,8 +37,8 @@ fn get_metadata_binaries(toml_manifest: cargo_toml::Manifest) -> Result<Option<M
         .package
         .as_ref()
         .and_then(|pkg| {
-            return pkg.metadata.as_ref().and_then(|metadata_val| {
-                return Some(metadata_val.to_string());
+            return pkg.metadata.as_ref().map(|metadata_val| {
+                return metadata_val.to_string();
             });
         })
         .ok_or_else(|| return "".to_string())

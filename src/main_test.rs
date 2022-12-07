@@ -1,5 +1,6 @@
-use super::*;
 use expectest::prelude::*;
+
+use super::*;
 
 mod get_pkg_version {
     use super::*;
