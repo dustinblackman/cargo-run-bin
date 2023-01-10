@@ -16,7 +16,6 @@ use anyhow::Result;
 use cargo_metadata::MetadataCommand;
 use cargo_toml::Dependency;
 use cargo_toml::Manifest;
-use fstrings::*;
 use owo_colors::OwoColorize;
 use serde::Deserialize;
 use version_check as rustc;
@@ -75,7 +74,7 @@ fn get_binaries() -> Result<Vec<String>> {
         };
 
         let crate_folder =
-            path::Path::new(cache_folder.to_str().unwrap()).join(f!("{dep_name}-{version}"));
+            path::Path::new(cache_folder.to_str().unwrap()).join(format!("{dep_name}-{version}"));
 
         let dep_manifest =
             Manifest::from_path(crate_folder.clone().join("Cargo.toml").to_str().unwrap())?;
@@ -143,7 +142,7 @@ fn get_pkg_version(bin_name: &str) -> Result<PkgVersion> {
                 return t.name == bin_name;
             });
         })
-        .ok_or_else(|| return anyhow!(f!("Package for binary {bin_name} not found")))?;
+        .ok_or_else(|| return anyhow!(format!("Package for binary {bin_name} not found")))?;
 
     return Ok(PkgVersion {
         name: pkg.name.to_owned(),
@@ -166,8 +165,8 @@ fn run_binary(args: &mut Vec<String>) -> Result<()> {
     let bin_name = args[2].to_owned();
     let pkg_version = get_pkg_version(&bin_name)?;
 
-    let cache_path = f!("./.bin/rust-{rust_version}/{pkg_version.name}/{pkg_version.version}");
-    let mut cache_bin_path = f!("{cache_path}/bin/{bin_name}");
+    let cache_path = format!("./.bin/rust-{rust_version}/{name}/{version}", name=pkg_version.name, version=pkg_version.version);
+    let mut cache_bin_path = format!("{cache_path}/bin/{bin_name}");
     let mut env_path = match env::var("PATH") {
         Ok(val) => val,
         Err(_) => "".to_owned(), // TODO throw err;
@@ -191,7 +190,7 @@ fn run_binary(args: &mut Vec<String>) -> Result<()> {
 
     if bin_name.starts_with("cargo-") {
         cache_bin_path = "cargo".to_owned();
-        env_path = f!("{cache_path}/bin:{env_path}");
+        env_path = format!("{cache_path}/bin:{env_path}");
 
         let mut new_args = vec![bin_name.replace("cargo-", "")];
         new_args.append(&mut args);
@@ -214,7 +213,7 @@ fn run_binary(args: &mut Vec<String>) -> Result<()> {
         process::exit(status);
     }
 
-    return Err(anyhow!(f!("Process {bin_name} failed to start")));
+    return Err(anyhow!(format!("Process {bin_name} failed to start")));
 }
 
 fn main() {
@@ -223,7 +222,7 @@ fn main() {
     if args[2] == "--list" {
         let res = get_binaries();
         if let Err(res) = res {
-            println!("{}", f!("run-bin failed: {res}").red());
+            println!("{}", format!("run-bin failed: {res}").red());
             process::exit(1);
         }
 
@@ -233,7 +232,7 @@ fn main() {
 
     let res = run_binary(&mut args);
     if let Err(res) = res {
-        println!("{}", f!("run-bin failed: {res}").red());
+        println!("{}", format!("run-bin failed: {res}").red());
         process::exit(1);
     }
 }
