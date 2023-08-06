@@ -8,8 +8,8 @@ use clap::Command;
 use owo_colors::OwoColorize;
 
 use crate::binary;
-use crate::metadata;
 use crate::cargo_config;
+use crate::metadata;
 
 fn build_all_binaries() -> Result<()> {
     let binary_packages = metadata::get_binary_packages()?;
@@ -89,13 +89,13 @@ pub fn run() -> Result<()> {
             return Ok(());
         }
 
-        let mut bin_index = start_index.unwrap()+1;
+        let mut bin_index = start_index.unwrap() + 1;
         if args[bin_index] == "bin" {
-            bin_index+=1;
+            bin_index += 1;
         }
 
         let binary_name = args[bin_index].clone();
-        args.drain(0..(bin_index+1));
+        args.drain(0..(bin_index + 1));
 
         run_binary(binary_name, args)?;
     }

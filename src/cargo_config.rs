@@ -1,13 +1,17 @@
-use anyhow::Result;
-use toml_edit::{Document, Array, table, value};
-use std::path;
 use std::fs;
+use std::path;
+
+use anyhow::Result;
+use toml_edit::table;
+use toml_edit::value;
+use toml_edit::Array;
+use toml_edit::Document;
 
 use crate::metadata;
 
 pub fn sync_aliases() -> Result<()> {
     let mut toml_str = "".to_string();
-    let config_path =  path::Path::new(".cargo/config.toml");
+    let config_path = path::Path::new(".cargo/config.toml");
     if config_path.exists() {
         toml_str = fs::read_to_string(config_path)?.parse()?;
     }
@@ -49,7 +53,7 @@ pub fn sync_aliases() -> Result<()> {
         fs::create_dir(config_path.parent().unwrap())?;
     }
 
-     fs::write(config_path, doc.to_string())?;
+    fs::write(config_path, doc.to_string())?;
 
     return Ok(());
 }
