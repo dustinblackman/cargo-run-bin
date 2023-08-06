@@ -34,7 +34,7 @@ fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
             || (e.bin_target.is_some() && e.bin_target.as_deref().unwrap() == binary_name);
     });
     if binary_package.is_none() {
-        bail!("No package found for binary {binary}");
+        bail!(format!("No package found for binary {binary_name}"));
     }
 
     let bin_path = binary::build(binary_package.unwrap().clone())?;
@@ -65,7 +65,7 @@ pub fn run() -> Result<()> {
                 .short('s')
                 .long("sync-aliases")
                 .num_args(0)
-                .help("Sync aliases for cargo-* commands in .cargo/config"),
+                .help("Sync aliases for cargo-* commands in .cargo/config.toml"),
         )
         .arg(
             Arg::new("build")
@@ -89,9 +89,14 @@ pub fn run() -> Result<()> {
             return Ok(());
         }
 
-        let bin_index = start_index.unwrap()+1;
+        let mut bin_index = start_index.unwrap()+1;
+        if args[bin_index] == "bin" {
+            bin_index+=1;
+        }
+
         let binary_name = args[bin_index].clone();
         args.drain(0..(bin_index+1));
+
         run_binary(binary_name, args)?;
     }
 

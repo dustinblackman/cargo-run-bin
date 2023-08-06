@@ -58,17 +58,7 @@ pub fn build(binary_package: metadata::BinaryPackage) -> Result<String> {
 }
 
 pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
-    // TODO I don't think this is needed anymore.
-    // if bin_name.starts_with("cargo-") {
-    //     cache_bin_path = "cargo".to_owned();
-    //     env_path = format!("{cache_path}/bin:{env_path}");
-    //
-    //     let mut new_args = vec![bin_name.replace("cargo-", "")];
-    //     new_args.append(&mut args);
-    //     args = new_args;
-    // }
-
-    let spawn = process::Command::new(bin_path)
+    let spawn = process::Command::new(bin_path.clone())
         .stdout(process::Stdio::inherit())
         .stderr(process::Stdio::inherit())
         .stdin(process::Stdio::inherit())
@@ -84,5 +74,5 @@ pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
         process::exit(status);
     }
 
-    bail!("Process {bin_name} failed to start");
+    bail!(format!("Process failed to start: {bin_path}"));
 }
