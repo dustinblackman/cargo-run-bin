@@ -9,13 +9,13 @@ use anyhow::Result;
 use cargo_toml::Manifest;
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 struct MetadataValue {
     version: String,
     bins: Option<Vec<String>>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 struct Metadata {
     bin: HashMap<String, MetadataValue>,
 }
@@ -27,7 +27,7 @@ pub struct BinaryPackage {
     pub version: String,
 }
 
-fn get_project_root() -> Result<PathBuf> {
+pub fn get_project_root() -> Result<PathBuf> {
     let path = env::current_dir()?;
     let path_ancestors = path.as_path().ancestors();
 
@@ -60,7 +60,7 @@ fn get_metadata_binaries(toml_manifest: Manifest) -> Result<Metadata> {
         .ok_or_else(|| return "".to_string())
         .unwrap_or_else(|_| return "".to_string());
 
-    if metadata_binaries_str.is_empty() {
+    if !metadata_binaries_str.is_empty() {
         let metadata_res: Result<Metadata, toml::de::Error> =
             toml::from_str(&metadata_binaries_str);
 
