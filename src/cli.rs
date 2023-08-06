@@ -9,6 +9,7 @@ use owo_colors::OwoColorize;
 
 use crate::binary;
 use crate::metadata;
+use crate::cargo_config;
 
 fn build_all_binaries() -> Result<()> {
     let binary_packages = metadata::get_binary_packages()?;
@@ -16,6 +17,12 @@ fn build_all_binaries() -> Result<()> {
         binary::build(binary_package)?;
     }
 
+    println!("{}", "Done!".green());
+    return Ok(());
+}
+
+fn sync_aliases() -> Result<()> {
+    cargo_config::sync_aliases()?;
     println!("{}", "Done!".green());
     return Ok(());
 }
@@ -47,10 +54,10 @@ fn arg_used(matches: &ArgMatches, arg_long: &str) -> bool {
 }
 
 pub fn run() -> Result<()> {
-    let mut app = Command::new("cargo-run-bun")
-        .about("A simple tool to build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun.")
-        .author("Dustin Blackman")
-        .version("1.0.0")
+    let mut app = Command::new("cargo-bin")
+        .about(env!("CARGO_PKG_DESCRIPTION"))
+        .author(env!("CARGO_PKG_AUTHORS"))
+        .version(env!("CARGO_PKG_VERSION"))
         .arg_required_else_help(false)
         .ignore_errors(true)
         .arg(
@@ -71,7 +78,7 @@ pub fn run() -> Result<()> {
     let matches = app.clone().get_matches();
 
     if arg_used(&matches, "sync-aliases") {
-        println!("Its a sync");
+        sync_aliases()?;
     } else if arg_used(&matches, "build") {
         build_all_binaries()?;
     } else {

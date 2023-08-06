@@ -6,6 +6,7 @@ use std::process;
 use owo_colors::OwoColorize;
 
 mod binary;
+mod cargo_config;
 mod cli;
 mod metadata;
 
