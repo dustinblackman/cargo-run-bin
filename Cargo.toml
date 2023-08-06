@@ -38,17 +38,26 @@ dprint = "0.30.3"
 
 [package.metadata.commands]
 lint = '''
-cargo +nightly fmt -- --check
+cargo cmd setup-nightly
+cargo +runbin-nightly fmt -- --check
 cargo clippy
 cargo bin dprint check
 cargo bin cargo-deny check licenses
 '''
 lint-fix = '''
+cargo cmd setup-nightly
 cargo clippy --fix --allow-dirty
 cargo fix --allow-dirty
-cargo +nightly fmt
+cargo +runbin-nightly fmt
 cargo bin dprint fmt
 '''
+
+setup-nightly = '''
+  export RUNBIN_NIGHTLY=nightly-2023-06-16
+  rustup toolchain install "$RUNBIN_NIGHTLY" --component llvm-tools-preview rustfmt --force
+  rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $RUNBIN_NIGHTLY | grep '^nightly-' | awk '{print $2}')"
+'''
+
 test-coverage = "cargo bin cargo-llvm-cov --ignore-filename-regex='_test.rs'"
 test-coverage-html = "cargo bin cargo-llvm-cov --open --ignore-filename-regex='_test.rs'"
 test-coverage-lcov = '''
