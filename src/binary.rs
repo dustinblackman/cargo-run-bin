@@ -51,18 +51,32 @@ pub fn build(binary_package: metadata::BinaryPackage) -> Result<String> {
             cmd_prefix.arg("--bin").arg(bin_target);
         }
 
+        if let Some(locked) = &binary_package.locked {
+            if *locked {
+                cmd_prefix.arg("--locked");
+            }
+        }
+
         cmd_prefix.arg(binary_package.package).output()?;
     }
 
     return Ok(cache_bin_path.to_str().unwrap().to_string());
 }
 
-pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
+pub fn run(bin_path: String, args:Vec<String>) -> Result<()> {
+    // Silly hack to make cargo commands parse arguments correctly.
+    let mut final_args = args.clone();
+    let bin_name = path::Path::new(&bin_path).file_name().unwrap().to_str().unwrap();
+    if bin_name.starts_with("cargo-") {
+        final_args = vec![bin_name.to_string().replace("cargo-", "")];
+        final_args.append(&mut args.clone());
+    }
+
     let spawn = process::Command::new(bin_path.clone())
         .stdout(process::Stdio::inherit())
         .stderr(process::Stdio::inherit())
         .stdin(process::Stdio::inherit())
-        .args(&args)
+        .args(&final_args)
         .spawn();
 
     if let Ok(mut spawn) = spawn {

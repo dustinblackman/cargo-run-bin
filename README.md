@@ -4,9 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/dustinblackman/cargo-run-bin/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/cargo-run-bin?branch=master)
 [![Crates.io](https://img.shields.io/crates/v/cargo-run-bin.svg)](https://crates.io/crates/cargo-run-bin)
 
-A simple tool to build, cache, and run binaries scoped in `Cargo.toml` rather than installing globally. This acts similarly to [`npm run`](https://docs.npmjs.com/cli/v7/commands/npm-run-script) and [`gomodrun`](https://github.com/dustinblackman/gomodrun).
-
-**Disclaimer:** This tool was built out of wanting a missing piece in the Rust development experience when initially learning the language, and is not likely to be optimal or feature complete just yet.
+A simple tool to build, cache, and run binaries scoped in `Cargo.toml` rather than installing globally. This acts similarly to [`npm run`](https://docs.npmjs.com/cli/v7/commands/npm-run-script) and [`gomodrun`](https://github.com/dustinblackman/gomodrun), and allows your teams to always be running the same tooling versions.
 
 ## Installation
 

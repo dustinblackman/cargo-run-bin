@@ -18,6 +18,7 @@ jobs:
           which cargo-cmd || cargo install cargo-cmd
           cargo cmd setup-nightly
           cargo install cargo-run-bin --target-dir ./target
+          cargo bin --build
       - name: Lint
         run: cargo cmd lint
       - name: Test

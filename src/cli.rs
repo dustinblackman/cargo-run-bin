@@ -50,29 +50,43 @@ fn arg_used(matches: &ArgMatches, arg_long: &str) -> bool {
         }
     }
 
+    if let Some(sub) = matches.subcommand_matches("bin") {
+        if let Some(used) = sub.get_one::<bool>(arg_long) {
+            if *used {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
 
 pub fn run() -> Result<()> {
+    let arg_sync_aliases = Arg::new("sync-aliases")
+        .short('s')
+        .long("sync-aliases")
+        .num_args(0)
+        .help("Sync aliases for cargo-* commands in .cargo/config.toml");
+
+    let arg_build = Arg::new("build")
+        .short('b')
+        .long("build")
+        .num_args(0)
+        .help("Build all configured binaries, skips entries that are already built.");
+
     let mut app = Command::new("cargo-bin")
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .version(env!("CARGO_PKG_VERSION"))
         .arg_required_else_help(false)
         .ignore_errors(true)
-        .arg(
-            Arg::new("sync-aliases")
-                .short('s')
-                .long("sync-aliases")
-                .num_args(0)
-                .help("Sync aliases for cargo-* commands in .cargo/config.toml"),
-        )
-        .arg(
-            Arg::new("build")
-                .short('b')
-                .long("build")
-                .num_args(0)
-                .help("Build all configured binaries, skips entries that are already built."),
+        .arg(arg_sync_aliases.clone())
+        .arg(arg_build.clone())
+        .subcommand(
+            Command::new("bin")
+                .hide(true)
+                .arg(arg_sync_aliases)
+                .arg(arg_build),
         );
 
     let matches = app.clone().get_matches();

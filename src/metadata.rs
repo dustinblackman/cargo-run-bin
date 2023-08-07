@@ -9,9 +9,14 @@ use anyhow::Result;
 use cargo_toml::Manifest;
 use serde::Deserialize;
 
+#[cfg(test)]
+#[path = "metadata_test.rs"]
+mod metadata_test;
+
 #[derive(Deserialize, Debug, PartialEq)]
 struct MetadataValue {
     version: String,
+    locked: Option<bool>,
     bins: Option<Vec<String>>,
 }
 
@@ -24,6 +29,7 @@ struct Metadata {
 pub struct BinaryPackage {
     pub bin_target: Option<String>,
     pub package: String,
+    pub locked: Option<bool>,
     pub version: String,
 }
 
@@ -84,6 +90,7 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
                 binary_details.push(BinaryPackage {
                     bin_target: Some(bin_target.to_string()),
                     package: pkg_name.clone(),
+                    locked: pkg_details.locked,
                     version: pkg_details.version.clone(),
                 });
             }
@@ -91,6 +98,7 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
             binary_details.push(BinaryPackage {
                 bin_target: None,
                 package: pkg_name,
+                locked: pkg_details.locked,
                 version: pkg_details.version,
             });
         }
