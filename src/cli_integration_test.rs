@@ -1,8 +1,14 @@
 use assert_cmd::Command;
+
 use crate::metadata;
 
 fn get_bin() -> String {
-    return metadata::get_project_root().unwrap().join("target/debug/cargo-bin").to_str().unwrap().to_string();
+    return metadata::get_project_root()
+        .unwrap()
+        .join("target/debug/cargo-bin")
+        .to_str()
+        .unwrap()
+        .to_string();
 }
 
 #[test]
