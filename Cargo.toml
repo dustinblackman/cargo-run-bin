@@ -39,14 +39,14 @@ dprint = { version = "0.30.3", locked = true }
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
 
 [package.metadata.commands]
-lint = '''
+lint = '''set -e
 cargo cmd setup-nightly
 cargo +runbin-nightly fmt -- --check
 cargo clippy
 cargo bin dprint check
 cargo deny check licenses
 '''
-lint-fix = '''
+lint-fix = '''set -e
 cargo cmd setup-nightly
 cargo clippy --fix --allow-dirty
 cargo fix --allow-dirty
@@ -77,20 +77,20 @@ release = '''set -e
   cargo publish
 '''
 
-test-coverage = '''
+test-coverage = '''set -e
   cargo build
   cargo llvm-cov --ignore-filename-regex='_test.rs'
 '''
-test-coverage-html = '''
+test-coverage-html = '''set -e
   cargo build
   cargo llvm-cov --open --ignore-filename-regex='_test.rs'
 '''
-test-coverage-lcov = '''
+test-coverage-lcov = '''set -e
   cargo build
   rm -f lcov.info
   cargo bin llvm-cov --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
 '''
-test = '''
+test = '''set -e
   cargo build
   cargo nextest run
 '''
