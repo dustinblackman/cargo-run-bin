@@ -44,7 +44,7 @@ cargo cmd setup-nightly
 cargo +runbin-nightly fmt -- --check
 cargo clippy
 cargo bin dprint check
-cargo bin cargo-deny check licenses
+cargo deny check licenses
 '''
 lint-fix = '''
 cargo cmd setup-nightly
@@ -60,9 +60,16 @@ setup-nightly = '''
   rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $RUNBIN_NIGHTLY | grep '^nightly-' | awk '{print $2}')"
 '''
 
-test-coverage = "cargo llvm-cov --ignore-filename-regex='_test.rs'"
-test-coverage-html = "cargo llvm-cov --open --ignore-filename-regex='_test.rs'"
+test-coverage = '''
+  cargo build
+  cargo llvm-cov --ignore-filename-regex='_test.rs'
+'''
+test-coverage-html = '''
+  cargo build
+  cargo llvm-cov --open --ignore-filename-regex='_test.rs'
+'''
 test-coverage-lcov = '''
+  cargo build
   rm -f lcov.info
   cargo bin llvm-cov --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
 '''

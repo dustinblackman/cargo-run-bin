@@ -16,7 +16,7 @@
 
 ## Overview
 
-Installing tooling globally when working in teams or on CI is a silly problem to manage. `cargo-run-bin` builds, caches, and executes binaries from their locked down versions in `Cargo.toml`. This acts similarly to [`npm run`](https://docs.npmjs.com/cli/v7/commands/npm-run-script) and [`gomodrun`](https://github.com/dustinblackman/gomodrun), and allows your teams to always be running the same tooling versions. 
+Installing tooling globally when working in teams or on CI is a silly problem to manage. `cargo-run-bin` builds, caches, and executes binaries from their locked down versions in `Cargo.toml`. This acts similarly to [`npm run`](https://docs.npmjs.com/cli/v7/commands/npm-run-script) and [`gomodrun`](https://github.com/dustinblackman/gomodrun), and allows your teams to always be running the same tooling versions.
 
 For command lines that extend cargo such as `cargo-nextest`, run-bin will create and manage cargo aliases to allow using cargo extensions without any changes to your command line scripts! `cargo-run-bin` gets out of your way, and you'll forget you're even using it!
 
@@ -43,9 +43,9 @@ tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], lo
 ```
 
 - `version` specifies the version of the crate.
-- `bins` *(optional)* is an array of binaries that the crate contains that you wish to build. These can be found in a crates
+- `bins` _(optional)_ is an array of binaries that the crate contains that you wish to build. These can be found in a crates
   `Cargo.toml` file. See [`tauri-mobile`](https://github.com/tauri-apps/tauri-mobile/blob/a5f3783870f48886e3266e43f92a6768fb1eb3d4/Cargo.toml#L18-L28) as an example.
-- `locked` *(optional)* is a parameter when set to `true` runs `cargo install` with [`--locked`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#dealing-with-the-lockfile) parameter.
+- `locked` _(optional)_ is a parameter when set to `true` runs `cargo install` with [`--locked`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#dealing-with-the-lockfile) parameter.
 
 ### cargo bin CRATE
 
