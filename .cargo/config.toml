@@ -1,6 +1,6 @@
 [alias]
 nextest = ["bin", "cargo-nextest"]
-llvm-cov = ["bin", "cargo-llvm-cov"]
 deny = ["bin", "cargo-deny"]
 android = ["bin", "cargo-android"]
 mobile = ["bin", "cargo-mobile"]
+llvm-cov = ["bin", "cargo-llvm-cov"]
