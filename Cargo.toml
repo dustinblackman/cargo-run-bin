@@ -79,16 +79,16 @@ release = '''set -e
 
 test-coverage = '''set -e
   cargo build
-  cargo llvm-cov --ignore-filename-regex='_test.rs'
+  cargo llvm-cov nextest --ignore-filename-regex='_test.rs'
 '''
 test-coverage-html = '''set -e
   cargo build
-  cargo llvm-cov --open --ignore-filename-regex='_test.rs'
+  cargo llvm-cov nextest --open --ignore-filename-regex='_test.rs'
 '''
 test-coverage-lcov = '''set -e
   cargo build
   rm -f lcov.info
-  cargo llvm-cov --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
+  cargo llvm-cov nextest --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
 '''
 test = '''set -e
   cargo build
