@@ -31,6 +31,7 @@ name = "cargo-bin"
 path = "src/main.rs"
 
 [package.metadata.bin]
+cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
