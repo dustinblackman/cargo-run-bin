@@ -37,8 +37,8 @@ table. A quick example taken from this repo:
 
 ```toml
 [package.metadata.bin]
-cargo-nextest = { version = "0.9.57" }
-dprint = { version = "0.30.3", locked = true }
+cargo-nextest = { version = "0.9.57", locked = true  }
+dprint = { version = "0.30.3" }
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
 ```
 

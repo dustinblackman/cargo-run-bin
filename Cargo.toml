@@ -31,12 +31,12 @@ name = "cargo-bin"
 path = "src/main.rs"
 
 [package.metadata.bin]
-cargo-deny = { version = "0.13.5", locked = true }
-cargo-llvm-cov = { version = "0.5.25", locked = true }
+cargo-deny = { version = "0.13.5" }
+cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
-dprint = { version = "0.30.3", locked = true }
+dprint = { version = "0.30.3" }
 # Just added for testing
-tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
+tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"] }
 
 [package.metadata.commands]
 lint = '''set -e
@@ -88,7 +88,7 @@ test-coverage-html = '''set -e
 test-coverage-lcov = '''set -e
   cargo build
   rm -f lcov.info
-  cargo bin llvm-cov --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
+  cargo llvm-cov --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
 '''
 test = '''set -e
   cargo build
