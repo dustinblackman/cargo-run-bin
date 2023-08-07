@@ -9,7 +9,7 @@ keywords = ["dev-experiance", "developer-experiance", "bin", "cache"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/dustinblackman/cargo-run-bin"
-description = "A simple tool to build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun, and allows your teams to always be running the same tooling versions."
+description = "Build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun, and allows your teams to always be running the same tooling versions."
 
 [dependencies]
 anyhow = "1.0.40"
@@ -31,12 +31,12 @@ name = "cargo-bin"
 path = "src/main.rs"
 
 [package.metadata.bin]
-cargo-deny = { version = "0.13.5" }
-cargo-llvm-cov = { version = "0.5.25" }
+cargo-deny = { version = "0.13.5", locked = true }
+cargo-llvm-cov = { version = "0.5.25", locked = true }
 cargo-nextest = { version = "0.9.57", locked = true }
-dprint = { version = "0.30.3" }
+dprint = { version = "0.30.3", locked = true }
 # Just added for testing
-tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"] }
+tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
 
 [package.metadata.commands]
 lint = '''
