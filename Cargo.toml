@@ -60,6 +60,23 @@ setup-nightly = '''
   rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $RUNBIN_NIGHTLY | grep '^nightly-' | awk '{print $2}')"
 '''
 
+release = '''set -e
+  cargo cmd lint
+  cargo cmd test
+
+  export RUNBIN_VERSION=$(cat Cargo.toml | grep version | head -n1 | awk -F '"' '{print $2}')
+  git add .
+  git commit -m "v$RUNBIN_VERSION"
+  git tag -a "v$RUNBIN_VERSION" -m "v$RUNBIN_VERSION"
+
+  cargo publish --dry-run
+
+  git push
+  git push --tags
+  gh release create "v$RUNBIN_VERSION" --generate-notes
+  cargo publish
+'''
+
 test-coverage = '''
   cargo build
   cargo llvm-cov --ignore-filename-regex='_test.rs'
