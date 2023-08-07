@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/dustinblackman/cargo-run-bin/badge.svg?branch=master)](https://coveralls.io/github/dustinblackman/cargo-run-bin?branch=master)
 [![Crates.io](https://img.shields.io/crates/v/cargo-run-bin.svg)](https://crates.io/crates/cargo-run-bin)
 
-> Build, cache, and run binaries scoped in `Cargo.toml` rather than installing globally.
+> Build, cache, and run CLI tools scoped in `Cargo.toml` rather than installing globally. Stop the version drifts across your team, keep it all in sync within your project!
 
 - [Overview](#Overview)
 - [Install](#Install)
