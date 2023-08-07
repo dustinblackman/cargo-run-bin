@@ -11,6 +11,10 @@ use version_check as rustc;
 
 use crate::metadata;
 
+#[cfg(test)]
+#[path = "binary_test.rs"]
+mod binary_test;
+
 pub fn build(binary_package: metadata::BinaryPackage) -> Result<String> {
     let mut rust_version = "unknown".to_string();
     if let Some(res) = rustc::triple() {
