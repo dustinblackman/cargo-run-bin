@@ -2,10 +2,10 @@
   "indentWidth": 2,
   "lineWidth": 160,
   "includes": [
-    "**/*.{md,toml}"
+    "*.{md,toml}"
   ],
   "excludes": [
-    "external/**",
+    ".bin/**",
     "target/**"
   ],
   "plugins": [
