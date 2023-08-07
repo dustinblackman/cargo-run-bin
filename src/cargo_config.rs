@@ -1,5 +1,4 @@
 use std::fs;
-use std::path;
 
 use anyhow::Result;
 use toml_edit::table;
@@ -9,11 +8,15 @@ use toml_edit::Document;
 
 use crate::metadata;
 
+#[cfg(test)]
+#[path = "cargo_config_test.rs"]
+mod cargo_config_test;
+
 pub fn sync_aliases() -> Result<()> {
     let mut toml_str = "".to_string();
-    let config_path = path::Path::new(".cargo/config.toml");
+    let config_path = metadata::get_project_root()?.join(".cargo/config.toml");
     if config_path.exists() {
-        toml_str = fs::read_to_string(config_path)?.parse()?;
+        toml_str = fs::read_to_string(&config_path)?.parse()?;
     }
 
     let mut doc = toml_str.parse::<Document>()?;
