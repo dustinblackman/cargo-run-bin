@@ -104,5 +104,12 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
         }
     }
 
+    binary_details.sort_by_key(|e| {
+        if e.bin_target.is_some() {
+            return e.bin_target.as_ref().unwrap().to_string();
+        }
+        return e.package.to_string();
+    });
+
     return Ok(binary_details);
 }
