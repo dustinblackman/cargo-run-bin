@@ -1,6 +1,6 @@
 [package]
 name = "cargo-run-bin"
-version = "1.0.1"
+version = "1.1.1"
 authors = ["Dustin Blackman"]
 categories = ["command-line-utilities", "development-tools::cargo-plugins"]
 edition = "2021"
@@ -75,7 +75,6 @@ setup-nightly = '''
   rustup toolchain install "$RUNBIN_NIGHTLY" --component llvm-tools-preview rustfmt --force
   rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $RUNBIN_NIGHTLY | grep '^nightly-' | awk '{print $2}')"
 '''
-
 
 release = '''set -e
   cargo cmd lint
