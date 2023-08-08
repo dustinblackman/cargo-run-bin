@@ -38,7 +38,6 @@ cargo-deny = { version = "0.13.5" }
 cargo-dist = { version = "0.1.0-prerelease.10" }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
-cargo-release = { version = "0.24.11" }
 dprint = { version = "0.40.2" }
 # Just added for testing
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"] }
@@ -77,14 +76,21 @@ setup-nightly = '''
   rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $RUNBIN_NIGHTLY | grep '^nightly-' | awk '{print $2}')"
 '''
 
+
 release = '''set -e
   cargo cmd lint
   cargo cmd test
 
   export RUNBIN_VERSION=$(cat Cargo.toml | grep version | head -n1 | awk -F '"' '{print $2}')
   git add .
-  git stash
-  cargo release "$RUNBIN_VERSION" --sign-commit --sign-tag --execute
+  git commit -m "chore: release v$RUNBIN_VERSION"
+  git tag -a "v$RUNBIN_VERSION" -m "v$RUNBIN_VERSION"
+
+  cargo publish --dry-run
+
+  git push
+  git push --tags
+  cargo publish
 '''
 
 test-coverage = '''set -e
