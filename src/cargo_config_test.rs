@@ -19,3 +19,14 @@ mod sync_aliases {
         expect!(toml_str.contains("nextest = [\"bin\", \"cargo-nextest\"]")).to(be_equal_to(true));
     }
 }
+
+mod binstall_alias_exists {
+    use super::*;
+
+    // Lazy happy path test.
+    #[test]
+    fn it_should_return_true() {
+        let res = binstall_alias_exists().unwrap();
+        expect!(res).to(be_equal_to(true));
+    }
+}

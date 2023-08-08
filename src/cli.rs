@@ -15,10 +15,10 @@ use crate::metadata;
 #[path = "cli_integration_test.rs"]
 mod cli_integration_test;
 
-fn build_all_binaries() -> Result<()> {
+fn install_all_binaries() -> Result<()> {
     let binary_packages = metadata::get_binary_packages()?;
     for binary_package in binary_packages {
-        binary::build(binary_package)?;
+        binary::install(binary_package)?;
     }
 
     println!("{}", "Done!".green());
@@ -41,7 +41,7 @@ fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
         bail!(format!("No package found for binary {binary_name}"));
     }
 
-    let bin_path = binary::build(binary_package.unwrap().clone())?;
+    let bin_path = binary::install(binary_package.unwrap().clone())?;
     binary::run(bin_path, args)?;
 
     return Ok(());
@@ -72,11 +72,18 @@ pub fn run() -> Result<()> {
         .num_args(0)
         .help("Sync aliases for cargo-* commands in .cargo/config.toml");
 
+    let arg_install = Arg::new("install")
+        .short('i')
+        .long("install")
+        .num_args(0)
+        .help("Install/build all configured binaries, skips entries that are already installed.");
+
+    // @deprecated: Use --install.
     let arg_build = Arg::new("build")
         .short('b')
         .long("build")
-        .num_args(0)
-        .help("Build all configured binaries, skips entries that are already built.");
+        .hide(true)
+        .num_args(0);
 
     let mut app = Command::new("cargo-bin")
         .about(env!("CARGO_PKG_DESCRIPTION"))
@@ -85,11 +92,13 @@ pub fn run() -> Result<()> {
         .arg_required_else_help(false)
         .ignore_errors(true)
         .arg(arg_sync_aliases.clone())
+        .arg(arg_install.clone())
         .arg(arg_build.clone())
         .subcommand(
             Command::new("bin")
                 .hide(true)
                 .arg(arg_sync_aliases)
+                .arg(arg_install)
                 .arg(arg_build),
         );
 
@@ -97,8 +106,8 @@ pub fn run() -> Result<()> {
 
     if arg_used(&matches, "sync-aliases") {
         sync_aliases()?;
-    } else if arg_used(&matches, "build") {
-        build_all_binaries()?;
+    } else if arg_used(&matches, "install") || arg_used(&matches, "build") {
+        install_all_binaries()?;
     } else {
         let mut args: Vec<_> = env::args().collect();
         let start_index = args.iter().position(|e| return e.ends_with("/cargo-bin"));

@@ -2,7 +2,7 @@ use expectest::prelude::*;
 
 use super::*;
 
-mod build {
+mod install {
     use super::*;
     use crate::metadata;
 
@@ -16,8 +16,46 @@ mod build {
             })
             .unwrap();
 
-        let cache_bin_path = build(nextest.clone()).unwrap();
+        let cache_bin_path = install(nextest.clone()).unwrap();
         expect!(cache_bin_path.ends_with("/bin/cargo-nextest")).to(be_equal_to(true));
+    }
+}
+
+mod cargo_install {
+    use super::*;
+
+    #[test]
+    fn it_builds_successfully() {
+        let res = cargo_install(
+            metadata::BinaryPackage {
+                bin_target: None,
+                package: "petname".to_string(),
+                locked: None,
+                version: "1.1.3".to_string(),
+            },
+            "./target/debug".into(),
+        );
+
+        expect!(res.is_ok()).to(be_equal_to(true));
+    }
+}
+
+mod binstall {
+    use super::*;
+
+    #[test]
+    fn it_builds_successfully() {
+        let res = binstall(
+            metadata::BinaryPackage {
+                bin_target: None,
+                package: "petname".to_string(),
+                locked: None,
+                version: "1.1.3".to_string(),
+            },
+            "./target/debug".into(),
+        );
+
+        expect!(res.is_ok()).to(be_equal_to(true));
     }
 }
 
@@ -34,7 +72,7 @@ mod run {
                 return e.package == "cargo-nextest";
             })
             .unwrap();
-        let cache_bin_path = build(nextest.clone()).unwrap();
+        let cache_bin_path = install(nextest.clone()).unwrap();
 
         let res = run(cache_bin_path, vec!["--help".to_string()]);
         expect(res.is_ok()).to(be_equal_to(true));

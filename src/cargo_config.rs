@@ -60,3 +60,19 @@ pub fn sync_aliases() -> Result<()> {
 
     return Ok(());
 }
+
+pub fn binstall_alias_exists() -> Result<bool> {
+    let config_path = metadata::get_project_root()?.join(".cargo/config.toml");
+    if !config_path.exists() {
+        return Ok(false);
+    }
+
+    let toml_str: String = fs::read_to_string(&config_path)?.parse()?;
+    let mut doc = toml_str.parse::<Document>()?;
+    if doc.get("alias").is_none() {
+        return Ok(false);
+    }
+
+    let aliases = doc["alias"].as_table_mut().unwrap();
+    return Ok(aliases.contains_key("binstall"));
+}

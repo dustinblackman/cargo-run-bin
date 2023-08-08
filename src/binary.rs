@@ -8,14 +8,80 @@ use anyhow::anyhow;
 use anyhow::bail;
 use anyhow::Result;
 use version_check as rustc;
+use which::which;
 
+use crate::cargo_config;
 use crate::metadata;
 
 #[cfg(test)]
 #[path = "binary_test.rs"]
 mod binary_test;
 
-pub fn build(binary_package: metadata::BinaryPackage) -> Result<String> {
+pub fn cargo_install(
+    binary_package: metadata::BinaryPackage,
+    cache_path: path::PathBuf,
+) -> Result<()> {
+    let stderr = io::stderr().as_fd().try_clone_to_owned()?;
+    let mut cmd_prefix = process::Command::new("cargo");
+
+    cmd_prefix
+        .stdout::<std::process::Stdio>(stderr.into())
+        .stderr(process::Stdio::inherit())
+        .arg("install")
+        .arg("--root")
+        .arg(&cache_path)
+        .arg("--version")
+        .arg(binary_package.version);
+
+    if let Some(bin_target) = &binary_package.bin_target {
+        cmd_prefix.arg("--bin").arg(bin_target);
+    }
+
+    if let Some(locked) = &binary_package.locked {
+        if *locked {
+            cmd_prefix.arg("--locked");
+        }
+    }
+
+    cmd_prefix.arg(binary_package.package).output()?;
+
+    return Ok(());
+}
+
+pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathBuf) -> Result<()> {
+    let stderr = io::stderr().as_fd().try_clone_to_owned()?;
+
+    let mut cmd_prefix = process::Command::new("cargo");
+
+    cmd_prefix
+        .stdout::<std::process::Stdio>(stderr.into())
+        .stderr(process::Stdio::inherit())
+        .arg("binstall")
+        .arg("--no-confirm")
+        .arg("--no-symlinks")
+        .arg("--root")
+        .arg(&cache_path)
+        .arg("--install-path")
+        .arg(cache_path.join("bin"));
+
+    if let Some(locked) = &binary_package.locked {
+        if *locked {
+            cmd_prefix.arg("--locked");
+        }
+    }
+
+    cmd_prefix
+        .arg(format!(
+            "{package}@{version}",
+            package = binary_package.package,
+            version = binary_package.version,
+        ))
+        .output()?;
+
+    return Ok(());
+}
+
+pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
     let mut rust_version = "unknown".to_string();
     if let Some(res) = rustc::triple() {
         if res.1.is_nightly() {
@@ -39,29 +105,14 @@ pub fn build(binary_package: metadata::BinaryPackage) -> Result<String> {
 
     if !path::Path::new(&cache_bin_path).exists() {
         fs::create_dir_all(&cache_path)?;
-        let stderr = io::stderr().as_fd().try_clone_to_owned()?;
-        let mut cmd_prefix = process::Command::new("cargo");
-
-        cmd_prefix
-            .stdout::<std::process::Stdio>(stderr.into())
-            .stderr(process::Stdio::inherit())
-            .arg("install")
-            .arg("--root")
-            .arg(&cache_path)
-            .arg("--version")
-            .arg(binary_package.version);
-
-        if let Some(bin_target) = &binary_package.bin_target {
-            cmd_prefix.arg("--bin").arg(bin_target);
+        if binary_package.bin_target.is_none()
+            && binary_package.package != "cargo-binstall"
+            && (cargo_config::binstall_alias_exists()? || which("cargo-binstall").is_ok())
+        {
+            binstall(binary_package, cache_path)?;
+        } else {
+            cargo_install(binary_package, cache_path)?;
         }
-
-        if let Some(locked) = &binary_package.locked {
-            if *locked {
-                cmd_prefix.arg("--locked");
-            }
-        }
-
-        cmd_prefix.arg(binary_package.package).output()?;
     }
 
     return Ok(cache_bin_path.to_str().unwrap().to_string());

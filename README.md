@@ -11,7 +11,7 @@
 - [Usage](#Usage)
   - [cargo bin CRATE](#cargo-bin-crate)
   - [cargo bin --sync-aliases](#cargo-bin---sync-aliases)
-  - [cargo bin --build](#cargo-bin---build)
+  - [cargo bin --install](#cargo-bin---install)
 - [License](#License)
 
 ## Overview
@@ -32,11 +32,12 @@ echo ".bin/" >> .gitignore
 
 ## Usage
 
-`cargo-run-bin` keeps track of the binaries and their versions from within `Cargo.toml` under the `package.metadata.bin`
+`cargo-run-bin` keeps track of the binaries and their versions from within `Cargo.toml` under the `[package.metadata.bin]`.
 table. A quick example taken from this repo:
 
 ```toml
 [package.metadata.bin]
+cargo-binstall = { version = "1.1.2" }
 cargo-nextest = { version = "0.9.57", locked = true }
 dprint = { version = "0.30.3" }
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
@@ -47,10 +48,12 @@ tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], lo
   `Cargo.toml` file. See [`tauri-mobile`](https://github.com/tauri-apps/tauri-mobile/blob/a5f3783870f48886e3266e43f92a6768fb1eb3d4/Cargo.toml#L18-L28) as an example.
 - `locked` _(optional)_ is a parameter when set to `true` runs `cargo install` with the [`--locked`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#dealing-with-the-lockfile) parameter.
 
+If you're a fan of prebuilt binaries and fast downloads, run-bin will use [`cargo-binstall`](https://github.com/cargo-bins/cargo-binstall) if it's installed globally, or configured within `[package.metadata.bin]`, rather than building tools from source.
+
 ### `cargo bin CRATE`
 
-Taking an example of `dprint`, running `cargo bin dprint --help` with build and cache the dprint binary with the
-specified version in `Cargo.toml`. All future executions will run instantly without a build step, and dprint can be used
+Taking an example of `dprint`, running `cargo bin dprint --help` with install/build and cache the dprint binary with the
+specified version in `Cargo.toml`. All future executions will run instantly without an install step, and dprint can be used
 as you wish!
 
 ### `cargo bin --sync-aliases`
@@ -59,9 +62,9 @@ With the power of [cargo aliases](https://doc.rust-lang.org/cargo/reference/conf
 will create aliases for any `cargo-*` crate, allowing you to execute commands such `cargo nextest run` that will use
 `cargo bin` under the hood. Check out some of the example from [this repo](.cargo/config.toml).
 
-### `cargo bin --build`
+### `cargo bin --install`
 
-When pulling down a new repo, or adding a step to CI, `cargo bin --build` will build all binaries that have not been
+When pulling down a new repo, or adding a step to CI, `cargo bin --install` will install or build all binaries that have not been
 cached which are configured in `Cargo.toml`.
 
 ## [License](./LICENSE)

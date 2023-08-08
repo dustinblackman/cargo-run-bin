@@ -20,6 +20,14 @@ fn it_syncs_aliases_successfully() {
 }
 
 #[test]
+fn it_install_all_bins_successfully() {
+    let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+    let assert = cmd.arg("--install").assert();
+
+    assert.success();
+}
+
+#[test]
 fn it_builds_all_bins_successfully() {
     let mut cmd = Command::cargo_bin(get_bin()).unwrap();
     let assert = cmd.arg("--build").assert();
