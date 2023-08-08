@@ -108,6 +108,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Disable cargo-run-bin aliases
+        run: rm -rf .cargo
       - name: Install cargo-dist
         run: ${{ matrix.install-dist }}
       - name: Run cargo-dist
