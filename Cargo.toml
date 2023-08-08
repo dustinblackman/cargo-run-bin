@@ -82,7 +82,9 @@ release = '''set -e
   cargo cmd test
 
   export RUNBIN_VERSION=$(cat Cargo.toml | grep version | head -n1 | awk -F '"' '{print $2}')
-  cargo release "$RUNBIN_VERSION" --execute
+  git add .
+  git stash
+  cargo release "$RUNBIN_VERSION" --sign-commit --sign-tag --execute
 '''
 
 test-coverage = '''set -e
