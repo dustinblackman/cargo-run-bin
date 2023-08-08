@@ -11,6 +11,10 @@ readme = "README.md"
 repository = "https://github.com/dustinblackman/cargo-run-bin"
 description = "Build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun, and allows your teams to always be running the same tooling versions."
 
+[[bin]]
+name = "cargo-bin"
+path = "src/main.rs"
+
 [dependencies]
 anyhow = "1.0.40"
 cargo_metadata = "0.13.1"
@@ -26,18 +30,28 @@ version_check = "0.9.3"
 assert_cmd = "2.0.12"
 expectest = "0.12.0"
 
-[[bin]]
-name = "cargo-bin"
-path = "src/main.rs"
-
 [package.metadata.bin]
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
+cargo-dist = { version = "0.1.0-prerelease.10" }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
+cargo-release = { version = "0.24.11" }
 dprint = { version = "0.30.3" }
 # Just added for testing
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"] }
+
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+cargo-dist-version = "0.1.0-prerelease.10"
+ci = ["github"]
+installers = []
+targets = ["x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "aarch64-apple-darwin"]
+unix-archive = ".tar.gz"
 
 [package.metadata.commands]
 lint = '''set -e
@@ -45,7 +59,7 @@ cargo cmd setup-nightly
 cargo +runbin-nightly fmt -- --check
 cargo clippy
 cargo bin dprint check
-cargo deny check licenses
+cargo deny check licenses -s
 '''
 lint-fix = '''set -e
 cargo cmd setup-nightly
@@ -66,16 +80,7 @@ release = '''set -e
   cargo cmd test
 
   export RUNBIN_VERSION=$(cat Cargo.toml | grep version | head -n1 | awk -F '"' '{print $2}')
-  git add .
-  git commit -m "v$RUNBIN_VERSION"
-  git tag -a "v$RUNBIN_VERSION" -m "v$RUNBIN_VERSION"
-
-  cargo publish --dry-run
-
-  git push
-  git push --tags
-  gh release create "v$RUNBIN_VERSION" --generate-notes
-  cargo publish
+  cargo release "$RUNBIN_VERSION" --execute
 '''
 
 test-coverage = '''set -e
