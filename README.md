@@ -43,10 +43,11 @@ dprint = { version = "0.30.3" }
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
 ```
 
-- `version` specifies the version of the crate.
-- `bins` _(optional)_ is an array of binaries that the crate contains that you wish to build. These can be found in a crates
-  `Cargo.toml` file. See [`tauri-mobile`](https://github.com/tauri-apps/tauri-mobile/blob/a5f3783870f48886e3266e43f92a6768fb1eb3d4/Cargo.toml#L18-L28) as an example.
-- `locked` _(optional)_ is a parameter when set to `true` runs `cargo install` with the [`--locked`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#dealing-with-the-lockfile) parameter.
+| Parameter | Required | Description                                                                                                                                                                                                                                                             |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| version   | true     | Specifies the version of the crate.                                                                                                                                                                                                                                     |
+| bins      | false    | An array of binaries that the crate contains that you wish to build. These can be found in a crates `Cargo.toml` file. See [`tauri-mobile`](https://github.com/tauri-apps/tauri-mobile/blob/a5f3783870f48886e3266e43f92a6768fb1eb3d4/Cargo.toml#L18-L28) as an example. |
+| locked    | false    | A parameter when set to `true` runs `cargo install` with the [`--locked`](https://doc.rust-lang.org/cargo/commands/cargo-install.html#dealing-with-the-lockfile) parameter.                                                                                             |
 
 If you're a fan of prebuilt binaries and fast downloads, run-bin will use [`cargo-binstall`](https://github.com/cargo-bins/cargo-binstall) if it's installed globally, or configured within `[package.metadata.bin]`, rather than building tools from source.
 
