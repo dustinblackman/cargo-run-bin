@@ -32,7 +32,7 @@ cargo-husky = { version = "1.5.0", default-features = false, features = ["user-h
 expectest = "0.12.0"
 
 [package.metadata.bin]
-cargo-binstall = { version = "1.1.2" }
+cargo-binstall = { version = "1.2.0" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
 cargo-dist = { version = "0.1.0-prerelease.10" }
