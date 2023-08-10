@@ -6,13 +6,13 @@
 
 > Build, cache, and run CLI tools scoped in `Cargo.toml` rather than installing globally. Stop the version drifts across your team, keep it all in sync within your project!
 
-- [Overview](#Overview)
-- [Install](#Install)
-- [Usage](#Usage)
+- [Overview](#overview)
+- [Install](#install)
+- [Usage](#usage)
   - [cargo bin CRATE](#cargo-bin-crate)
   - [cargo bin --sync-aliases](#cargo-bin---sync-aliases)
   - [cargo bin --install](#cargo-bin---install)
-- [License](#License)
+- [License](#license)
 
 ## Overview
 
