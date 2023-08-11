@@ -1,5 +1,3 @@
-use expectest::prelude::*;
-
 use super::*;
 
 mod install {
@@ -17,7 +15,7 @@ mod install {
             .unwrap();
 
         let cache_bin_path = install(nextest.clone()).unwrap();
-        expect!(cache_bin_path.ends_with("/bin/cargo-nextest")).to(be_equal_to(true));
+        assert!(cache_bin_path.ends_with("/bin/cargo-nextest"));
     }
 }
 
@@ -29,14 +27,14 @@ mod cargo_install {
         let res = cargo_install(
             metadata::BinaryPackage {
                 bin_target: None,
-                package: "petname".to_string(),
+                package: "dustinblackman-hello-world".to_string(),
                 locked: None,
-                version: "1.1.3".to_string(),
+                version: "0.1.0".to_string(),
             },
             "./target/debug".into(),
         );
 
-        expect!(res.is_ok()).to(be_equal_to(true));
+        assert!(res.is_ok());
     }
 }
 
@@ -48,14 +46,14 @@ mod binstall {
         let res = binstall(
             metadata::BinaryPackage {
                 bin_target: None,
-                package: "petname".to_string(),
+                package: "dustinblackman-hello-world".to_string(),
                 locked: None,
-                version: "1.1.3".to_string(),
+                version: "0.1.0".to_string(),
             },
             "./target/debug".into(),
         );
 
-        expect!(res.is_ok()).to(be_equal_to(true));
+        assert!(res.is_ok());
     }
 }
 
@@ -75,6 +73,6 @@ mod run {
         let cache_bin_path = install(nextest.clone()).unwrap();
 
         let res = run(cache_bin_path, vec!["--help".to_string()]);
-        expect(res.is_ok()).to(be_equal_to(true));
+        assert!(res.is_ok());
     }
 }

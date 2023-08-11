@@ -20,7 +20,7 @@ anyhow = "1.0.40"
 cargo_toml = "0.10.3"
 clap = "4.3.19"
 owo-colors = "3.5.0"
-serde = "1.0.149"
+serde = { version = "1.0.149", features = ["derive"] }
 toml = "0.5.9"
 toml_edit = "0.19.14"
 version_check = "0.9.3"
@@ -29,13 +29,14 @@ which = "4.4.0"
 [dev-dependencies]
 assert_cmd = "2.0.12"
 cargo-husky = { version = "1.5.0", default-features = false, features = ["user-hooks"] }
-expectest = "0.12.0"
+insta = { version = "1.31.0", features = ["yaml"] }
 
 [package.metadata.bin]
 cargo-binstall = { version = "1.2.0" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
 cargo-dist = { version = "0.1.0-prerelease.10" }
+cargo-insta = { version = "1.31.0", locked = true }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
 cargo-release = { version = "0.24.11" }
@@ -43,7 +44,13 @@ committed = { version = "1.0.20" }
 dprint = { version = "0.40.2" }
 git-cliff = { version = "1.2.0" }
 # Just added for testing
-tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"] }
+dustinblackman-hello-world = { version = "0.2.1", bins = ["hello-world-first", "hello-world-second"] }
+
+[profile.dev.package.insta]
+opt-level = 3
+
+[profile.dev.package.similar]
+opt-level = 3
 
 [profile.dist]
 inherits = "release"

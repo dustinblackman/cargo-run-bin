@@ -1,7 +1,5 @@
 use std::fs;
 
-use expectest::prelude::*;
-
 use super::*;
 
 mod sync_aliases {
@@ -15,8 +13,8 @@ mod sync_aliases {
             .parse()
             .unwrap();
 
-        expect!(res.is_ok()).to(be_equal_to(true));
-        expect!(toml_str.contains("nextest = [\"bin\", \"cargo-nextest\"]")).to(be_equal_to(true));
+        assert!(res.is_ok());
+        assert!(toml_str.contains("nextest = [\"bin\", \"cargo-nextest\"]"));
     }
 }
 
@@ -27,6 +25,6 @@ mod binstall_alias_exists {
     #[test]
     fn it_should_return_true() {
         let res = binstall_alias_exists().unwrap();
-        expect!(res).to(be_equal_to(true));
+        assert!(res);
     }
 }

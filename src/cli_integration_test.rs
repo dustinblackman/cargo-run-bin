@@ -16,7 +16,11 @@ fn it_syncs_aliases_successfully() {
     let mut cmd = Command::cargo_bin(get_bin()).unwrap();
     let assert = cmd.arg("--sync-aliases").assert();
 
-    assert.success();
+    let res = assert.success();
+    let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
+    insta::assert_snapshot!(stdout, @r###"
+    [32mDone![39m
+    "###);
 }
 
 #[test]
@@ -24,7 +28,11 @@ fn it_install_all_bins_successfully() {
     let mut cmd = Command::cargo_bin(get_bin()).unwrap();
     let assert = cmd.arg("--install").assert();
 
-    assert.success();
+    let res = assert.success();
+    let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
+    insta::assert_snapshot!(stdout, @r###"
+    [32mDone![39m
+    "###);
 }
 
 #[test]
@@ -32,7 +40,11 @@ fn it_builds_all_bins_successfully() {
     let mut cmd = Command::cargo_bin(get_bin()).unwrap();
     let assert = cmd.arg("--build").assert();
 
-    assert.success();
+    let res = assert.success();
+    let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
+    insta::assert_snapshot!(stdout, @r###"
+    [32mDone![39m
+    "###);
 }
 
 #[test]
@@ -57,4 +69,16 @@ fn it_runs_help_successfully() {
     let assert = cmd.arg("--help").assert();
 
     assert.success();
+}
+
+#[test]
+fn it_fails_when_binary_is_not_configured() {
+    let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+    let assert = cmd.arg("not-real").assert();
+
+    let res = assert.failure();
+    let stderr = String::from_utf8(res.get_output().stderr.clone()).unwrap();
+    insta::assert_snapshot!(stderr, @r###"
+    [31mrun-bin failed: No package found for binary not-real[39m
+    "###);
 }

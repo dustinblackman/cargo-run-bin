@@ -1,5 +1,3 @@
-use expectest::prelude::*;
-
 use super::*;
 
 mod get_binary_packages {
@@ -12,24 +10,24 @@ mod get_binary_packages {
             return e.package == "cargo-nextest";
         });
 
-        expect!(nextest.is_some()).to(be_equal_to(true));
+        assert!(nextest.is_some());
         let res = nextest.unwrap();
-        expect!(&res.package).to(be_equal_to("cargo-nextest"));
-        expect!(&res.version).to_not(be_equal_to(""));
-        expect!(res.locked.unwrap()).to(be_equal_to(true));
+        assert_eq!(&res.package, "cargo-nextest");
+        assert_ne!(&res.version, "");
+        assert!(res.locked.unwrap());
     }
 
     #[test]
     fn it_returns_bin_target_packages() {
         let binary_packages = get_binary_packages().unwrap();
         let android = binary_packages.iter().find(|&e| {
-            return e.bin_target.is_some() && e.bin_target.clone().unwrap() == "cargo-android";
+            return e.bin_target.is_some() && e.bin_target.clone().unwrap() == "hello-world-first";
         });
 
-        expect!(android.is_some()).to(be_equal_to(true));
+        assert!(android.is_some());
         let res = android.unwrap();
-        expect!(&res.package).to(be_equal_to("tauri-mobile"));
-        expect!(&res.version).to_not(be_equal_to(""));
-        expect!(res.bin_target.clone().unwrap()).to(be_equal_to("cargo-android"));
+        assert_eq!(&res.package, "dustinblackman-hello-world");
+        assert_ne!(&res.version, "");
+        assert_eq!(res.bin_target.clone().unwrap(), "hello-world-first");
     }
 }

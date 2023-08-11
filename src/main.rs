@@ -16,7 +16,7 @@ fn main() {
     // Only reached if run-bin code fails, otherwise process exits early from within
     // binary::run.
     if let Err(res) = res {
-        println!("{}", format!("run-bin failed: {res}").red());
+        eprintln!("{}", format!("run-bin failed: {res}").red());
         process::exit(1);
     }
 }
