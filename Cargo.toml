@@ -90,9 +90,9 @@ cargo bin dprint fmt
 '''
 
 setup-nightly = '''
-  export RUNBIN_NIGHTLY=nightly-2023-06-16
-  rustup toolchain install "$RUNBIN_NIGHTLY" --component llvm-tools-preview rustfmt --force
-  rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $RUNBIN_NIGHTLY | grep '^nightly-' | awk '{print $2}')"
+  export NIGHTLY=nightly-2023-06-16
+  rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
+  rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $NIGHTLY | grep '^nightly-' | awk '{print $2}')"
 '''
 
 test-coverage = '''set -e
