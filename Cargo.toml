@@ -71,7 +71,7 @@ unix-archive = ".tar.gz"
 
 # Config for 'cargo release'
 [package.metadata.release]
-pre-release-hook = ["bash", "-c", "cargo cmd lint && cargo cmd test && cargo bin git-cliff -o CHANGELOG.md --tag {{version}}"]
+pre-release-hook = ["bash", "-c", "cargo cmd lint && cargo cmd test && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt"]
 allow-branch = ["master"]
 
 [package.metadata.commands]
