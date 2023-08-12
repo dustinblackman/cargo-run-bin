@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.5] - 2023-08-12
+
+### Bug Fixes
+
+- Help command when using cargo
+
+### Documentation
+
+- Update parameters table
+- Fix links
+
+### Miscellaneous Tasks
+
+- Add release and changelog scripts
+- Add commit linting
+- Remove unused deps
+- Upgrade binstall to 1.2.0
+- Add release profile
+- Speed up nightly setup command
+- Update dprint
+
+### Testing
+
+- CLI integration snapshots
+
 ## [1.1.4] - 2023-08-08
 
 ### Miscellaneous Tasks
