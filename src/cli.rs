@@ -78,6 +78,12 @@ pub fn run() -> Result<()> {
         .num_args(0)
         .help("Install/build all configured binaries, skips entries that are already installed.");
 
+    let arg_help = Arg::new("help")
+        .short('h')
+        .long("help")
+        .num_args(0)
+        .help("Print help");
+
     // @deprecated: Use --install.
     let arg_build = Arg::new("build")
         .short('b')
@@ -97,9 +103,11 @@ pub fn run() -> Result<()> {
         .subcommand(
             Command::new("bin")
                 .hide(true)
+                .disable_help_flag(true)
                 .arg(arg_sync_aliases)
                 .arg(arg_install)
-                .arg(arg_build),
+                .arg(arg_build)
+                .arg(arg_help),
         );
 
     let matches = app.clone().get_matches();
@@ -108,6 +116,8 @@ pub fn run() -> Result<()> {
         sync_aliases()?;
     } else if arg_used(&matches, "install") || arg_used(&matches, "build") {
         install_all_binaries()?;
+    } else if arg_used(&matches, "help") {
+        app.print_long_help()?;
     } else {
         let mut args: Vec<_> = env::args().collect();
         let start_index = args.iter().position(|e| return e.ends_with("/cargo-bin"));
