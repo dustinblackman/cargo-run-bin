@@ -52,9 +52,13 @@ opt-level = 3
 [profile.dev.package.similar]
 opt-level = 3
 
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = "symbols"
+
 [profile.dist]
 inherits = "release"
-lto = "thin"
 
 # Config for 'cargo dist'
 [workspace.metadata.dist]
