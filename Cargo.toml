@@ -90,6 +90,7 @@ cargo +runbin-nightly fmt
 cargo bin dprint fmt
 '''
 
+get-nightly-name = 'echo runbin-nightly'
 setup-nightly = '''
   export NIGHTLY=nightly-2023-06-16
   rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
