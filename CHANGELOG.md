@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2023-08-26
+
+[d803d74...208b000](https://github.com/dustinblackman/cargo-run-bin/compare/d803d74f79384f6b9707eecc6bc58a156f7d3ba4...208b000f47ee7666009a066a9f2a5124275ea381)
+
+### Bug Fixes
+
+- Nightly setup ([c50b3a5](https://github.com/dustinblackman/cargo-run-bin/commit/c50b3a520f5f0aee7579f816fc8b89b6309fd5d5))
+
+### Documentation
+
+- Add commit hashes to changelog ([28e7c84](https://github.com/dustinblackman/cargo-run-bin/commit/28e7c8488da0972b382cb729ad07e208b3535e81))
+
+### Features
+
+- Add support for Cargo workspaces ([208b000](https://github.com/dustinblackman/cargo-run-bin/commit/208b000f47ee7666009a066a9f2a5124275ea381))
+
 ## [1.1.5] - 2023-08-12
 
 [494d7ac...d803d74](https://github.com/dustinblackman/cargo-run-bin/compare/494d7acfefc7ac8a3e2124b50fcd3f951fc5d196...d803d74f79384f6b9707eecc6bc58a156f7d3ba4)
