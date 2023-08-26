@@ -43,6 +43,14 @@ dprint = { version = "0.30.3" }
 tauri-mobile = { version = "0.5.2", bins = ["cargo-android", "cargo-mobile"], locked = true }
 ```
 
+Or if you're setting up in a workspace:
+
+```toml
+[workspace.metadata.bin]
+cargo-binstall = { version = "1.1.2" }
+cargo-nextest = { version = "0.9.57", locked = true }
+```
+
 | Parameter | Required | Description                                                                                                                                                                                                                                                             |
 | --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | version   | true     | Specifies the version of the crate.                                                                                                                                                                                                                                     |

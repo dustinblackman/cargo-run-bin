@@ -1,13 +1,14 @@
 use std::collections::HashMap;
 use std::env;
-use std::fs::read_dir;
+use std::fs;
 use std::path::PathBuf;
 
 use anyhow::anyhow;
 use anyhow::bail;
 use anyhow::Result;
-use cargo_toml::Manifest;
 use serde::Deserialize;
+use toml_edit::Document;
+use toml_edit::Item;
 
 #[cfg(test)]
 #[path = "metadata_test.rs"]
@@ -20,10 +21,7 @@ struct MetadataValue {
     bins: Option<Vec<String>>,
 }
 
-#[derive(Deserialize, Debug, PartialEq)]
-struct Metadata {
-    bin: HashMap<String, MetadataValue>,
-}
+type MetadataBins = HashMap<String, MetadataValue>;
 
 #[derive(Clone)]
 pub struct BinaryPackage {
@@ -38,7 +36,7 @@ pub fn get_project_root() -> Result<PathBuf> {
     let path_ancestors = path.as_path().ancestors();
 
     for p in path_ancestors {
-        let has_cargo = read_dir(p)?.any(|p| return p.unwrap().file_name() == *"Cargo.lock");
+        let has_cargo = fs::read_dir(p)?.any(|p| return p.unwrap().file_name() == *"Cargo.lock");
 
         if has_cargo {
             return Ok(PathBuf::from(p));
@@ -48,43 +46,43 @@ pub fn get_project_root() -> Result<PathBuf> {
     return Err(anyhow!("Root directory for rust project not found."));
 }
 
-fn load_cargo_manifest() -> Result<Manifest> {
-    let project_root = get_project_root()?;
-    let toml_manifest = Manifest::from_path(project_root.join("Cargo.toml"))?;
-    return Ok(toml_manifest);
-}
-
-fn get_metadata_binaries(toml_manifest: Manifest) -> Result<Metadata> {
-    let metadata_binaries_str = toml_manifest
-        .package
-        .as_ref()
-        .and_then(|pkg| {
-            return pkg.metadata.as_ref().map(|metadata_val| {
-                return metadata_val.to_string();
-            });
-        })
-        .ok_or_else(|| return "".to_string())
-        .unwrap_or_else(|_| return "".to_string());
-
-    if !metadata_binaries_str.is_empty() {
-        let metadata_res: Result<Metadata, toml::de::Error> =
-            toml::from_str(&metadata_binaries_str);
-
-        if let Ok(metadata) = metadata_res {
-            return Ok(metadata);
+fn toml_has_path(doc: &Item, keys: Vec<&str>) -> bool {
+    let mut item = doc;
+    for key in keys {
+        if item.get(key).is_none() {
+            return false;
         }
+        item = &item[key];
     }
 
-    bail!("No binaries configured in Cargo.toml");
+    return true;
+}
+
+fn get_metadata_binaries() -> Result<MetadataBins> {
+    let toml_str: String = fs::read_to_string(get_project_root()?.join("Cargo.toml"))?.parse()?;
+    let doc = toml_str.parse::<Document>()?;
+
+    let mut metadata_str = "".to_string();
+    if toml_has_path(doc.as_item(), vec!["package", "metadata", "bin"]) {
+        metadata_str = doc["package"]["metadata"]["bin"].to_string();
+    } else if toml_has_path(doc.as_item(), vec!["workspace", "metadata", "bin"]) {
+        metadata_str = doc["workspace"]["metadata"]["bin"].to_string();
+    }
+
+    if metadata_str.is_empty() {
+        bail!("No binaries configured in Cargo.toml");
+    }
+
+    let metadata_res: Result<MetadataBins, toml::de::Error> = toml::from_str(&metadata_str);
+    return Ok(metadata_res?);
 }
 
 pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
-    let manifest = load_cargo_manifest()?;
-    let metadata = get_metadata_binaries(manifest)?;
+    let metadata = get_metadata_binaries()?;
 
     let mut binary_details: Vec<BinaryPackage> = Vec::new();
 
-    for (pkg_name, pkg_details) in metadata.bin.into_iter() {
+    for (pkg_name, pkg_details) in metadata.into_iter() {
         if let Some(pkg_bins) = pkg_details.bins {
             for bin_target in pkg_bins.iter() {
                 binary_details.push(BinaryPackage {

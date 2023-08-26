@@ -17,7 +17,6 @@ path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.40"
-cargo_toml = "0.10.3"
 clap = "4.3.19"
 owo-colors = "3.5.0"
 serde = { version = "1.0.149", features = ["derive"] }

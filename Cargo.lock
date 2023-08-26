@@ -102,7 +102,6 @@ dependencies = [
  "anyhow",
  "assert_cmd",
  "cargo-husky",
- "cargo_toml",
  "clap",
  "insta",
  "owo-colors",
@@ -111,17 +110,6 @@ dependencies = [
  "toml_edit",
  "version_check",
  "which",
-]
-
-[[package]]
-name = "cargo_toml"
-version = "0.10.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "363c7cfaa15f101415c4ac9e68706ca4a2277773932828b33f96e59d28c68e62"
-dependencies = [
- "serde",
- "serde_derive",
- "toml",
 ]
 
 [[package]]
