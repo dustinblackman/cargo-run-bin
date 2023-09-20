@@ -19,6 +19,8 @@ struct MetadataValue {
     version: String,
     locked: Option<bool>,
     bins: Option<Vec<String>>,
+    default_features: Option<bool>,
+    features: Option<Vec<String>>,
 }
 
 type MetadataBins = HashMap<String, MetadataValue>;
@@ -29,6 +31,8 @@ pub struct BinaryPackage {
     pub package: String,
     pub locked: Option<bool>,
     pub version: String,
+    pub default_features: Option<bool>,
+    pub features: Option<Vec<String>>,
 }
 
 pub fn get_project_root() -> Result<PathBuf> {
@@ -90,6 +94,8 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
                     package: pkg_name.clone(),
                     locked: pkg_details.locked,
                     version: pkg_details.version.clone(),
+                    default_features: pkg_details.default_features,
+                    features: pkg_details.features.clone(),
                 });
             }
         } else {
@@ -98,6 +104,8 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
                 package: pkg_name,
                 locked: pkg_details.locked,
                 version: pkg_details.version,
+                default_features: pkg_details.default_features,
+                features: pkg_details.features,
             });
         }
     }

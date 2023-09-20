@@ -43,6 +43,17 @@ pub fn cargo_install(
         }
     }
 
+    if let Some(features) = &binary_package.features {
+        cmd_prefix.arg("--features");
+        cmd_prefix.arg(features.join(","));
+    }
+
+    if let Some(default_features) = &binary_package.default_features {
+        if !*default_features {
+            cmd_prefix.arg("--no-default-features");
+        }
+    }
+
     cmd_prefix.arg(binary_package.package).output()?;
 
     return Ok(());
@@ -106,6 +117,8 @@ pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
     if !path::Path::new(&cache_bin_path).exists() {
         fs::create_dir_all(&cache_path)?;
         if binary_package.bin_target.is_none()
+            && binary_package.features.is_none()
+            && binary_package.default_features.is_none()
             && binary_package.package != "cargo-binstall"
             && (cargo_config::binstall_alias_exists()? || which("cargo-binstall").is_ok())
         {

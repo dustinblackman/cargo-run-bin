@@ -30,6 +30,8 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                default_features: None,
+                features: None,
             },
             "./target/debug".into(),
         );
@@ -49,6 +51,8 @@ mod binstall {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                default_features: None,
+                features: None,
             },
             "./target/debug".into(),
         );
