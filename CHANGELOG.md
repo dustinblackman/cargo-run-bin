@@ -2,13 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.2] - 2023-09-20
+
+[83349f9...3c15340](https://github.com/dustinblackman/cargo-run-bin/compare/83349f99e01d665336d26ff7753ffb2a5a6ffb12...3c153408947f3aee7a09d7041c9a1d9fdfe5f3a5)
+
+### Bug Fixes
+
+- Deserailizing default-features ([3c15340](https://github.com/dustinblackman/cargo-run-bin/commit/3c153408947f3aee7a09d7041c9a1d9fdfe5f3a5))
+
 ## [1.3.1] - 2023-09-20
 
-[f044465...0914ff7](https://github.com/dustinblackman/cargo-run-bin/compare/f044465c6df800fd4694334982cffa76a7157ec2...0914ff7ba3316d3b9cddc025febf75df3135a002)
+[f044465...83349f9](https://github.com/dustinblackman/cargo-run-bin/compare/f044465c6df800fd4694334982cffa76a7157ec2...83349f99e01d665336d26ff7753ffb2a5a6ffb12)
 
 ### Bug Fixes
 
 - Duplicate PATH entries ([0914ff7](https://github.com/dustinblackman/cargo-run-bin/commit/0914ff7ba3316d3b9cddc025febf75df3135a002))
+
+### Miscellaneous Tasks
+
+- Release cargo-run-bin version 1.3.1 ([83349f9](https://github.com/dustinblackman/cargo-run-bin/commit/83349f99e01d665336d26ff7753ffb2a5a6ffb12))
 
 ## [1.3.0] - 2023-09-20
 
