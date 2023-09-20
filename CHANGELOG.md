@@ -2,9 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2023-09-20
+
+[b600075...c6f752f](https://github.com/dustinblackman/cargo-run-bin/compare/b600075b1af551d509fdf9fcfeeff97d74c5d446...c6f752f24a01077fb260c9561c7b4aeed1972fdf)
+
+### Features
+
+- Add crate features config ([e7d0f4d](https://github.com/dustinblackman/cargo-run-bin/commit/e7d0f4d9ccff32aeb9a04088d84ce933d85d4885))
+- Add alias scripts ([3c6dbac](https://github.com/dustinblackman/cargo-run-bin/commit/3c6dbace4e5f2e1442f7da9805aa5a61e8ba5c9b))
+- Add cargo-gha to path if it exists ([c404b48](https://github.com/dustinblackman/cargo-run-bin/commit/c404b480e17e9abf12586dc865111d7546609849))
+
+### Miscellaneous Tasks
+
+- Update lockfile ([c6f752f](https://github.com/dustinblackman/cargo-run-bin/commit/c6f752f24a01077fb260c9561c7b4aeed1972fdf))
+
 ## [1.2.0] - 2023-08-26
 
-[d803d74...208b000](https://github.com/dustinblackman/cargo-run-bin/compare/d803d74f79384f6b9707eecc6bc58a156f7d3ba4...208b000f47ee7666009a066a9f2a5124275ea381)
+[d803d74...b600075](https://github.com/dustinblackman/cargo-run-bin/compare/d803d74f79384f6b9707eecc6bc58a156f7d3ba4...b600075b1af551d509fdf9fcfeeff97d74c5d446)
 
 ### Bug Fixes
 
@@ -17,6 +31,10 @@ All notable changes to this project will be documented in this file.
 ### Features
 
 - Add support for Cargo workspaces ([208b000](https://github.com/dustinblackman/cargo-run-bin/commit/208b000f47ee7666009a066a9f2a5124275ea381))
+
+### Miscellaneous Tasks
+
+- Release cargo-run-bin version 1.2.0 ([b600075](https://github.com/dustinblackman/cargo-run-bin/commit/b600075b1af551d509fdf9fcfeeff97d74c5d446))
 
 ## [1.1.5] - 2023-08-12
 
