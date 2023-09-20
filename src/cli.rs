@@ -10,6 +10,7 @@ use owo_colors::OwoColorize;
 use crate::binary;
 use crate::cargo_config;
 use crate::metadata;
+use crate::shell_alias;
 
 #[cfg(test)]
 #[path = "cli_integration_test.rs"]
@@ -42,6 +43,7 @@ fn run_binary(binary_name: String, args: Vec<String>) -> Result<()> {
     }
 
     let bin_path = binary::install(binary_package.unwrap().clone())?;
+    shell_alias::sync_aliases()?;
     binary::run(bin_path, args)?;
 
     return Ok(());

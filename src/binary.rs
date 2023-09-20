@@ -1,3 +1,4 @@
+use std::env;
 use std::fs;
 use std::io;
 use std::os::fd::AsFd;
@@ -144,11 +145,24 @@ pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
         final_args.append(&mut args.clone());
     }
 
+    let mut system_shell_paths = env::var("PATH")
+        .unwrap_or("".to_string())
+        .split(':')
+        .map(|e| return e.to_string())
+        .collect::<Vec<String>>();
+
+    let project_root = metadata::get_project_root()?;
+    let mut shell_paths = vec![project_root.join(".bin/.bin").to_string_lossy().to_string()];
+
+
+    shell_paths.append(&mut system_shell_paths);
+
     let spawn = process::Command::new(bin_path.clone())
         .stdout(process::Stdio::inherit())
         .stderr(process::Stdio::inherit())
         .stdin(process::Stdio::inherit())
         .args(&final_args)
+        .env("PATH", shell_paths.join(":"))
         .spawn();
 
     if let Ok(mut spawn) = spawn {
