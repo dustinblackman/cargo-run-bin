@@ -19,6 +19,7 @@ struct MetadataValue {
     version: String,
     locked: Option<bool>,
     bins: Option<Vec<String>>,
+    #[serde(alias = "default-features")]
     default_features: Option<bool>,
     features: Option<Vec<String>>,
 }
