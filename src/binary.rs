@@ -152,12 +152,17 @@ pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
         .collect::<Vec<String>>();
 
     let project_root = metadata::get_project_root()?;
-    let mut shell_paths = vec![project_root.join(".bin/.bin").to_string_lossy().to_string()];
+    let mut shell_paths = vec![];
+
+    let runbin = project_root.join(".bin/.bin").to_string_lossy().to_string();
+    if !system_shell_paths.contains(&runbin) {
+        shell_paths.push(runbin);
+    }
 
     // https://github.com/dustinblackman/cargo-gha
     let gha = project_root.join(".gha/.bin");
-    if gha.exists() {
-        shell_paths.append(&mut vec![gha.to_string_lossy().to_string()]);
+    if gha.exists() && !system_shell_paths.contains(&gha.to_string_lossy().to_string()) {
+        shell_paths.push(gha.to_string_lossy().to_string());
     }
 
     shell_paths.append(&mut system_shell_paths);
