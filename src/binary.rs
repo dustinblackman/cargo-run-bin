@@ -34,6 +34,17 @@ pub fn cargo_install(
         .arg("--version")
         .arg(binary_package.version);
 
+    if let Some(git) = &binary_package.git {
+        cmd_prefix.arg("--git").arg(git);
+        if let Some(branch) = &binary_package.branch {
+            cmd_prefix.arg("--branch").arg(branch);
+        } else if let Some(tag) = &binary_package.tag {
+            cmd_prefix.arg("--tag").arg(tag);
+        } else if let Some(rev) = &binary_package.rev {
+            cmd_prefix.arg("--rev").arg(rev);
+        }
+    }
+
     if let Some(bin_target) = &binary_package.bin_target {
         cmd_prefix.arg("--bin").arg(bin_target);
     }
@@ -75,6 +86,10 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
         .arg(&cache_path)
         .arg("--install-path")
         .arg(cache_path.join("bin"));
+
+    if let Some(git) = &binary_package.git {
+        cmd_prefix.arg("--git").arg(git);
+    }
 
     if let Some(locked) = &binary_package.locked {
         if *locked {
@@ -120,6 +135,9 @@ pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
         if binary_package.bin_target.is_none()
             && binary_package.features.is_none()
             && binary_package.default_features.is_none()
+            && binary_package.branch.is_none()
+            && binary_package.tag.is_none()
+            && binary_package.rev.is_none()
             && binary_package.package != "cargo-binstall"
             && (cargo_config::binstall_alias_exists()? || which("cargo-binstall").is_ok())
         {

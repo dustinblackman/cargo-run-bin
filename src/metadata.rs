@@ -17,6 +17,10 @@ mod metadata_test;
 #[derive(Deserialize, Debug, PartialEq)]
 struct MetadataValue {
     version: String,
+    git: Option<String>,
+    branch: Option<String>,
+    tag: Option<String>,
+    rev: Option<String>,
     locked: Option<bool>,
     bins: Option<Vec<String>>,
     #[serde(alias = "default-features")]
@@ -32,6 +36,10 @@ pub struct BinaryPackage {
     pub package: String,
     pub locked: Option<bool>,
     pub version: String,
+    pub git: Option<String>,
+    pub branch: Option<String>,
+    pub tag: Option<String>,
+    pub rev: Option<String>,
     pub default_features: Option<bool>,
     pub features: Option<Vec<String>>,
 }
@@ -95,6 +103,10 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
                     package: pkg_name.clone(),
                     locked: pkg_details.locked,
                     version: pkg_details.version.clone(),
+                    git: pkg_details.git.clone(),
+                    branch: pkg_details.branch.clone(),
+                    tag: pkg_details.tag.clone(),
+                    rev: pkg_details.rev.clone(),
                     default_features: pkg_details.default_features,
                     features: pkg_details.features.clone(),
                 });
@@ -105,6 +117,10 @@ pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
                 package: pkg_name,
                 locked: pkg_details.locked,
                 version: pkg_details.version,
+                git: pkg_details.git,
+                branch: pkg_details.branch,
+                tag: pkg_details.tag,
+                rev: pkg_details.rev,
                 default_features: pkg_details.default_features,
                 features: pkg_details.features,
             });

@@ -27,7 +27,9 @@ which = "4.4.0"
 
 [dev-dependencies]
 assert_cmd = "2.0.12"
-cargo-husky = { version = "1.5.0", default-features = false, features = ["user-hooks"] }
+cargo-husky = { version = "1.5.0", default-features = false, features = [
+  "user-hooks",
+] }
 insta = { version = "1.31.0", features = ["yaml"] }
 
 [package.metadata.bin]
@@ -44,7 +46,10 @@ committed = { version = "1.0.20" }
 dprint = { version = "0.40.2" }
 git-cliff = { version = "1.2.0" }
 # Just added for testing
-dustinblackman-hello-world = { version = "0.2.1", bins = ["hello-world-first", "hello-world-second"] }
+dustinblackman-hello-world = { version = "0.2.1", git = "https://github.com/dustinblackman/rust-hello-world", bins = [
+  "hello-world-first",
+  "hello-world-second",
+] }
 
 [profile.dev.package.insta]
 opt-level = 3
@@ -65,12 +70,20 @@ inherits = "release"
 cargo-dist-version = "0.1.0-prerelease.10"
 ci = ["github"]
 installers = []
-targets = ["x86_64-unknown-linux-gnu", "x86_64-apple-darwin", "aarch64-apple-darwin"]
+targets = [
+  "x86_64-unknown-linux-gnu",
+  "x86_64-apple-darwin",
+  "aarch64-apple-darwin",
+]
 unix-archive = ".tar.gz"
 
 # Config for 'cargo release'
 [package.metadata.release]
-pre-release-hook = ["bash", "-c", "cargo cmd lint && cargo cmd test && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt"]
+pre-release-hook = [
+  "bash",
+  "-c",
+  "cargo cmd lint && cargo cmd test && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt",
+]
 allow-branch = ["master"]
 
 [package.metadata.commands]

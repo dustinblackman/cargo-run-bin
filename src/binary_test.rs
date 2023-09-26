@@ -30,6 +30,31 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                git: None,
+                branch: None,
+                tag: None,
+                rev: None,
+                default_features: None,
+                features: None,
+            },
+            "./target/debug".into(),
+        );
+
+        assert!(res.is_ok());
+    }
+
+    #[test]
+    fn it_builds_successfully_with_git() {
+        let res = cargo_install(
+            metadata::BinaryPackage {
+                bin_target: None,
+                package: "dustinblackman-hello-world".to_string(),
+                locked: None,
+                version: "0.2.0".to_string(),
+                git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
+                branch: None,
+                tag: None,
+                rev: Some("8a1cd3d2538460d1e8920bf86cf6e2aa982eb69d".to_string()),
                 default_features: None,
                 features: None,
             },
@@ -51,6 +76,31 @@ mod binstall {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                git: None,
+                branch: None,
+                tag: None,
+                rev: None,
+                default_features: None,
+                features: None,
+            },
+            "./target/debug".into(),
+        );
+
+        assert!(res.is_ok());
+    }
+
+    #[test]
+    fn it_builds_successfully_with_git() {
+        let res = binstall(
+            metadata::BinaryPackage {
+                bin_target: None,
+                package: "dustinblackman-hello-world".to_string(),
+                locked: None,
+                version: "0.1.0".to_string(),
+                git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
+                branch: None,
+                tag: None,
+                rev: None,
                 default_features: None,
                 features: None,
             },
