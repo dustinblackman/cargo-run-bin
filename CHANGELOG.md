@@ -2,13 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2023-10-04
+
+[be3cc40...a97993c](https://github.com/dustinblackman/cargo-run-bin/compare/be3cc4059b7d961819d3c47268f30ee1b87b0ec1...a97993c9abb74259084f37857a40c3f6b2dad576)
+
+### Documentation
+
+- Add git ([a97993c](https://github.com/dustinblackman/cargo-run-bin/commit/a97993c9abb74259084f37857a40c3f6b2dad576))
+
+### Features
+
+- Support git in package source ([7151499](https://github.com/dustinblackman/cargo-run-bin/commit/7151499b4b47861f84c63b958af8cd36aa8648a9))
+
+### Miscellaneous Tasks
+
+- Lint ([ebba9c4](https://github.com/dustinblackman/cargo-run-bin/commit/ebba9c44f97ab0331f8114b72a99caf60c0d8de4))
+
+### Testing
+
+- Additional git flows ([a6144eb](https://github.com/dustinblackman/cargo-run-bin/commit/a6144ebcb9bb38479a78b8caf50afbd27551983d))
+
 ## [1.3.2] - 2023-09-20
 
-[83349f9...3c15340](https://github.com/dustinblackman/cargo-run-bin/compare/83349f99e01d665336d26ff7753ffb2a5a6ffb12...3c153408947f3aee7a09d7041c9a1d9fdfe5f3a5)
+[83349f9...be3cc40](https://github.com/dustinblackman/cargo-run-bin/compare/83349f99e01d665336d26ff7753ffb2a5a6ffb12...be3cc4059b7d961819d3c47268f30ee1b87b0ec1)
 
 ### Bug Fixes
 
 - Deserailizing default-features ([3c15340](https://github.com/dustinblackman/cargo-run-bin/commit/3c153408947f3aee7a09d7041c9a1d9fdfe5f3a5))
+
+### Miscellaneous Tasks
+
+- Release cargo-run-bin version 1.3.2 ([be3cc40](https://github.com/dustinblackman/cargo-run-bin/commit/be3cc4059b7d961819d3c47268f30ee1b87b0ec1))
 
 ## [1.3.1] - 2023-09-20
 
