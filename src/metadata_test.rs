@@ -28,6 +28,10 @@ mod get_binary_packages {
         let res = android.unwrap();
         assert_eq!(&res.package, "dustinblackman-hello-world");
         assert_ne!(&res.version, "");
+        assert_eq!(
+            &res.git,
+            &Some("https://github.com/dustinblackman/rust-hello-world".to_string())
+        );
         assert_eq!(res.bin_target.clone().unwrap(), "hello-world-first");
     }
 }
