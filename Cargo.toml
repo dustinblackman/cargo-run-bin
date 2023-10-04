@@ -27,9 +27,7 @@ which = "4.4.0"
 
 [dev-dependencies]
 assert_cmd = "2.0.12"
-cargo-husky = { version = "1.5.0", default-features = false, features = [
-  "user-hooks",
-] }
+cargo-husky = { version = "1.5.0", default-features = false, features = ["user-hooks"] }
 insta = { version = "1.31.0", features = ["yaml"] }
 
 [package.metadata.bin]
@@ -46,10 +44,7 @@ committed = { version = "1.0.20" }
 dprint = { version = "0.40.2" }
 git-cliff = { version = "1.2.0" }
 # Just added for testing
-dustinblackman-hello-world = { version = "0.2.1", git = "https://github.com/dustinblackman/rust-hello-world", bins = [
-  "hello-world-first",
-  "hello-world-second",
-] }
+dustinblackman-hello-world = { version = "0.2.1", git = "https://github.com/dustinblackman/rust-hello-world", bins = ["hello-world-first", "hello-world-second"] }
 
 [profile.dev.package.insta]
 opt-level = 3
