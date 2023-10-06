@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.4.0..1.4.1) - 2023-10-06
+
+### 📚 Documentation
+
+- Change changelog format - ([b784580](https://github.com/dustinblackman/cargo-run-bin/commit/b784580ebd613f273527bec147baad6b385b848a))
+
+### ⚙️ Miscellaneous Tasks
+
+- Lint - ([16124e7](https://github.com/dustinblackman/cargo-run-bin/commit/16124e7f64308981c902fca5d8e5c3e42863e086))
+- Aliases -> Shims - ([00ca465](https://github.com/dustinblackman/cargo-run-bin/commit/00ca465948bc27afaaf767f263ff3c62e464f003))
+- `tauri-mobile` -> `cargo-mobile2` - ([e2130fe](https://github.com/dustinblackman/cargo-run-bin/commit/e2130fe1b0813e153ac49ac78bdbb3d289d64bc2))
+
 ## [1.4.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.3.2..v1.4.0) - 2023-10-04
 
 ### ⛰️ Features
