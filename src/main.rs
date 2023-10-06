@@ -9,7 +9,7 @@ mod binary;
 mod cargo_config;
 mod cli;
 mod metadata;
-mod shell_alias;
+mod shims;
 
 fn main() {
     let res = cli::run();

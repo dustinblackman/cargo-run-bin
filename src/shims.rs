@@ -8,10 +8,10 @@ use anyhow::Result;
 use crate::metadata;
 
 #[cfg(test)]
-#[path = "shell_alias_test.rs"]
-mod shell_alias_test;
+#[path = "shims_test.rs"]
+mod shims_test;
 
-fn create_shell_script(binary: &str) -> Result<String> {
+fn create_shim(binary: &str) -> Result<String> {
     let shell = env::var("SHELL")
         .unwrap_or("bash".to_string())
         .split('/')
@@ -32,8 +32,8 @@ fi"#
     return Ok(script);
 }
 
-pub fn sync_aliases() -> Result<()> {
-    let bin_dir = metadata::get_project_root()?.join(".bin/.bin");
+pub fn sync() -> Result<()> {
+    let bin_dir = metadata::get_project_root()?.join(".bin/.shims");
     if !bin_dir.exists() {
         fs::create_dir_all(&bin_dir)?;
     }
@@ -48,7 +48,7 @@ pub fn sync_aliases() -> Result<()> {
             continue;
         }
 
-        let script = create_shell_script(&bin)?;
+        let script = create_shim(&bin)?;
         let bin_path = bin_dir.join(&bin);
         if bin_path.exists() {
             continue;
