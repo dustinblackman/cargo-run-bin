@@ -44,6 +44,9 @@ pub fn cargo_install(
             cmd_prefix.arg("--rev").arg(rev);
         }
     }
+    else if let Some(path) = &binary_package.path {
+        cmd_prefix.arg("--path").arg(path);
+    }
 
     if let Some(bin_target) = &binary_package.bin_target {
         cmd_prefix.arg("--bin").arg(bin_target);
