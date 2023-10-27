@@ -62,6 +62,7 @@ cargo-nextest = { version = "0.9.57", locked = true }
 | branch           | String        | false    | A git branch to install from when `git` is set. This takes priority over `tag` and `rev`                                                                                                                                                                                  |
 | tag              | String        | false    | A git tag to install from when `git` is set. `branch` will take priority if set, and takes priority over `rev`.                                                                                                                                                           |
 | rev              | String        | false    | A git revision to install from when `git` is set. `branch` and `tag` will take priority if set.                                                                                                                                                                           |
+| path             | String        | false    | The path to a local crate to install.                                                                                                                                                                                                                                     |
 
 If you're a fan of prebuilt binaries and fast downloads, run-bin will use [`cargo-binstall`](https://github.com/cargo-bins/cargo-binstall) if it's installed globally, or configured within `[package.metadata.bin]`, rather than building tools from source.
 
