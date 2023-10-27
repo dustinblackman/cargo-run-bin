@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2023-10-27
+
+[v1.4.1..1.5.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.4.1..1.5.0)
+
+### ⛰️ Features
+
+- Support path in package source - ([d4c8c39](https://github.com/dustinblackman/cargo-run-bin/commit/d4c8c392e5f8b40e330cd5b596eda68b1d378e79))
+
+### 🐛 Bug Fixes
+
+- Cargo.lock - ([505a155](https://github.com/dustinblackman/cargo-run-bin/commit/505a1559ae74893d55b9712ddafec0b57f7e1c5d))
+- Upgrade cargo-binstall dep - ([e2f746c](https://github.com/dustinblackman/cargo-run-bin/commit/e2f746c37f3954688fb535318d73cddc4255daf4))
+- Changelog - ([1ac6a3d](https://github.com/dustinblackman/cargo-run-bin/commit/1ac6a3d7cd331967c3bd5d9061d6b6862e33c030))
+
+### 📚 Documentation
+
+- Add path - ([21fc3db](https://github.com/dustinblackman/cargo-run-bin/commit/21fc3db067967e36994e297cc09236c089ecc9b9))
+
+### ⚙️ Miscellaneous Tasks
+
+- Fix binary.rs lint - ([8f50248](https://github.com/dustinblackman/cargo-run-bin/commit/8f5024858944f82a9660a8cc49b69ad244e6d6c3))
+
 ## [1.4.1] - 2023-10-06
 
 [v1.4.0..v1.4.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.4.0..v1.4.1)
