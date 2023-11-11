@@ -1,3 +1,5 @@
+<h1 align=center>cargo-run-bin</h1>
+
 ![cargo-run-bin](.github/banner.png)
 
 [![Build status](https://github.com/dustinblackman/cargo-run-bin/workflows/ci/badge.svg)](https://github.com/dustinblackman/cargo-run-bin/actions)
