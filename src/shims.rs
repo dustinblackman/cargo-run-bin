@@ -1,9 +1,10 @@
 use std::env;
 use std::fs;
 use std::io::Write;
-use std::os::unix::prelude::OpenOptionsExt;
+use std::path;
 
 use anyhow::Result;
+use cfg_if::cfg_if;
 
 use crate::metadata;
 
@@ -11,7 +12,10 @@ use crate::metadata;
 #[path = "shims_test.rs"]
 mod shims_test;
 
-fn create_shim(binary: &str) -> Result<String> {
+#[cfg(target_family = "unix")]
+fn create_shim(binary: &str, bin_path: path::PathBuf) -> Result<()> {
+    use std::os::unix::prelude::OpenOptionsExt;
+
     let shell = env::var("SHELL")
         .unwrap_or("bash".to_string())
         .split('/')
@@ -29,7 +33,33 @@ else
 fi"#
     );
 
-    return Ok(script);
+    let mut f = fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .mode(0o770)
+        .open(bin_path)?;
+
+    write!(f, "{}", script)?;
+
+    return Ok(());
+}
+
+#[cfg(not(target_family = "unix"))]
+fn create_shim(binary: &str, bin_path: path::PathBuf) -> Result<()> {
+    let script = format!(
+        r#"@echo off
+cargo bin {binary} %*
+"#
+    );
+
+    let mut f = fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .open(bin_path)?;
+
+    write!(f, "{}", script)?;
+
+    return Ok(());
 }
 
 pub fn sync() -> Result<()> {
@@ -48,18 +78,18 @@ pub fn sync() -> Result<()> {
             continue;
         }
 
-        let script = create_shim(&bin)?;
-        let bin_path = bin_dir.join(&bin);
+        let mut bin_path = bin_dir.join(&bin);
+        bin_path.set_extension("");
+        cfg_if! {
+            if #[cfg(not(target_family = "unix"))] {
+                bin_path.set_extension("cmd");
+            }
+        }
         if bin_path.exists() {
             continue;
         }
-        let mut f = fs::OpenOptions::new()
-            .create(true)
-            .write(true)
-            .mode(0o770)
-            .open(&bin_path)?;
 
-        write!(f, "{}", script)?;
+        create_shim(&bin, bin_path)?;
     }
 
     return Ok(());

@@ -122,7 +122,9 @@ pub fn run() -> Result<()> {
         app.print_long_help()?;
     } else {
         let mut args: Vec<_> = env::args().collect();
-        let start_index = args.iter().position(|e| return e.ends_with("/cargo-bin"));
+        let start_index = args
+            .iter()
+            .position(|e| return e.ends_with("/cargo-bin") || e.ends_with("cargo-bin.exe"));
         if start_index.is_none() || start_index.unwrap() == (args.len() + 1) {
             app.print_long_help()?;
             return Ok(());
