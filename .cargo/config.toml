@@ -2,7 +2,6 @@
 binstall = ["bin", "cargo-binstall"]
 cmd = ["bin", "cargo-cmd"]
 deny = ["bin", "cargo-deny"]
-dist = ["bin", "cargo-dist"]
 insta = ["bin", "cargo-insta"]
 llvm-cov = ["bin", "cargo-llvm-cov"]
 nextest = ["bin", "cargo-nextest"]
