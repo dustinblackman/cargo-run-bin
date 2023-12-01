@@ -1,4 +1,5 @@
 /target
 /.bin
+.gha/
 *.profraw
 lcov.info

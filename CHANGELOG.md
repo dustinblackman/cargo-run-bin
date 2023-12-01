@@ -3,10 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [1.6.0] - 2023-12-01
+
 [v1.5.0..v1.6.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.5.0..v1.6.0)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Merge branch 'windows' - ([a559325](https://github.com/dustinblackman/cargo-run-bin/commit/a5593250fc83922d9327a6896fed1c27625af73e))
 - Add Windows support - ([8e4a6cc](https://github.com/dustinblackman/cargo-run-bin/commit/8e4a6cc298a94190fe4ab209d9fa48a9a1afc791))
@@ -19,10 +19,10 @@ All notable changes to this project will be documented in this file.
 - Add banner - ([ddca279](https://github.com/dustinblackman/cargo-run-bin/commit/ddca279206775df41a98d05f476d579e6145c586))
 
 ## [1.5.0] - 2023-10-27
+
 [v1.4.1..v1.5.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.4.1..v1.5.0)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Support path in package source - ([d4c8c39](https://github.com/dustinblackman/cargo-run-bin/commit/d4c8c392e5f8b40e330cd5b596eda68b1d378e79))
 
@@ -42,8 +42,8 @@ All notable changes to this project will be documented in this file.
 - Fix binary.rs lint - ([8f50248](https://github.com/dustinblackman/cargo-run-bin/commit/8f5024858944f82a9660a8cc49b69ad244e6d6c3))
 
 ## [1.4.1] - 2023-10-06
-[v1.4.0..v1.4.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.4.0..v1.4.1)
 
+[v1.4.0..v1.4.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.4.0..v1.4.1)
 
 ### 📚 Documentation
 
@@ -57,10 +57,10 @@ All notable changes to this project will be documented in this file.
 - `tauri-mobile` -> `cargo-mobile2` - ([e2130fe](https://github.com/dustinblackman/cargo-run-bin/commit/e2130fe1b0813e153ac49ac78bdbb3d289d64bc2))
 
 ## [1.4.0] - 2023-10-04
+
 [v1.3.2..v1.4.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.3.2..v1.4.0)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Support git in package source - ([7151499](https://github.com/dustinblackman/cargo-run-bin/commit/7151499b4b47861f84c63b958af8cd36aa8648a9))
 
@@ -78,8 +78,8 @@ All notable changes to this project will be documented in this file.
 - Lint - ([ebba9c4](https://github.com/dustinblackman/cargo-run-bin/commit/ebba9c44f97ab0331f8114b72a99caf60c0d8de4))
 
 ## [1.3.2] - 2023-09-20
-[v1.3.1..v1.3.2](https://github.com/dustinblackman/cargo-run-bin/compare/v1.3.1..v1.3.2)
 
+[v1.3.1..v1.3.2](https://github.com/dustinblackman/cargo-run-bin/compare/v1.3.1..v1.3.2)
 
 ### 🐛 Bug Fixes
 
@@ -90,8 +90,8 @@ All notable changes to this project will be documented in this file.
 - Release cargo-run-bin version 1.3.2 - ([be3cc40](https://github.com/dustinblackman/cargo-run-bin/commit/be3cc4059b7d961819d3c47268f30ee1b87b0ec1))
 
 ## [1.3.1] - 2023-09-20
-[v1.3.0..v1.3.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.3.0..v1.3.1)
 
+[v1.3.0..v1.3.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.3.0..v1.3.1)
 
 ### 🐛 Bug Fixes
 
@@ -102,10 +102,10 @@ All notable changes to this project will be documented in this file.
 - Release cargo-run-bin version 1.3.1 - ([83349f9](https://github.com/dustinblackman/cargo-run-bin/commit/83349f99e01d665336d26ff7753ffb2a5a6ffb12))
 
 ## [1.3.0] - 2023-09-20
+
 [v1.2.0..v1.3.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.2.0..v1.3.0)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Add cargo-gha to path if it exists - ([c404b48](https://github.com/dustinblackman/cargo-run-bin/commit/c404b480e17e9abf12586dc865111d7546609849))
 - Add alias scripts - ([3c6dbac](https://github.com/dustinblackman/cargo-run-bin/commit/3c6dbace4e5f2e1442f7da9805aa5a61e8ba5c9b))
@@ -117,10 +117,10 @@ All notable changes to this project will be documented in this file.
 - Update lockfile - ([c6f752f](https://github.com/dustinblackman/cargo-run-bin/commit/c6f752f24a01077fb260c9561c7b4aeed1972fdf))
 
 ## [1.2.0] - 2023-08-26
+
 [v1.1.5..v1.2.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.5..v1.2.0)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Add support for Cargo workspaces - ([208b000](https://github.com/dustinblackman/cargo-run-bin/commit/208b000f47ee7666009a066a9f2a5124275ea381))
 
@@ -137,8 +137,8 @@ All notable changes to this project will be documented in this file.
 - Release cargo-run-bin version 1.2.0 - ([b600075](https://github.com/dustinblackman/cargo-run-bin/commit/b600075b1af551d509fdf9fcfeeff97d74c5d446))
 
 ## [1.1.5] - 2023-08-12
-[v1.1.4..v1.1.5](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.4..v1.1.5)
 
+[v1.1.4..v1.1.5](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.4..v1.1.5)
 
 ### 🐛 Bug Fixes
 
@@ -165,8 +165,8 @@ All notable changes to this project will be documented in this file.
 - Add release and changelog scripts - ([6b0e2b0](https://github.com/dustinblackman/cargo-run-bin/commit/6b0e2b0d9b6ce0bd6302ca87f38d592ef22824a4))
 
 ## [1.1.4] - 2023-08-08
-[v1.1.3..v1.1.4](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.3..v1.1.4)
 
+[v1.1.3..v1.1.4](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.3..v1.1.4)
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -174,8 +174,8 @@ All notable changes to this project will be documented in this file.
 - Drop windows releases - ([d65fb49](https://github.com/dustinblackman/cargo-run-bin/commit/d65fb495283573ee2ecac0c7edba66c9551b6a95))
 
 ## [1.1.3] - 2023-08-08
-[v1.1.2..v1.1.3](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.2..v1.1.3)
 
+[v1.1.2..v1.1.3](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.2..v1.1.3)
 
 ### 🐛 Bug Fixes
 
@@ -186,8 +186,8 @@ All notable changes to this project will be documented in this file.
 - Release v1.1.3 - ([7783dbd](https://github.com/dustinblackman/cargo-run-bin/commit/7783dbd4b9f2460c5900c7e00b65d9ec2ab4e54b))
 
 ## [1.1.2] - 2023-08-08
-[v1.1.1..v1.1.2](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.1..v1.1.2)
 
+[v1.1.1..v1.1.2](https://github.com/dustinblackman/cargo-run-bin/compare/v1.1.1..v1.1.2)
 
 ### 🐛 Bug Fixes
 
@@ -198,10 +198,10 @@ All notable changes to this project will be documented in this file.
 - Release v1.1.2 - ([883a75f](https://github.com/dustinblackman/cargo-run-bin/commit/883a75ffad28d62d29c7ab87b7cc8bc186898dea))
 
 ## [1.1.1] - 2023-08-08
+
 [v1.0.1..v1.1.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.0.1..v1.1.1)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Add binstall support - ([f702124](https://github.com/dustinblackman/cargo-run-bin/commit/f702124692e23f8c14040cf0935b90c4877ed4ee))
 
@@ -218,8 +218,8 @@ All notable changes to this project will be documented in this file.
 - Add clippy to toolchain - ([aa7161e](https://github.com/dustinblackman/cargo-run-bin/commit/aa7161e0bf3ff522144e318b26746359801b0b07))
 
 ## [1.0.1] - 2023-08-07
-[v1.0.0..v1.0.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.0.0..v1.0.1)
 
+[v1.0.0..v1.0.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.0.0..v1.0.1)
 
 ### 🐛 Bug Fixes
 
@@ -230,10 +230,10 @@ All notable changes to this project will be documented in this file.
 - Lint - ([74b66ad](https://github.com/dustinblackman/cargo-run-bin/commit/74b66ad09d2346e7def0ea7275e16f4bd37bd5e6))
 
 ## [1.0.0] - 2023-08-07
+
 [..v1.0.0](https://github.com/dustinblackman/cargo-run-bin/compare/..v1.0.0)
 
-
-### ⛰️  Features
+### ⛰️ Features
 
 - Add sync aliases - ([5d7ffed](https://github.com/dustinblackman/cargo-run-bin/commit/5d7ffed87bb9ff7b78ce7a228379a35492e45f11))
 - Add build and run functionality - ([9a7218c](https://github.com/dustinblackman/cargo-run-bin/commit/9a7218c20c09797097b518a605c1d2b6c365ec30))

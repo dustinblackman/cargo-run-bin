@@ -35,6 +35,7 @@ insta = { version = "=1.31.0", features = ["yaml"] }
 cargo-binstall = { version = "1.4.6" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
+cargo-gha = { version = "0.4.6" }
 cargo-insta = { version = "1.31.0", locked = true }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
@@ -44,6 +45,12 @@ dprint = { version = "0.40.2" }
 git-cliff = { version = "1.3.1" }
 # Just added for testing
 dustinblackman-hello-world = { version = "0.2.1", git = "https://github.com/dustinblackman/rust-hello-world", bins = ["hello-world-first", "hello-world-second"] }
+
+[package.metadata.gha]
+targets = ["aarch64-apple-darwin"]
+
+[package.metadata.gha.assets]
+cli_cli = { tag = "v2.38.0", owner_repo = "cli/cli", binaries = ["gh"], target_archives = { aarch64-apple-darwin = "gh_{NOVTAG}_macOS_arm64.zip" } }
 
 [profile.dev.package.insta]
 opt-level = 3
@@ -87,6 +94,7 @@ release = '''set -e
 
   cargo check
   cargo bin git-cliff -o CHANGELOG.md --tag "v$RB_VERSION"
+  cargo bin dprint fmt
 
   git add .
   git commit -m "feat: Release v$RB_VERSION"
@@ -95,7 +103,8 @@ release = '''set -e
   git push
   git push --tags
 
-  gh release create "v$RB_VERSION" --generate-notes
+  cargo publish
+  cargo gha gh release create "v$RB_VERSION" --generate-notes
   cargo bin git-cliff --latest --strip header | cargo bin dprint fmt --stdin md | cargo gha gh release edit "v$RB_VERSION" --notes-file -
 '''
 
