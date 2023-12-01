@@ -1,13 +1,13 @@
 use std::env;
 use std::fs;
 use std::io;
-use std::os::fd::AsFd;
 use std::path;
 use std::process;
 
 use anyhow::anyhow;
 use anyhow::bail;
 use anyhow::Result;
+use cfg_if::cfg_if;
 use version_check as rustc;
 use which::which;
 
@@ -22,11 +22,10 @@ pub fn cargo_install(
     binary_package: metadata::BinaryPackage,
     cache_path: path::PathBuf,
 ) -> Result<()> {
-    let stderr = io::stderr().as_fd().try_clone_to_owned()?;
     let mut cmd_prefix = process::Command::new("cargo");
 
     cmd_prefix
-        .stdout::<std::process::Stdio>(stderr.into())
+        .stdout(io::stderr())
         .stderr(process::Stdio::inherit())
         .arg("install")
         .arg("--root")
@@ -74,12 +73,10 @@ pub fn cargo_install(
 }
 
 pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathBuf) -> Result<()> {
-    let stderr = io::stderr().as_fd().try_clone_to_owned()?;
-
     let mut cmd_prefix = process::Command::new("cargo");
 
     cmd_prefix
-        .stdout::<std::process::Stdio>(stderr.into())
+        .stdout(io::stderr())
         .stderr(process::Stdio::inherit())
         .arg("binstall")
         .arg("--no-confirm")
@@ -130,7 +127,15 @@ pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
         .join(format!("rust-{rust_version}"))
         .join(binary_package.package.clone())
         .join(binary_package.version.clone());
-    let cache_bin_path = cache_path.join("bin").join(bin_name);
+
+    let mut cache_bin_path = cache_path.join("bin").join(bin_name);
+    cache_bin_path = cache_bin_path.clone();
+
+    cfg_if! {
+        if #[cfg(not(target_family = "unix"))] {
+            cache_bin_path.set_extension("exe");
+        }
+    }
 
     if !path::Path::new(&cache_bin_path).exists() {
         fs::create_dir_all(&cache_path)?;
@@ -161,7 +166,10 @@ pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
         .to_str()
         .unwrap();
     if bin_name.starts_with("cargo-") {
-        final_args = vec![bin_name.to_string().replace("cargo-", "")];
+        final_args = vec![bin_name
+            .to_string()
+            .replace("cargo-", "")
+            .replace(".exe", "")];
         final_args.append(&mut args.clone());
     }
 

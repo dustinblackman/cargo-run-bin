@@ -3,7 +3,7 @@ on: [push, pull_request]
 name: ci
 
 jobs:
-  build_and_test:
+  test_coverage:
     name: cargo-run-bin
     runs-on: ubuntu-latest
     steps:
@@ -30,3 +30,26 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./lcov.info
+
+  test:
+    name: cargo-run-bin
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-directories: ".bin"
+      - name: Install deps
+        run: |
+          cargo install --path .
+          cargo nextest --help
+      - name: Test
+        run: |
+          cargo build
+          cargo nextest run

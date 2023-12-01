@@ -16,22 +16,23 @@ name = "cargo-bin"
 path = "src/main.rs"
 
 [dependencies]
-anyhow = "1.0.40"
-clap = "4.3.19"
-owo-colors = "3.5.0"
-serde = { version = "1.0.149", features = ["derive"] }
-toml = "0.5.9"
-toml_edit = "0.19.14"
-version_check = "0.9.3"
-which = "4.4.0"
+anyhow = "=1.0.40"
+cfg-if = "=1.0.0"
+clap = "=4.3.19"
+owo-colors = "=3.5.0"
+serde = { version = "=1.0.149", features = ["derive"] }
+toml = "=0.5.9"
+toml_edit = "=0.19.14"
+version_check = "=0.9.3"
+which = "=4.4.0"
 
 [dev-dependencies]
-assert_cmd = "2.0.12"
-cargo-husky = { version = "1.5.0", default-features = false, features = ["user-hooks"] }
-insta = { version = "1.31.0", features = ["yaml"] }
+assert_cmd = "=2.0.12"
+cargo-husky = { version = "=1.5.0", default-features = false, features = ["user-hooks"] }
+insta = { version = "=1.31.0", features = ["yaml"] }
 
 [package.metadata.bin]
-cargo-binstall = { version = "1.4.4" }
+cargo-binstall = { version = "1.4.6" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
 cargo-insta = { version = "1.31.0", locked = true }

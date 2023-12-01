@@ -1,3 +1,5 @@
+use cfg_if::cfg_if;
+
 use super::*;
 
 mod install {
@@ -15,7 +17,14 @@ mod install {
             .unwrap();
 
         let cache_bin_path = install(nextest.clone()).unwrap();
-        assert!(cache_bin_path.ends_with("/bin/cargo-nextest"));
+
+        cfg_if! {
+            if #[cfg(not(target_family = "unix"))] {
+                assert!(cache_bin_path.ends_with("\\bin\\cargo-nextest.exe"));
+            } else {
+                assert!(cache_bin_path.ends_with("/bin/cargo-nextest"));
+            }
+        }
     }
 }
 
