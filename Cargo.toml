@@ -38,7 +38,6 @@ cargo-dist = { version = "0.1.0-prerelease.10" }
 cargo-insta = { version = "1.31.0", locked = true }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
-cargo-release = { version = "0.24.11" }
 cargo-watch = { version = "8.4.0" }
 committed = { version = "1.0.20" }
 dprint = { version = "0.40.2" }
@@ -59,27 +58,6 @@ strip = "symbols"
 
 [profile.dist]
 inherits = "release"
-
-# Config for 'cargo dist'
-[workspace.metadata.dist]
-cargo-dist-version = "0.1.0-prerelease.10"
-ci = ["github"]
-installers = []
-targets = [
-  "x86_64-unknown-linux-gnu",
-  "x86_64-apple-darwin",
-  "aarch64-apple-darwin",
-]
-unix-archive = ".tar.gz"
-
-# Config for 'cargo release'
-[package.metadata.release]
-pre-release-hook = [
-  "bash",
-  "-c",
-  "cargo cmd lint && cargo cmd test && cargo bin git-cliff -o CHANGELOG.md --tag {{version}} && cargo bin dprint fmt",
-]
-allow-branch = ["master"]
 
 [package.metadata.commands]
 lint = '''set -e
@@ -102,6 +80,23 @@ setup-nightly = '''
   export NIGHTLY=nightly-2023-06-16
   rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
   rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $NIGHTLY | grep '^nightly-' | awk '{print $2}')"
+'''
+
+release = '''set -e
+  export RB_VERSION=$(cat Cargo.toml | grep version | head -n1 | awk -F '"' '{print $2}')
+
+  cargo check
+  cargo bin git-cliff -o CHANGELOG.md --tag "v$RB_VERSION"
+
+  git add .
+  git commit -m "feat: Release v$RB_VERSION"
+  git tag -a "v$RB_VERSION" -m "v$RB_VERSION"
+
+  git push
+  git push --tags
+
+  gh release create "v$RB_VERSION" --generate-notes
+  cargo bin git-cliff --latest --strip header | cargo bin dprint fmt --stdin md | cargo gha gh release edit "v$RB_VERSION" --notes-file -
 '''
 
 test-coverage = '''set -e
