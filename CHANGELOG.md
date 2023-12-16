@@ -2,12 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] - 2023-12-16
+
+[v1.6.0..v1.6.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.6.0..v1.6.1)
+
+### 🐛 Bug Fixes
+
+- Set MSRV - ([a5fc8ac](https://github.com/dustinblackman/cargo-run-bin/commit/a5fc8ac68dbba9f4f8a4b5d02bfd1e031bcdc56d))
+- Release command - ([032e97f](https://github.com/dustinblackman/cargo-run-bin/commit/032e97f52c612d68c4668d333e46cf56015b7eb6))
+
 ## [1.6.0] - 2023-12-01
 
 [v1.5.0..v1.6.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.5.0..v1.6.0)
 
 ### ⛰️ Features
 
+- Release v1.6.0 - ([fd34f2b](https://github.com/dustinblackman/cargo-run-bin/commit/fd34f2bd1713eefacd59d429d73d71da3c638325))
 - Merge branch 'windows' - ([a559325](https://github.com/dustinblackman/cargo-run-bin/commit/a5593250fc83922d9327a6896fed1c27625af73e))
 - Add Windows support - ([8e4a6cc](https://github.com/dustinblackman/cargo-run-bin/commit/8e4a6cc298a94190fe4ab209d9fa48a9a1afc791))
 
