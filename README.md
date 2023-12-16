@@ -24,6 +24,8 @@ For command lines that extend cargo such as `cargo-nextest`, run-bin will create
 
 ## Install
 
+Minimum Rust Version: 1.74.0
+
 Run the following to install `cargo-run-bin`, and ignore the cache directory in your project.
 
 ```sh
