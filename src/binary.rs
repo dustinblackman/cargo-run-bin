@@ -13,6 +13,7 @@ use which::which;
 
 use crate::cargo_config;
 use crate::metadata;
+use crate::shims;
 
 /// INTERNAL: Install binary with cargo install.
 pub fn cargo_install(
@@ -174,30 +175,8 @@ pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
         final_args.append(&mut args.clone());
     }
 
-    let mut system_shell_paths = env::var("PATH")
-        .unwrap_or("".to_string())
-        .split(':')
-        .map(|e| return e.to_string())
-        .collect::<Vec<String>>();
-
-    let project_root = metadata::get_project_root()?;
-    let mut shell_paths = vec![];
-
-    let runbin = project_root
-        .join(".bin/.shims")
-        .to_string_lossy()
-        .to_string();
-    if !system_shell_paths.contains(&runbin) {
-        shell_paths.push(runbin);
-    }
-
-    // https://github.com/dustinblackman/cargo-gha
-    let gha = project_root.join(".gha/.shims");
-    if gha.exists() && !system_shell_paths.contains(&gha.to_string_lossy().to_string()) {
-        shell_paths.push(gha.to_string_lossy().to_string());
-    }
-
-    shell_paths.append(&mut system_shell_paths);
+    let mut shell_paths = shims::get_shim_paths()?;
+    shell_paths.push(env::var("PATH").unwrap_or("".to_string()));
 
     let spawn = process::Command::new(bin_path.clone())
         .stdout(process::Stdio::inherit())
