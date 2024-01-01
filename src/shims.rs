@@ -1,4 +1,3 @@
-#[cfg(target_family = "unix")]
 use std::env;
 use std::fs;
 use std::io::Write;
