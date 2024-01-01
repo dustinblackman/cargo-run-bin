@@ -1,22 +1,9 @@
-use cargo_run_bin::metadata;
-
-fn get_bin() -> String {
-    return metadata::get_project_root()
-        .unwrap()
-        .join(env!("CARGO_BIN_EXE_cargo-bin").replace(".exe", ""))
-        .to_str()
-        .unwrap()
-        .to_string();
-}
-
 mod direct {
     use assert_cmd::Command;
 
-    use super::get_bin;
-
     #[test]
     fn it_syncs_aliases_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("--sync-aliases").assert();
 
         let res = assert.success();
@@ -28,7 +15,7 @@ mod direct {
 
     #[test]
     fn it_install_all_bins_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("--install").assert();
 
         let res = assert.success();
@@ -40,7 +27,7 @@ mod direct {
 
     #[test]
     fn it_builds_all_bins_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("--build").assert();
 
         let res = assert.success();
@@ -52,7 +39,7 @@ mod direct {
 
     #[test]
     fn it_runs_help_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("--help").assert();
 
         let res = assert.success();
@@ -62,7 +49,7 @@ mod direct {
 
     #[test]
     fn it_runs_nextest_help_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("cargo-nextest").arg("--help").assert();
 
         let res = assert.success();
@@ -72,7 +59,7 @@ mod direct {
 
     #[test]
     fn it_fails_when_binary_is_not_configured() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("not-real").assert();
 
         let res = assert.failure();
@@ -86,11 +73,9 @@ mod direct {
 mod bin_prefix {
     use assert_cmd::Command;
 
-    use super::get_bin;
-
     #[test]
     fn it_syncs_aliases_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("bin").arg("--sync-aliases").assert();
 
         let res = assert.success();
@@ -102,7 +87,7 @@ mod bin_prefix {
 
     #[test]
     fn it_install_all_bins_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("bin").arg("--install").assert();
 
         let res = assert.success();
@@ -114,7 +99,7 @@ mod bin_prefix {
 
     #[test]
     fn it_builds_all_bins_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("bin").arg("--build").assert();
 
         let res = assert.success();
@@ -126,7 +111,7 @@ mod bin_prefix {
 
     #[test]
     fn it_runs_nextest_help_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("bin").arg("cargo-nextest").arg("--help").assert();
 
         let res = assert.success();
@@ -136,7 +121,7 @@ mod bin_prefix {
 
     #[test]
     fn it_runs_help_successfully() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("bin").arg("--help").assert();
 
         let res = assert.success();
@@ -146,7 +131,7 @@ mod bin_prefix {
 
     #[test]
     fn it_fails_when_binary_is_not_configured() {
-        let mut cmd = Command::cargo_bin(get_bin()).unwrap();
+        let mut cmd = Command::cargo_bin("cargo-bin").unwrap();
         let assert = cmd.arg("bin").arg("not-real").assert();
 
         let res = assert.failure();
