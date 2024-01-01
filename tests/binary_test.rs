@@ -43,7 +43,7 @@ mod cargo_install {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -65,7 +65,7 @@ mod cargo_install {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -87,7 +87,7 @@ mod cargo_install {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -109,7 +109,7 @@ mod cargo_install {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -131,7 +131,7 @@ mod cargo_install {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -153,7 +153,7 @@ mod cargo_install {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -180,7 +180,7 @@ mod binstall {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());
@@ -202,7 +202,7 @@ mod binstall {
                 default_features: None,
                 features: None,
             },
-            "./target/debug".into(),
+            "./.tmp".into(),
         );
 
         assert!(res.is_ok());

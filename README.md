@@ -34,6 +34,13 @@ cd my/rust/project
 echo ".bin/" >> .gitignore
 ```
 
+You can also use it as a library within your existing logic.
+
+```toml
+[dependencies]
+cargo-run-bin = { version = "1.7.0", default-features = false }
+```
+
 ## Usage
 
 `cargo-run-bin` keeps track of the binaries and their versions from within `Cargo.toml` under the `[package.metadata.bin]`.
@@ -86,6 +93,61 @@ will create aliases for any `cargo-*` crate, allowing you to execute commands su
 
 When pulling down a new repo, or adding a step to CI, `cargo bin --install` will install or build all binaries that have not been
 cached which are configured in `Cargo.toml`.
+
+### Library
+
+`run-bin` can also be used as a library and paired nicely with your `build.rs` or any other scripts. The following
+example demos having `dprint` configured within `[package.metadata.bin]`, and executing `dprint --help`.
+
+```toml
+[package.metadata.bin]
+dprint = { version = "0.40.2" }
+```
+
+```rust
+use anyhow::Result;
+use cargo_run_bin::{binary, metadata};
+
+fn main() -> Result<()> {
+    let binary_package = metadata::get_binary_packages()?
+        .iter()
+        .find(|e| e.package == "dprint")
+        .unwrap()
+        .to_owned();
+    let bin_path = binary::install(binary_package)?;
+    binary::run(bin_path, vec!["--help".to_string()])?;
+
+    return Ok(());
+}
+```
+
+Using `binary::run` is optional. You can recreate it and make changes to your liking using `std::process`, with shims included!
+
+```rust
+use std::process;
+
+use anyhow::Result;
+use cargo_run_bin::{binary, metadata, shims};
+
+fn main() -> Result<()> {
+    let binary_package = metadata::get_binary_packages()?
+        .iter()
+        .find(|e| e.package == "dprint")
+        .unwrap()
+        .to_owned();
+    let bin_path = binary::install(binary_package)?;
+
+    let mut shell_paths = shims::get_shim_paths()?;
+    shell_paths.push(env::var("PATH").unwrap_or("".to_string()));
+
+    process::Command::new(bin_path)
+        .args(["--help"])
+        .env("PATH", shell_paths.join(":"))
+        .spawn();
+
+    return Ok(());
+}
+```
 
 ## [License](./LICENSE)
 

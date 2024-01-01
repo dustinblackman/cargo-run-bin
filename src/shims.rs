@@ -1,3 +1,4 @@
+#[cfg(target_family = "unix")]
 use std::env;
 use std::fs;
 use std::io::Write;
@@ -58,6 +59,8 @@ cargo bin {binary} %*
     return Ok(());
 }
 
+/// Creates shims in `.bin/shims` for all non cargo extensions configured in
+/// Cargo.toml. This directory is added to PATH For all executes of `cargo bin`.
 pub fn sync() -> Result<()> {
     let bin_dir = metadata::get_project_root()?.join(".bin/.shims");
     if !bin_dir.exists() {
@@ -89,4 +92,33 @@ pub fn sync() -> Result<()> {
     }
 
     return Ok(());
+}
+
+/// Return an array of entries that can be added to PATH to provide shims to
+/// other configured run-bin packages. Results be empty if entries already exist
+/// in PATH.
+pub fn get_shim_paths() -> Result<Vec<String>> {
+    let mut shim_paths = vec![];
+    let system_shell_paths = env::var("PATH")
+        .unwrap_or("".to_string())
+        .split(':')
+        .map(|e| return e.to_string())
+        .collect::<Vec<String>>();
+
+    let project_root = metadata::get_project_root()?;
+    let runbin = project_root
+        .join(".bin/.shims")
+        .to_string_lossy()
+        .to_string();
+
+    if !system_shell_paths.contains(&runbin) {
+        shim_paths.push(runbin);
+    }
+
+    let gha = project_root.join(".gha/.shims");
+    if gha.exists() && !system_shell_paths.contains(&gha.to_string_lossy().to_string()) {
+        shim_paths.push(gha.to_string_lossy().to_string());
+    }
+
+    return Ok(shim_paths);
 }
