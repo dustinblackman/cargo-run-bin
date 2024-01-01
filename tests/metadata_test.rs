@@ -4,9 +4,9 @@ mod get_binary_packages {
     #[test]
     fn it_returns_locked_packages() {
         let binary_packages = get_binary_packages().unwrap();
-        let nextest = binary_packages.iter().find(|&e| {
-            return e.package == "cargo-nextest";
-        });
+        let nextest = binary_packages
+            .iter()
+            .find(|&e| e.package == "cargo-nextest");
 
         assert!(nextest.is_some());
         let res = nextest.unwrap();
@@ -19,7 +19,7 @@ mod get_binary_packages {
     fn it_returns_bin_target_packages() {
         let binary_packages = get_binary_packages().unwrap();
         let android = binary_packages.iter().find(|&e| {
-            return e.bin_target.is_some() && e.bin_target.clone().unwrap() == "hello-world-first";
+            e.bin_target.is_some() && e.bin_target.clone().unwrap() == "hello-world-first"
         });
 
         assert!(android.is_some());

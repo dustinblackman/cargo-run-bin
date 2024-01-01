@@ -1,5 +1,6 @@
 mod sync_shims {
-    use cargo_run_bin::{metadata, shims::sync};
+    use cargo_run_bin::metadata;
+    use cargo_run_bin::shims::sync;
 
     #[test]
     #[cfg(target_family = "unix")]

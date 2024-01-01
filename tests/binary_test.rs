@@ -1,5 +1,6 @@
 mod install {
-    use cargo_run_bin::{binary::install, metadata};
+    use cargo_run_bin::binary::install;
+    use cargo_run_bin::metadata;
     use cfg_if::cfg_if;
 
     #[test]
@@ -7,9 +8,7 @@ mod install {
         let binary_packages = metadata::get_binary_packages().unwrap();
         let nextest = binary_packages
             .iter()
-            .find(|&e| {
-                return e.package == "cargo-nextest";
-            })
+            .find(|&e| e.package == "cargo-nextest")
             .unwrap();
 
         let cache_bin_path = install(nextest.clone()).unwrap();
@@ -162,7 +161,8 @@ mod cargo_install {
 }
 
 mod binstall {
-    use cargo_run_bin::{binary::binstall, metadata};
+    use cargo_run_bin::binary::binstall;
+    use cargo_run_bin::metadata;
 
     #[test]
     fn it_builds_successfully() {
@@ -210,19 +210,16 @@ mod binstall {
 }
 
 mod run {
-    use cargo_run_bin::{
-        binary::{install, run},
-        metadata,
-    };
+    use cargo_run_bin::binary::install;
+    use cargo_run_bin::binary::run;
+    use cargo_run_bin::metadata;
 
     #[test]
     fn it_runs_help_successfully() {
         let binary_packages = metadata::get_binary_packages().unwrap();
         let nextest = binary_packages
             .iter()
-            .find(|&e| {
-                return e.package == "cargo-nextest";
-            })
+            .find(|&e| e.package == "cargo-nextest")
             .unwrap();
         let cache_bin_path = install(nextest.clone()).unwrap();
 
