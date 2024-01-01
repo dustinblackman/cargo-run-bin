@@ -1,12 +1,14 @@
+use super::get_binary_packages;
+
 mod get_binary_packages {
-    use cargo_run_bin::metadata::get_binary_packages;
+    use super::*;
 
     #[test]
     fn it_returns_locked_packages() {
         let binary_packages = get_binary_packages().unwrap();
         let nextest = binary_packages
             .iter()
-            .find(|&e| e.package == "cargo-nextest");
+            .find(|&e| return e.package == "cargo-nextest");
 
         assert!(nextest.is_some());
         let res = nextest.unwrap();
@@ -19,7 +21,7 @@ mod get_binary_packages {
     fn it_returns_bin_target_packages() {
         let binary_packages = get_binary_packages().unwrap();
         let android = binary_packages.iter().find(|&e| {
-            e.bin_target.is_some() && e.bin_target.clone().unwrap() == "hello-world-first"
+            return e.bin_target.is_some() && e.bin_target.clone().unwrap() == "hello-world-first";
         });
 
         assert!(android.is_some());

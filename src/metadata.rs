@@ -10,6 +10,10 @@ use serde::Deserialize;
 use toml_edit::Document;
 use toml_edit::Item;
 
+#[cfg(test)]
+#[path = "metadata_test.rs"]
+mod metadata_test;
+
 #[derive(Deserialize, Debug, PartialEq)]
 struct MetadataValue {
     version: String,
