@@ -82,6 +82,12 @@ pub fn run() -> Result<()> {
         .num_args(0)
         .help("Print help");
 
+    let arg_version = Arg::new("version")
+        .short('V')
+        .long("version")
+        .num_args(0)
+        .help("Print version");
+
     // @deprecated: Use --install.
     let arg_build = Arg::new("build")
         .short('b')
@@ -95,9 +101,11 @@ pub fn run() -> Result<()> {
         .version(env!("CARGO_PKG_VERSION"))
         .arg_required_else_help(false)
         .ignore_errors(true)
+        .disable_version_flag(true)
         .arg(arg_sync_aliases.clone())
         .arg(arg_install.clone())
         .arg(arg_build.clone())
+        .arg(arg_version.clone())
         .subcommand(
             Command::new("bin")
                 .hide(true)
@@ -105,7 +113,8 @@ pub fn run() -> Result<()> {
                 .arg(arg_sync_aliases)
                 .arg(arg_install)
                 .arg(arg_build)
-                .arg(arg_help),
+                .arg(arg_help)
+                .arg(arg_version),
         );
 
     let matches = app.clone().get_matches();
@@ -116,6 +125,8 @@ pub fn run() -> Result<()> {
         install_all_binaries()?;
     } else if arg_used(&matches, "help") {
         app.print_long_help()?;
+    } else if arg_used(&matches, "version") {
+        println!("cargo-run-bin {}", env!("CARGO_PKG_VERSION"));
     } else {
         let mut args: Vec<_> = env::args().collect();
         let start_index = args
@@ -132,6 +143,7 @@ pub fn run() -> Result<()> {
         }
         if bin_index >= args.len() {
             app.print_long_help()?;
+            return Ok(());
         }
 
         let binary_name = args[bin_index].clone();
