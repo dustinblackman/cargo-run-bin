@@ -9,7 +9,7 @@ keywords = ["dev-experiance", "developer-experiance", "bin", "cache", "cli"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/dustinblackman/cargo-run-bin"
-rust_version = "1.74.0"
+rust-version = "1.74.0"
 description = "Build, cache, and run binaries scoped in Cargo.toml rather than installing globally. This acts similarly to npm run and gomodrun, and allows your teams to always be running the same tooling versions."
 
 [[bin]]
