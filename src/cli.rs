@@ -12,10 +12,6 @@ use crate::cargo_config;
 use crate::metadata;
 use crate::shims;
 
-#[cfg(test)]
-#[path = "cli_integration_test.rs"]
-mod cli_integration_test;
-
 fn install_all_binaries() -> Result<()> {
     let binary_packages = metadata::get_binary_packages()?;
     for binary_package in binary_packages {

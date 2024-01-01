@@ -8,10 +8,6 @@ use toml_edit::Document;
 
 use crate::metadata;
 
-#[cfg(test)]
-#[path = "cargo_config_test.rs"]
-mod cargo_config_test;
-
 pub fn sync_aliases() -> Result<()> {
     let mut toml_str = "".to_string();
     let config_path = metadata::get_project_root()?.join(".cargo/config.toml");

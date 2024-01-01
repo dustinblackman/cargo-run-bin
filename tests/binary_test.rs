@@ -1,10 +1,6 @@
-use cfg_if::cfg_if;
-
-use super::*;
-
 mod install {
-    use super::*;
-    use crate::metadata;
+    use cargo_run_bin::{binary::install, metadata};
+    use cfg_if::cfg_if;
 
     #[test]
     fn it_returns_bin_path() {
@@ -29,7 +25,8 @@ mod install {
 }
 
 mod cargo_install {
-    use super::*;
+    use cargo_run_bin::binary::cargo_install;
+    use cargo_run_bin::metadata;
 
     #[test]
     fn it_builds_successfully() {
@@ -165,7 +162,7 @@ mod cargo_install {
 }
 
 mod binstall {
-    use super::*;
+    use cargo_run_bin::{binary::binstall, metadata};
 
     #[test]
     fn it_builds_successfully() {
@@ -213,8 +210,10 @@ mod binstall {
 }
 
 mod run {
-    use super::*;
-    use crate::metadata;
+    use cargo_run_bin::{
+        binary::{install, run},
+        metadata,
+    };
 
     #[test]
     fn it_runs_help_successfully() {

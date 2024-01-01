@@ -1,7 +1,5 @@
-use super::*;
-
 mod get_binary_packages {
-    use super::*;
+    use cargo_run_bin::metadata::get_binary_packages;
 
     #[test]
     fn it_returns_locked_packages() {

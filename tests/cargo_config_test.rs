@@ -1,9 +1,7 @@
-use std::fs;
-
-use super::*;
-
 mod sync_aliases {
-    use super::*;
+    use std::fs;
+
+    use cargo_run_bin::cargo_config::sync_aliases;
 
     #[test]
     fn it_removes_and_adds_aliases() {
@@ -19,7 +17,7 @@ mod sync_aliases {
 }
 
 mod binstall_alias_exists {
-    use super::*;
+    use cargo_run_bin::cargo_config::binstall_alias_exists;
 
     // Lazy happy path test.
     #[test]
