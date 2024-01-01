@@ -2,12 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.1] - 2024-01-01
+
+[v1.7.0..v1.7.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.7.0..v1.7.1)
+
+### 🐛 Bug Fixes
+
+- Version flag, no parameters - ([e00ebe3](https://github.com/dustinblackman/cargo-run-bin/commit/e00ebe3c93367df53c91a6eb08fe3e8dc6e9fda8))
+
 ## [1.7.0] - 2024-01-01
 
 [v1.6.1..v1.7.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.6.1..v1.7.0)
 
 ### ⛰️ Features
 
+- Release v1.7.0 - ([416012f](https://github.com/dustinblackman/cargo-run-bin/commit/416012fa4cf20bc8c1a233a76f738c71c25e7d08))
 - Add get_shim_paths - ([fd60a88](https://github.com/dustinblackman/cargo-run-bin/commit/fd60a88054b194cd56e71faaff57044f47c7ce7f))
 - Add docs and features to support library usage - ([e180db6](https://github.com/dustinblackman/cargo-run-bin/commit/e180db69aee09faff006435fb83da3c59155f1d8))
 
