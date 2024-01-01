@@ -134,6 +134,9 @@ pub fn run() -> Result<()> {
         if args[bin_index] == "bin" {
             bin_index += 1;
         }
+        if bin_index >= args.len() {
+            app.print_long_help()?;
+        }
 
         let binary_name = args[bin_index].clone();
         args.drain(0..(bin_index + 1));
