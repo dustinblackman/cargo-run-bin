@@ -58,6 +58,8 @@ cargo bin {binary} %*
     return Ok(());
 }
 
+/// Creates shims in `.bin/shims` for all non cargo extensions configured in
+/// Cargo.toml. This directory is added to PATH For all executes of `cargo bin`.
 pub fn sync() -> Result<()> {
     let bin_dir = metadata::get_project_root()?.join(".bin/.shims");
     if !bin_dir.exists() {

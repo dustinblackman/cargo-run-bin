@@ -14,6 +14,7 @@ use which::which;
 use crate::cargo_config;
 use crate::metadata;
 
+/// INTERNAL: Install binary with cargo install.
 pub fn cargo_install(
     binary_package: metadata::BinaryPackage,
     cache_path: path::PathBuf,
@@ -68,6 +69,7 @@ pub fn cargo_install(
     return Ok(());
 }
 
+/// INTERNAL: Install binary with binstall
 pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathBuf) -> Result<()> {
     let mut cmd_prefix = process::Command::new("cargo");
 
@@ -103,6 +105,7 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
     return Ok(());
 }
 
+/// Install the provided binary package if it has not been built already.
 pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
     let mut rust_version = "unknown".to_string();
     if let Some(res) = rustc::triple() {
@@ -153,6 +156,8 @@ pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
     return Ok(cache_bin_path.to_str().unwrap().to_string());
 }
 
+/// Executes provided binary and arguments, adding shims to PATH so any
+/// other run-bin configured binaries are available.
 pub fn run(bin_path: String, args: Vec<String>) -> Result<()> {
     // Silly hack to make cargo commands parse arguments correctly.
     let mut final_args = args.clone();

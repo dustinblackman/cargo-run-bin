@@ -92,6 +92,7 @@ fn get_metadata_binaries() -> Result<MetadataBins> {
     return Ok(metadata_res?);
 }
 
+/// Returns all configured binary packages set in Cargo.toml.
 pub fn get_binary_packages() -> Result<Vec<BinaryPackage>> {
     let metadata = get_metadata_binaries()?;
 

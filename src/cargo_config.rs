@@ -8,6 +8,7 @@ use toml_edit::Document;
 
 use crate::metadata;
 
+/// Updates alias' in .cargo/config.toml with all configured cargo extensions.
 pub fn sync_aliases() -> Result<()> {
     let mut toml_str = "".to_string();
     let config_path = metadata::get_project_root()?.join(".cargo/config.toml");
@@ -57,6 +58,7 @@ pub fn sync_aliases() -> Result<()> {
     return Ok(());
 }
 
+/// Verifies in cargo-binstall is available in alias'.
 pub fn binstall_alias_exists() -> Result<bool> {
     let config_path = metadata::get_project_root()?.join(".cargo/config.toml");
     if !config_path.exists() {
