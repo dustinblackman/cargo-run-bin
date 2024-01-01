@@ -2,9 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0] - 2024-01-01
+
+[v1.6.1..v1.7.0](https://github.com/dustinblackman/cargo-run-bin/compare/v1.6.1..v1.7.0)
+
+### ⛰️ Features
+
+- Add get_shim_paths - ([fd60a88](https://github.com/dustinblackman/cargo-run-bin/commit/fd60a88054b194cd56e71faaff57044f47c7ce7f))
+- Add docs and features to support library usage - ([e180db6](https://github.com/dustinblackman/cargo-run-bin/commit/e180db69aee09faff006435fb83da3c59155f1d8))
+
+### 🐛 Bug Fixes
+
+- Show help when no args are passed - ([6951082](https://github.com/dustinblackman/cargo-run-bin/commit/69510826e8c144093aeb0bfb7eb20475028e2d9d))
+
+### 🚜 Refactor
+
+- Run tests as integration test ([#17](https://github.com/dustinblackman/cargo-run-bin/issues/17)) - ([4c5c49a](https://github.com/dustinblackman/cargo-run-bin/commit/4c5c49aeff217333024945d51f5483160c8be8ec))
+- Run tests as integration test - ([1e51847](https://github.com/dustinblackman/cargo-run-bin/commit/1e518477918de1d900702134b604f8a10d7ad265))
+
+### 🧪 Testing
+
+- Shims imports - ([ca5da68](https://github.com/dustinblackman/cargo-run-bin/commit/ca5da684618025b4ea19fa6699c5978d9e67298a))
+- Move artifacts out of target - ([2f2fd57](https://github.com/dustinblackman/cargo-run-bin/commit/2f2fd579b60d0b5639c83dc7dc7dc8bd9cb337a9))
+
+### ⚙️ Miscellaneous Tasks
+
+- Merge branch 'lib-support' - ([c21ce48](https://github.com/dustinblackman/cargo-run-bin/commit/c21ce487ccbf72626f32a54e71fac531905a2a61))
+- Fix warning on Windows builds - ([cadddd7](https://github.com/dustinblackman/cargo-run-bin/commit/cadddd77d84a072b62fdd6281cee4d87136d3539))
+- Revert unit test move - ([cfb552e](https://github.com/dustinblackman/cargo-run-bin/commit/cfb552ebf08403dda681f8c4b5b2cb5c811b0173))
+- Lint - ([834d089](https://github.com/dustinblackman/cargo-run-bin/commit/834d0898739fe86e47f5fa9f901b50dbcb041797))
+- Fix the rust-version field in Cargo.toml ([#19](https://github.com/dustinblackman/cargo-run-bin/issues/19)) - ([23b2f39](https://github.com/dustinblackman/cargo-run-bin/commit/23b2f398f1cbff666384089bf88bb16430630ba7))
+
 ## [1.6.1] - 2023-12-16
 
 [v1.6.0..v1.6.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.6.0..v1.6.1)
+
+### ⛰️ Features
+
+- Release v1.6.1 - ([5d18ad7](https://github.com/dustinblackman/cargo-run-bin/commit/5d18ad7e827fb7bb0417218610a13a23bf7b5fd0))
 
 ### 🐛 Bug Fixes
 
