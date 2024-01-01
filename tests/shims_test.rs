@@ -1,8 +1,6 @@
-use super::*;
-
 mod sync_shims {
-    use super::super::metadata;
-    use super::*;
+    use cargo_run_bin::metadata;
+    use cargo_run_bin::shims::sync;
 
     #[test]
     #[cfg(target_family = "unix")]

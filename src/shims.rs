@@ -8,10 +8,6 @@ use cfg_if::cfg_if;
 
 use crate::metadata;
 
-#[cfg(test)]
-#[path = "shims_test.rs"]
-mod shims_test;
-
 #[cfg(target_family = "unix")]
 fn create_shim(binary: &str, bin_path: path::PathBuf) -> Result<()> {
     use std::os::unix::prelude::OpenOptionsExt;

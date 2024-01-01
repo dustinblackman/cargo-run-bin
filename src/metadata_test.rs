@@ -1,4 +1,4 @@
-use super::*;
+use super::get_binary_packages;
 
 mod get_binary_packages {
     use super::*;
@@ -6,9 +6,9 @@ mod get_binary_packages {
     #[test]
     fn it_returns_locked_packages() {
         let binary_packages = get_binary_packages().unwrap();
-        let nextest = binary_packages.iter().find(|&e| {
-            return e.package == "cargo-nextest";
-        });
+        let nextest = binary_packages
+            .iter()
+            .find(|&e| return e.package == "cargo-nextest");
 
         assert!(nextest.is_some());
         let res = nextest.unwrap();

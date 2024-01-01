@@ -14,10 +14,6 @@ use which::which;
 use crate::cargo_config;
 use crate::metadata;
 
-#[cfg(test)]
-#[path = "binary_test.rs"]
-mod binary_test;
-
 pub fn cargo_install(
     binary_package: metadata::BinaryPackage,
     cache_path: path::PathBuf,

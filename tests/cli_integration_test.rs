@@ -1,18 +1,18 @@
-use assert_cmd::Command;
-
-use crate::metadata;
+use cargo_run_bin::metadata;
 
 fn get_bin() -> String {
     return metadata::get_project_root()
         .unwrap()
-        .join("target/debug/cargo-bin")
+        .join(env!("CARGO_BIN_EXE_cargo-bin").replace(".exe", ""))
         .to_str()
         .unwrap()
         .to_string();
 }
 
 mod direct {
-    use super::*;
+    use assert_cmd::Command;
+
+    use super::get_bin;
 
     #[test]
     fn it_syncs_aliases_successfully() {
@@ -84,7 +84,9 @@ mod direct {
 }
 
 mod bin_prefix {
-    use super::*;
+    use assert_cmd::Command;
+
+    use super::get_bin;
 
     #[test]
     fn it_syncs_aliases_successfully() {

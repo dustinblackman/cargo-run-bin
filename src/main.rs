@@ -1,18 +1,9 @@
-#![deny(clippy::implicit_return)]
-#![allow(clippy::needless_return)]
-
 use std::process;
 
 use owo_colors::OwoColorize;
 
-mod binary;
-mod cargo_config;
-mod cli;
-mod metadata;
-mod shims;
-
 fn main() {
-    let res = cli::run();
+    let res = cargo_run_bin::cli::run();
 
     // Only reached if run-bin code fails, otherwise process exits early from within
     // binary::run.
