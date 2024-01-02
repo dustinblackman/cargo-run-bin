@@ -42,7 +42,7 @@ insta = { version = "1.31.0", features = ["yaml"] }
 cargo-binstall = { version = "1.4.6" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
-cargo-gha = { version = "0.4.6" }
+cargo-gha = { version = "1.0.0" }
 cargo-insta = { version = "1.31.0", locked = true }
 cargo-llvm-cov = { version = "0.5.25" }
 cargo-nextest = { version = "0.9.57", locked = true }
@@ -60,8 +60,11 @@ features = []
 [package.metadata.gha]
 targets = ["aarch64-apple-darwin"]
 
-[package.metadata.gha.assets]
-cli_cli = { tag = "v2.38.0", owner_repo = "cli/cli", binaries = ["gh"], target_archives = { aarch64-apple-darwin = "gh_{NOVTAG}_macOS_arm64.zip" } }
+[[package.metadata.gha.assets]]
+owner_repo = "cli/cli"
+tag = "v2.40.1"
+binaries = ["gh"]
+target_archives = { aarch64-apple-darwin = "gh_{NOVTAG}_macOS_arm64.zip" }
 
 [profile.dev.package.insta]
 opt-level = 3
