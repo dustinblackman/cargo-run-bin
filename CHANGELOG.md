@@ -2,9 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.2] - 2024-01-02
+
+[v1.7.1..v1.7.2](https://github.com/dustinblackman/cargo-run-bin/compare/v1.7.1..v1.7.2)
+
+### ⚙️ Miscellaneous Tasks
+
+- Reduce MSRV - ([813f0bc](https://github.com/dustinblackman/cargo-run-bin/commit/813f0bc35ece0092cf04be043cc89571dea12ff2))
+- Remove version pinning - ([d466351](https://github.com/dustinblackman/cargo-run-bin/commit/d466351f0ea2098d063959b63585d24c9fd0e06d))
+
 ## [1.7.1] - 2024-01-01
 
 [v1.7.0..v1.7.1](https://github.com/dustinblackman/cargo-run-bin/compare/v1.7.0..v1.7.1)
+
+### ⛰️ Features
+
+- Release v1.7.1 - ([c4c0861](https://github.com/dustinblackman/cargo-run-bin/commit/c4c0861672c77e0315070e30cf86719fa8e377b9))
 
 ### 🐛 Bug Fixes
 
