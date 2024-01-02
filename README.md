@@ -24,7 +24,7 @@ For command lines that extend cargo such as `cargo-nextest`, run-bin will create
 
 ## Install
 
-Minimum Rust Version: 1.74.0
+Minimum Rust Version: 1.70.0
 
 Run the following to install `cargo-run-bin`, and ignore the cache directory in your project.
 
@@ -38,7 +38,7 @@ You can also use it as a library within your existing logic.
 
 ```toml
 [dependencies]
-cargo-run-bin = { version = "1.7.0", default-features = false }
+cargo-run-bin = { version = "1.7.2", default-features = false }
 ```
 
 ## Usage
