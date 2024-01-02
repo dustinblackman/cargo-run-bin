@@ -15,6 +15,27 @@ use crate::cargo_config;
 use crate::metadata;
 use crate::shims;
 
+#[rustversion::since(1.74)]
+fn stderr_to_stdio() -> io::Result<process::Stdio> {
+    return Ok(io::stderr().into());
+}
+
+#[rustversion::before(1.74)]
+#[cfg(target_family = "unix")]
+fn stderr_to_stdio() -> io::Result<process::Stdio> {
+    use std::os::fd::AsFd;
+
+    return Ok(io::stderr().as_fd().try_clone_to_owned()?.into());
+}
+
+#[rustversion::before(1.74)]
+#[cfg(target_family = "windows")]
+fn stderr_to_stdio() -> io::Result<process::Stdio> {
+    use std::os::windows::io::AsHandle;
+
+    return Ok(io::stderr().as_handle().try_clone_to_owned()?.into());
+}
+
 /// INTERNAL: Install binary with cargo install.
 pub fn cargo_install(
     binary_package: metadata::BinaryPackage,
@@ -23,7 +44,7 @@ pub fn cargo_install(
     let mut cmd_prefix = process::Command::new("cargo");
 
     cmd_prefix
-        .stdout(io::stderr())
+        .stdout(stderr_to_stdio()?)
         .stderr(process::Stdio::inherit())
         .arg("install")
         .arg("--root")
@@ -75,7 +96,7 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
     let mut cmd_prefix = process::Command::new("cargo");
 
     cmd_prefix
-        .stdout(io::stderr())
+        .stdout(stderr_to_stdio()?)
         .stderr(process::Stdio::inherit())
         .arg("binstall")
         .arg("--no-confirm")
