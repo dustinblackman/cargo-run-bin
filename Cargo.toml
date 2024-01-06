@@ -39,7 +39,7 @@ cargo-husky = { version = "1.5.0", default-features = false, features = ["user-h
 insta = { version = "1.31.0", features = ["yaml"] }
 
 [package.metadata.bin]
-cargo-binstall = { version = "1.4.6" }
+cargo-binstall = { version = "1.4.9", git = "https://github.com/dustinblackman/cargo-binstall", rev = "e51db613bfda636c253a0af43269275a4abee2c5" }
 cargo-cmd = { version = "0.3.1" }
 cargo-deny = { version = "0.13.5" }
 cargo-gha = { version = "1.0.0" }

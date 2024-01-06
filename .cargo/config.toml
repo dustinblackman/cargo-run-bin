@@ -7,3 +7,6 @@ insta = ["bin", "cargo-insta"]
 llvm-cov = ["bin", "cargo-llvm-cov"]
 nextest = ["bin", "cargo-nextest"]
 watch = ["bin", "cargo-watch"]
+
+[env]
+BINSTALL_STRATEGIES = "crate-meta-data,compile"
