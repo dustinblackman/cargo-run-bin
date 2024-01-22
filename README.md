@@ -41,6 +41,33 @@ You can also use it as a library within your existing logic.
 cargo-run-bin = { version = "1.7.2", default-features = false }
 ```
 
+### Distro packages
+
+<details>
+  <summary>Packaging status</summary>
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/cargo-run-bin.svg)](https://repology.org/project/cargo-run-bin/versions)
+
+</details>
+
+If your distribution has packaged `cargo-run-bin`, you can use that package for the installation.
+
+### Arch Linux
+
+You can use [pacman](https://wiki.archlinux.org/title/Pacman) to install from the [extra repository](https://archlinux.org/packages/extra/x86_64/cargo-run-bin/):
+
+```sh
+pacman -S cargo-run-bin
+```
+
+### Alpine Linux
+
+`cargo-run-bin` is available for [Alpine Edge](https://pkgs.alpinelinux.org/packages?name=cargo-run-bin&branch=edge). It can be installed via [apk](https://wiki.alpinelinux.org/wiki/Alpine_Package_Keeper) after enabling the [testing repository](https://wiki.alpinelinux.org/wiki/Repositories).
+
+```sh
+apk add cargo-run-bin
+```
+
 ## Usage
 
 `cargo-run-bin` keeps track of the binaries and their versions from within `Cargo.toml` under the `[package.metadata.bin]`.
