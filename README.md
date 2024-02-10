@@ -14,6 +14,7 @@
   - [cargo bin CRATE](#cargo-bin-crate)
   - [cargo bin --sync-aliases](#cargo-bin---sync-aliases)
   - [cargo bin --install](#cargo-bin---install)
+  - [Library](#library)
 - [License](#license)
 
 ## Overview
