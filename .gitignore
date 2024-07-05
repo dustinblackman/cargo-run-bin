@@ -4,3 +4,4 @@
 .gha/
 *.profraw
 lcov.info
+.idea/
