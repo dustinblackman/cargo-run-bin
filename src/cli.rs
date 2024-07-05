@@ -17,13 +17,13 @@ fn install_all_binaries() -> Result<()> {
         binary::install(binary_package)?;
     }
 
-    println!("\x1b[32m{}\x1b[0m", "Done!");
+    println!("\x1b[32mDone!\x1b[0m");
     return Ok(());
 }
 
 fn sync_aliases() -> Result<()> {
     cargo_config::sync_aliases()?;
-    println!("\x1b[32m{}\x1b[0m", "Done!");
+    println!("\x1b[32mDone!\x1b[0m");
     return Ok(());
 }
 

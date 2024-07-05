@@ -19,7 +19,7 @@ fn create_shim(binary: &str, bin_path: path::PathBuf) -> Result<()> {
         .unwrap()
         .to_string();
 
-    if !vec!["bash", "zsh", "sh"].contains(&&*shell) {
+    if !["bash", "zsh", "sh"].contains(&&*shell) {
         shell = "sh".to_string();
     }
 

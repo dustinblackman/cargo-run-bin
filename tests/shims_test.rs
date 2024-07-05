@@ -1,5 +1,6 @@
-use anyhow::Result;
 use std::fs;
+
+use anyhow::Result;
 use cargo_run_bin::metadata;
 
 fn clean_shims() -> Result<()> {
@@ -8,13 +9,15 @@ fn clean_shims() -> Result<()> {
         fs::remove_dir_all(&bin_dir)?;
     }
 
-    return Ok(());
+    Ok(())
 }
 
 mod sync_shims {
     use std::fs;
-    use cargo_run_bin::shims::sync;
+
     use cargo_run_bin::metadata;
+    use cargo_run_bin::shims::sync;
+
     use super::clean_shims;
 
     #[test]
@@ -67,7 +70,6 @@ mod sync_shims {
         clean_shims().unwrap();
         assert!(content.starts_with("#!/usr/bin/env sh"));
     }
-
 
     #[test]
     #[cfg(not(target_family = "unix"))]
