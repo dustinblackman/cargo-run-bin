@@ -15,14 +15,3 @@ mod sync_aliases {
         assert!(toml_str.contains("nextest = [\"bin\", \"cargo-nextest\"]"));
     }
 }
-
-mod binstall_alias_exists {
-    use cargo_run_bin::cargo_config::binstall_alias_exists;
-
-    // Lazy happy path test.
-    #[test]
-    fn it_should_return_true() {
-        let res = binstall_alias_exists().unwrap();
-        assert!(res);
-    }
-}

@@ -5,7 +5,6 @@ use anyhow::Result;
 use clap::Arg;
 use clap::ArgMatches;
 use clap::Command;
-use owo_colors::OwoColorize;
 
 use crate::binary;
 use crate::cargo_config;
@@ -18,13 +17,13 @@ fn install_all_binaries() -> Result<()> {
         binary::install(binary_package)?;
     }
 
-    println!("{}", "Done!".green());
+    println!("\x1b[32m{}\x1b[0m", "Done!");
     return Ok(());
 }
 
 fn sync_aliases() -> Result<()> {
     cargo_config::sync_aliases()?;
-    println!("{}", "Done!".green());
+    println!("\x1b[32m{}\x1b[0m", "Done!");
     return Ok(());
 }
 

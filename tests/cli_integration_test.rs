@@ -9,8 +9,8 @@ mod direct {
         let res = assert.success();
         let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
         insta::assert_snapshot!(stdout, @r###"
-    [32mDone![39m
-    "###);
+        [32mDone![0m
+        "###);
     }
 
     #[test]
@@ -21,8 +21,8 @@ mod direct {
         let res = assert.success();
         let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
         insta::assert_snapshot!(stdout, @r###"
-    [32mDone![39m
-    "###);
+        [32mDone![0m
+        "###);
     }
 
     #[test]
@@ -33,8 +33,8 @@ mod direct {
         let res = assert.success();
         let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
         insta::assert_snapshot!(stdout, @r###"
-    [32mDone![39m
-    "###);
+        [32mDone![0m
+        "###);
     }
 
     #[test]
@@ -65,8 +65,8 @@ mod direct {
         let res = assert.failure();
         let stderr = String::from_utf8(res.get_output().stderr.clone()).unwrap();
         insta::assert_snapshot!(stderr, @r###"
-    [31mrun-bin failed: No package found for binary not-real[39m
-    "###);
+        [31mrun-bin failed: No package found for binary not-real[0m
+        "###);
     }
 }
 
@@ -81,8 +81,8 @@ mod bin_prefix {
         let res = assert.success();
         let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
         insta::assert_snapshot!(stdout, @r###"
-    [32mDone![39m
-    "###);
+        [32mDone![0m
+        "###);
     }
 
     #[test]
@@ -93,8 +93,8 @@ mod bin_prefix {
         let res = assert.success();
         let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
         insta::assert_snapshot!(stdout, @r###"
-    [32mDone![39m
-    "###);
+        [32mDone![0m
+        "###);
     }
 
     #[test]
@@ -105,8 +105,8 @@ mod bin_prefix {
         let res = assert.success();
         let stdout = String::from_utf8(res.get_output().stdout.clone()).unwrap();
         insta::assert_snapshot!(stdout, @r###"
-    [32mDone![39m
-    "###);
+        [32mDone![0m
+        "###);
     }
 
     #[test]
@@ -137,7 +137,7 @@ mod bin_prefix {
         let res = assert.failure();
         let stderr = String::from_utf8(res.get_output().stderr.clone()).unwrap();
         insta::assert_snapshot!(stderr, @r###"
-    [31mrun-bin failed: No package found for binary not-real[39m
-    "###);
+        [31mrun-bin failed: No package found for binary not-real[0m
+        "###);
     }
 }

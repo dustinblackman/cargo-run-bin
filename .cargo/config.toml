@@ -9,3 +9,6 @@ watch = ["bin", "cargo-watch"]
 
 [env]
 BINSTALL_STRATEGIES = "crate-meta-data,compile"
+
+[net]
+git-fetch-with-cli = true
