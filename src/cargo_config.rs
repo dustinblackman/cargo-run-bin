@@ -41,8 +41,9 @@ fn update_aliases_toml(
         doc["alias"] = table();
     }
 
-    // If the TOML structure is not as and we panic because of that, that makes for poor user
-    // experience, so try to report errors for everything that could go wrong.
+    // If the TOML structure is not as and we panic because of that, that makes for
+    // poor user experience, so try to report errors for everything that could
+    // go wrong.
     let aliases = doc["alias"]
         .as_table_mut()
         .context("alias key should be a table")?;
@@ -51,9 +52,10 @@ fn update_aliases_toml(
         let [name] = key.as_slice() else {
             bail!("unexpected nested table: {key:?}")
         };
-        // The value can be either a single string (implicitly split on spaces) or an array of
-        // strings. We always create an array, but a user might use a single string for other
-        // aliases, so we have to at least not crash on such values.
+        // The value can be either a single string (implicitly split on spaces) or an
+        // array of strings. We always create an array, but a user might use a
+        // single string for other aliases, so we have to at least not crash on
+        // such values.
         if let Value::Array(parts) = value {
             let first_part = parts
                 .get(0)
@@ -121,16 +123,16 @@ xtask = "run --package xtask --"
     #[test]
     fn doesnt_panic_on_empty_array() {
         let result = update_aliases_toml("alias.mistake = []", Vec::new());
-        // Currently an error, could be skipped instead, in that case the Ok(..) result should be
-        // tested a bit.
+        // Currently an error, could be skipped instead, in that case the Ok(..) result
+        // should be tested a bit.
         assert!(result.is_err());
     }
 
     #[test]
     fn doesnt_panic_on_nested_keys() {
         let result = update_aliases_toml("alias.alias.alias = 'test'", Vec::new());
-        // Currently an error, could be skipped instead, in that case the Ok(..) result should be
-        // tested a bit.
+        // Currently an error, could be skipped instead, in that case the Ok(..) result
+        // should be tested a bit.
         assert!(result.is_err());
     }
 }
