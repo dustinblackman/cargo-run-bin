@@ -2,9 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.4] - 2024-11-25
+[v1.7.3..v1.7.4](https://github.com/dustinblackman/cargo-run-bin/compare/v1.7.3..v1.7.4)
+
+
+### 🐛 Bug Fixes
+
+- Handle plain strings in --sync-aliases ([#25](https://github.com/dustinblackman/cargo-run-bin/issues/25)) - ([3c4d168](https://github.com/dustinblackman/cargo-run-bin/commit/3c4d168f34bf19e2da1099b6351f00b0ced2383c))
+
 ## [1.7.3] - 2024-07-05
 [v1.7.2..v1.7.3](https://github.com/dustinblackman/cargo-run-bin/compare/v1.7.2..v1.7.3)
 
+
+### ⛰️  Features
+
+- Release v1.7.3 - ([c6bd9ec](https://github.com/dustinblackman/cargo-run-bin/commit/c6bd9ecf95fdc54c955090837b57d6fdca82b7d1))
 
 ### 🐛 Bug Fixes
 
