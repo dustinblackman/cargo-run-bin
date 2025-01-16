@@ -42,6 +42,49 @@ You can also use it as a library within your existing logic.
 cargo-run-bin = { version = "1.7.2", default-features = false }
 ```
 
+### Using wrapper
+
+Installing with a minimal wrapper and an alias. 
+
+```sh
+cd my/rust/project
+echo ".bin/" >> .gitignore
+cargo new --bin cargo-bin
+cd cargo-bin
+cargo add --features cli cargo-run-bin
+```
+
+Call the cli in the wrapper `my/rust/project/cargo-bin/src/main.rs`
+
+```rust
+use std::process;
+
+fn main() {
+    if let Err(res) = cargo_run_bin::cli::run() {
+        eprintln!("\x1b[31m{}\x1b[0m", format!("run-bin failed: {res}"));
+        process::exit(1);
+    }
+}
+```
+
+Ensure the binary is added to the workspace.
+
+```toml
+[workspace]
+members = ["cargo-bin"]
+```
+
+Now add an alias
+
+```toml
+[alias]
+bin = ["run", "--package", "cargo-bin", "--"]
+```
+Now it can be used as if installed globally 
+```sh
+cargo bin --version
+```
+
 ### Distro packages
 
 <details>
