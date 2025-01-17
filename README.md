@@ -50,7 +50,7 @@ Installing with a minimal wrapper and an alias.
 cd my/rust/project
 echo ".bin/" >> .gitignore
 cargo new --bin tools/cargo-bin
-cd cargo-bin
+cd tools/cargo-bin
 cargo add --features cli cargo-run-bin
 ```
 
@@ -71,7 +71,7 @@ Ensure the binary is added to the workspace.
 
 ```toml
 [workspace]
-members = ["cargo-bin"]
+members = ["tools/cargo-bin"]
 ```
 
 Now add an alias
