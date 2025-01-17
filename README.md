@@ -39,7 +39,7 @@ You can also use it as a library within your existing logic.
 
 ```toml
 [dependencies]
-cargo-run-bin = { version = "1.7.2", default-features = false }
+cargo-run-bin = { version = "1.7.4", default-features = false }
 ```
 
 ### Using wrapper
@@ -50,21 +50,9 @@ Installing with a minimal wrapper and an alias.
 cd my/rust/project
 echo ".bin/" >> .gitignore
 cargo new --bin tools/cargo-bin
+curl --output tools/cargo-bin/src/main.rs https://raw.githubusercontent.com/dustinblackman/cargo-run-bin/refs/tags/v1.7.4/src/main.rs
 cd tools/cargo-bin
 cargo add --features cli cargo-run-bin
-```
-
-Call the cli in the wrapper `my/rust/project/cargo-bin/src/main.rs`
-
-```rust
-use std::process;
-
-fn main() {
-    if let Err(res) = cargo_run_bin::cli::run() {
-        eprintln!("\x1b[31m{}\x1b[0m", format!("run-bin failed: {res}"));
-        process::exit(1);
-    }
-}
 ```
 
 Ensure the binary is added to the workspace.
