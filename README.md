@@ -49,7 +49,7 @@ Installing with a minimal wrapper and an alias.
 ```sh
 cd my/rust/project
 echo ".bin/" >> .gitignore
-cargo new --bin cargo-bin
+cargo new --bin tools/cargo-bin
 cd cargo-bin
 cargo add --features cli cargo-run-bin
 ```
