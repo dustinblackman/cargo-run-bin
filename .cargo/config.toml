@@ -1,5 +1,5 @@
 [alias]
-bin = ["run", "--"]
+bin = ["run", "--package", "cargo-bin", "--"]
 cmd = ["bin", "cargo-cmd"]
 deny = ["bin", "cargo-deny"]
 gha = ["bin", "cargo-gha"]
