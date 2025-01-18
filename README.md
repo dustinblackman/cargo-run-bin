@@ -27,6 +27,10 @@ For command lines that extend cargo such as `cargo-nextest`, run-bin will create
 
 Minimum Rust Version: 1.70.0
 
+There are a few different ways you can install `cargo-run-bin`. I'd recommend giving each a read, and picking the best that suits you!
+
+### Global Install
+
 Run the following to install `cargo-run-bin`, and ignore the cache directory in your project.
 
 ```sh
@@ -35,16 +39,11 @@ cd my/rust/project
 echo ".bin/" >> .gitignore
 ```
 
-You can also use it as a library within your existing logic.
-
-```toml
-[dependencies]
-cargo-run-bin = { version = "1.7.4", default-features = false }
-```
-
 ### Using wrapper
 
-Installing with a minimal wrapper and an alias. 
+Installing with a minimal wrapper and an alias in your project. This gives you the best onboarding experiance in to your project for you and your team as it does not require any global installs! Git pull, and you're ready to consume all your CLI tools!
+
+These instructions assume you'd like to place the wrapper in `tools/cargo-bin` within your project. Change it to fit your needs!
 
 ```sh
 cd my/rust/project
@@ -55,22 +54,33 @@ cd tools/cargo-bin
 cargo add --features cli cargo-run-bin
 ```
 
-Ensure the binary is added to the workspace.
+Ensure the tool binary is added to the workspace.
 
 ```toml
 [workspace]
 members = ["tools/cargo-bin"]
 ```
 
-Now add an alias
+Now add an alias!
 
 ```toml
 [alias]
 bin = ["run", "--package", "cargo-bin", "--"]
 ```
-Now it can be used as if installed globally 
+
+Done! Now it can be used as if installed globally.
+
 ```sh
 cargo bin --version
+```
+
+### As a library
+
+You can also use it as a library within your existing logic.
+
+```toml
+[dependencies]
+cargo-run-bin = { version = "1.7.4", default-features = false }
 ```
 
 ### Distro packages
