@@ -54,14 +54,14 @@ cd tools/cargo-bin
 cargo add --features cli cargo-run-bin
 ```
 
-Ensure the tool binary is added to the workspace.
+Ensure the tool binary is added to the workspace within `Cargo.toml`.
 
 ```toml
 [workspace]
 members = ["tools/cargo-bin"]
 ```
 
-Now add an alias!
+Now add an alias in `.cargo/config.toml`. If the file doesn't exist yet, then this will be the first entry!
 
 ```toml
 [alias]
