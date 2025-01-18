@@ -17,7 +17,6 @@ jobs:
 
       - name: Install deps
         run: |
-          cargo install cargo-run-bin --target-dir ./target
           cargo bin --build
           cargo cmd setup-nightly
       - name: Lint
@@ -47,7 +46,6 @@ jobs:
           cache-directories: ".bin"
       - name: Install deps
         run: |
-          cargo install --path .
           cargo nextest --help
       - name: Test
         run: |

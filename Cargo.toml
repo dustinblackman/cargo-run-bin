@@ -147,3 +147,6 @@ test = '''set -e
 test-watch = '''set -e
   cargo watch -i .cargo -x 'cmd test'
 '''
+
+[workspace]
+members = ["tools/cargo-bin"]

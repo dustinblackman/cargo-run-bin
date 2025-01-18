@@ -39,7 +39,38 @@ You can also use it as a library within your existing logic.
 
 ```toml
 [dependencies]
-cargo-run-bin = { version = "1.7.2", default-features = false }
+cargo-run-bin = { version = "1.7.4", default-features = false }
+```
+
+### Using wrapper
+
+Installing with a minimal wrapper and an alias. 
+
+```sh
+cd my/rust/project
+echo ".bin/" >> .gitignore
+cargo new --vcs none --bin tools/cargo-bin
+curl --output tools/cargo-bin/src/main.rs https://raw.githubusercontent.com/dustinblackman/cargo-run-bin/refs/tags/v1.7.4/src/main.rs
+cd tools/cargo-bin
+cargo add --features cli cargo-run-bin
+```
+
+Ensure the binary is added to the workspace.
+
+```toml
+[workspace]
+members = ["tools/cargo-bin"]
+```
+
+Now add an alias
+
+```toml
+[alias]
+bin = ["run", "--package", "cargo-bin", "--"]
+```
+Now it can be used as if installed globally 
+```sh
+cargo bin --version
 ```
 
 ### Distro packages
