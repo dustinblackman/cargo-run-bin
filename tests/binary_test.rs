@@ -186,6 +186,31 @@ mod binstall {
         assert!(res.is_ok());
     }
 
+    // Regression test for https://github.com/dustinblackman/cargo-run-bin/issues/32.
+    //
+    // Ideally bin_target would be passed as "--bin" to "cargo-binstall" if that feature existed.
+    #[test]
+    fn it_builds_successfully_ignoring_bin_target() {
+        let res = binstall(
+            metadata::BinaryPackage {
+                bin_target: Some("greet".into()),
+                package: "dustinblackman-hello-world".to_string(),
+                locked: None,
+                version: "0.1.0".to_string(),
+                git: None,
+                branch: None,
+                tag: None,
+                rev: None,
+                path: None,
+                default_features: None,
+                features: None,
+            },
+            "./.tmp".into(),
+        );
+
+        assert!(res.is_ok());
+    }
+
     #[test]
     fn it_builds_successfully_with_git() {
         let res = binstall(

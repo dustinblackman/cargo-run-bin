@@ -160,8 +160,7 @@ pub fn install(binary_package: metadata::BinaryPackage) -> Result<String> {
 
     if !path::Path::new(&cache_bin_path).exists() {
         fs::create_dir_all(&cache_path)?;
-        if binary_package.bin_target.is_none()
-            && binary_package.features.is_none()
+        if binary_package.features.is_none()
             && binary_package.default_features.is_none()
             && binary_package.branch.is_none()
             && binary_package.tag.is_none()
