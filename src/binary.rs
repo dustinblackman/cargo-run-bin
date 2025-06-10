@@ -106,6 +106,10 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
         .arg("--install-path")
         .arg(cache_path.join("bin"));
 
+    if let Some(bin) = &binary_package.bin_target {
+        cmd_prefix.arg("--bin").arg(bin);
+    }
+
     if let Some(git) = &binary_package.git {
         cmd_prefix.arg("--git").arg(git);
     }
@@ -116,13 +120,15 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
         }
     }
 
-    cmd_prefix
-        .arg(format!(
-            "{package}@{version}",
-            package = binary_package.package,
-            version = binary_package.version,
-        ))
-        .output()?;
+    cmd_prefix.arg("--");
+
+    cmd_prefix.arg(format!(
+        "{package}@{version}",
+        package = binary_package.package,
+        version = binary_package.version,
+    ));
+
+    cmd_prefix.output()?;
 
     return Ok(());
 }
