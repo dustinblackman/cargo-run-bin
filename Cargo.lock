@@ -93,7 +93,7 @@ dependencies = [
 name = "cargo-bin"
 version = "0.0.0"
 dependencies = [
- "cargo-run-bin 1.7.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cargo-run-bin 1.7.4",
 ]
 
 [[package]]
@@ -105,13 +105,12 @@ checksum = "7b02b629252fe8ef6460461409564e2c21d0c8e77e0944f3d189ff06c4e932ad"
 [[package]]
 name = "cargo-run-bin"
 version = "1.7.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0770bfdecb25f182aa143e443765b8ecf6f0e6431d8c42ad997b17900c9b6c48"
 dependencies = [
  "anyhow",
- "assert_cmd",
- "cargo-husky",
  "cfg-if",
  "clap",
- "insta",
  "rustversion",
  "serde",
  "toml",
@@ -122,13 +121,14 @@ dependencies = [
 
 [[package]]
 name = "cargo-run-bin"
-version = "1.7.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0770bfdecb25f182aa143e443765b8ecf6f0e6431d8c42ad997b17900c9b6c48"
+version = "1.7.5"
 dependencies = [
  "anyhow",
+ "assert_cmd",
+ "cargo-husky",
  "cfg-if",
  "clap",
+ "insta",
  "rustversion",
  "serde",
  "toml",
