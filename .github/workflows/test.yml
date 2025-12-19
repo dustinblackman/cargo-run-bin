@@ -4,48 +4,35 @@ name: ci
 
 jobs:
   test_coverage:
-    name: cargo-run-bin
+    name: linux
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-      - uses: Swatinem/rust-cache@v2
-        with:
-          cache-directories: ".bin"
-
+      - uses: actions/checkout@v6
       - name: Install deps
         run: |
-          cargo bin --build
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           cargo cmd setup-nightly
+          cargo deny --help
+          cargo llvm-cov --help
+          cargo nextest --help
       - name: Lint
         run: cargo cmd lint
       - name: Test
         run: cargo cmd test-coverage-lcov
-
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./lcov.info
 
-  test:
-    name: cargo-run-bin
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+  test-macos:
+    name: macos
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-      - uses: Swatinem/rust-cache@v2
-        with:
-          cache-directories: ".bin"
+      - uses: actions/checkout@v6
       - name: Install deps
         run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           cargo nextest --help
       - name: Test
         run: |

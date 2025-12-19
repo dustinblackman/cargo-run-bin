@@ -19,6 +19,9 @@ exclude = [
     "rust-toolchain.toml"
 ]
 
+[workspace]
+members = ["tools/cargo-bin", "tools/cargo-cmd"]
+
 [[bin]]
 name = "cargo-bin"
 path = "src/main.rs"
@@ -34,7 +37,7 @@ cfg-if = "1.0.0"
 clap = { version = "4.3.19", optional = true }
 rustversion = "1.0.14"
 serde = { version = "1.0.149", features = ["derive"] }
-toml = "0.5.9"
+toml = "0.8.23"
 toml_edit = "0.19.14"
 version_check = "0.9.3"
 which = "4.4.0"
@@ -45,9 +48,7 @@ cargo-husky = { version = "1.5.0", default-features = false, features = ["user-h
 insta = { version = "1.31.0", features = ["yaml"] }
 
 [package.metadata.bin]
-cargo-cmd = { version = "0.3.1", locked = true }
 cargo-deny = { version = "0.13.5", locked = true }
-cargo-gha = { version = "1.0.2", locked = true }
 cargo-insta = { version = "1.31.0", locked = true }
 cargo-llvm-cov = { version = "0.5.25", locked = true }
 cargo-nextest = { version = "0.9.57", locked = true }
@@ -60,15 +61,6 @@ dustinblackman-hello-world = { version = "0.2.1", git = "https://github.com/dust
 [package.metadata.docs.rs]
 all-features = false
 features = []
-
-[package.metadata.gha]
-targets = ["aarch64-apple-darwin"]
-
-[[package.metadata.gha.assets]]
-owner_repo = "cli/cli"
-tag = "v2.40.1"
-binaries = ["gh"]
-target_archives = { aarch64-apple-darwin = "gh_{NOVTAG}_macOS_arm64.zip" }
 
 [profile.dev.package.insta]
 opt-level = 3
@@ -98,11 +90,14 @@ cargo fix --allow-dirty
 cargo +runbin-nightly fmt
 '''
 
-get-nightly-name = 'echo runbin-nightly'
 setup-nightly = '''
-  export NIGHTLY=nightly-2023-06-16
-  rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
-  rustup toolchain link runbin-nightly "$(rustup toolchain list -v | grep $NIGHTLY | grep '^nightly-' | awk '{print $2}')"
+  export NIGHTLY_VERSION=nightly-2025-12-12
+  export NIGHTLY_NAME=runbin-nightly
+
+  if !(rustup toolchain list -v | grep "$NIGHTLY_NAME" | grep -q "$NIGHTLY_VERSION"); then
+    rustup toolchain install "$NIGHTLY_VERSION" -c llvm-tools-preview -c rustfmt --force
+    rustup toolchain link "$NIGHTLY_NAME" "$(rustup toolchain list -v | grep $NIGHTLY_VERSION | grep '^nightly-' | awk '{print $NF}')"
+  fi
 '''
 
 release = '''set -e
@@ -119,8 +114,8 @@ release = '''set -e
   git push --tags
 
   cargo publish
-  cargo gha gh release create "v$RB_VERSION" --generate-notes
-  cargo bin git-cliff --latest --strip header | cargo gha gh release edit "v$RB_VERSION" --notes-file -
+  gh release create "v$RB_VERSION" --generate-notes
+  cargo bin git-cliff --latest --strip header | gh release edit "v$RB_VERSION" --notes-file -
 '''
 
 test-coverage = '''set -e
@@ -147,6 +142,3 @@ test = '''set -e
 test-watch = '''set -e
   cargo watch -i .cargo -x 'cmd test'
 '''
-
-[workspace]
-members = ["tools/cargo-bin"]
