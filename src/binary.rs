@@ -61,6 +61,10 @@ pub fn cargo_install(
         } else if let Some(rev) = &binary_package.rev {
             cmd_prefix.arg("--rev").arg(rev);
         }
+    } else if let Some(index) = &binary_package.index {
+        cmd_prefix.arg("--index").arg(index);
+    } else if let Some(registry) = &binary_package.registry {
+        cmd_prefix.arg("--registry").arg(registry);
     } else if let Some(path) = &binary_package.path {
         cmd_prefix.arg("--path").arg(path);
     }
@@ -112,6 +116,10 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
 
     if let Some(git) = &binary_package.git {
         cmd_prefix.arg("--git").arg(git);
+    } else if let Some(index) = &binary_package.index {
+        cmd_prefix.arg("--index").arg(index);
+    } else if let Some(registry) = &binary_package.registry {
+        cmd_prefix.arg("--registry").arg(registry);
     }
 
     if let Some(locked) = &binary_package.locked {
