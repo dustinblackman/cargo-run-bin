@@ -35,6 +35,56 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                index: None,
+                registry: None,
+                git: None,
+                branch: None,
+                tag: None,
+                rev: None,
+                path: None,
+                default_features: None,
+                features: None,
+            },
+            "./.tmp".into(),
+        );
+
+        assert!(res.is_ok());
+    }
+
+    #[test]
+    fn it_builds_successfully_with_index() {
+        let res = cargo_install(
+            metadata::BinaryPackage {
+                bin_target: None,
+                package: "dustinblackman-hello-world".to_string(),
+                locked: None,
+                version: "0.1.0".to_string(),
+                index: Some("sparse+https://index.crates.io/".to_string()),
+                registry: None,
+                git: None,
+                branch: None,
+                tag: None,
+                rev: None,
+                path: None,
+                default_features: None,
+                features: None,
+            },
+            "./.tmp".into(),
+        );
+
+        assert!(res.is_ok());
+    }
+
+    #[test]
+    fn it_builds_successfully_with_registry() {
+        let res = cargo_install(
+            metadata::BinaryPackage {
+                bin_target: None,
+                package: "dustinblackman-hello-world".to_string(),
+                locked: None,
+                version: "0.1.0".to_string(),
+                index: None,
+                registry: Some("crates-io".to_string()),
                 git: None,
                 branch: None,
                 tag: None,
@@ -57,6 +107,8 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.2.0".to_string(),
+                index: None,
+                registry: None,
                 git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
                 branch: None,
                 tag: None,
@@ -79,6 +131,8 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.2.0".to_string(),
+                index: None,
+                registry: None,
                 git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
                 branch: None,
                 tag: None,
@@ -101,6 +155,8 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.2.0".to_string(),
+                index: None,
+                registry: None,
                 git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
                 branch: Some("testbranch".to_string()),
                 tag: None,
@@ -123,6 +179,8 @@ mod cargo_install {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.2.1".to_string(),
+                index: None,
+                registry: None,
                 git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
                 branch: None,
                 tag: Some("v0.2.1".to_string()),
@@ -145,6 +203,8 @@ mod cargo_install {
                 package: "cargo-run-bin".to_string(),
                 locked: None,
                 version: "1.4.1".to_string(),
+                index: None,
+                registry: None,
                 git: None,
                 branch: None,
                 tag: None,
@@ -172,6 +232,8 @@ mod binstall {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                index: None,
+                registry: None,
                 git: None,
                 branch: None,
                 tag: None,
@@ -197,6 +259,8 @@ mod binstall {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                index: None,
+                registry: None,
                 git: None,
                 branch: None,
                 tag: None,
@@ -219,6 +283,8 @@ mod binstall {
                 package: "dustinblackman-hello-world".to_string(),
                 locked: None,
                 version: "0.1.0".to_string(),
+                index: None,
+                registry: None,
                 git: Some("https://github.com/dustinblackman/rust-hello-world".to_string()),
                 branch: None,
                 tag: None,
