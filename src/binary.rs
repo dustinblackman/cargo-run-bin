@@ -6,6 +6,7 @@ use std::process;
 
 use anyhow::anyhow;
 use anyhow::bail;
+use anyhow::ensure;
 use anyhow::Result;
 use cfg_if::cfg_if;
 use version_check as rustc;
@@ -86,7 +87,8 @@ pub fn cargo_install(
         }
     }
 
-    cmd_prefix.arg(binary_package.package).output()?;
+    let output = cmd_prefix.arg(binary_package.package).output()?;
+    ensure!(output.status.success(), "cargo install failed");
 
     return Ok(());
 }
@@ -102,9 +104,7 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
         .arg("--no-confirm")
         .arg("--no-symlinks")
         .arg("--root")
-        .arg(&cache_path)
-        .arg("--install-path")
-        .arg(cache_path.join("bin"));
+        .arg(&cache_path);
 
     if let Some(bin) = &binary_package.bin_target {
         cmd_prefix.arg("--bin").arg(bin);
@@ -128,7 +128,8 @@ pub fn binstall(binary_package: metadata::BinaryPackage, cache_path: path::PathB
         version = binary_package.version,
     ));
 
-    cmd_prefix.output()?;
+    let output = cmd_prefix.output()?;
+    ensure!(output.status.success(), "cargo binstall failed");
 
     return Ok(());
 }
