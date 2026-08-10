@@ -37,7 +37,7 @@ serde = { version = "1.0.149", features = ["derive"] }
 toml = "0.5.9"
 toml_edit = "0.19.14"
 version_check = "0.9.3"
-which = "4.4.0"
+which = "8.0.5"
 
 [dev-dependencies]
 assert_cmd = "2.0.12"
